@@ -1,0 +1,9 @@
+language: java
+env:
+  global:
+  - SONATYPE_USERNAME=ralscha23
+  - secure: Xor2mpQaeT6HbDXX0d1+WsEfc5odSMC+L8YqSQXwCw/WFAs1wPO9gyLzdjjYC2F7/3rbLUmISMWTTYkLFm6eS20tHs3zU4BVKljA8DWMY0OGtXkBK6TPKUiZ3no1JBfD0ZovIp78aTRD4+6+7A+ZbB36qAT92QaBDcxhIdB/cQk=
+
+after_success:
+- python addsettings.py
+- mvn clean deploy --settings ~/.m2/mySettings.xml
