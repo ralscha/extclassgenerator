@@ -2,7 +2,7 @@ language: java
 env:
   global:
   - SONATYPE_USERNAME=ralscha23
-  - secure: Xor2mpQaeT6HbDXX0d1+WsEfc5odSMC+L8YqSQXwCw/WFAs1wPO9gyLzdjjYC2F7/3rbLUmISMWTTYkLFm6eS20tHs3zU4BVKljA8DWMY0OGtXkBK6TPKUiZ3no1JBfD0ZovIp78aTRD4+6+7A+ZbB36qAT92QaBDcxhIdB/cQk=
+  - secure: XDuZnWZJl9UM7fq2Idgq0duKCsbFjYFG2mRmsM4Ak0L8lvnuDftrTmaa/x1Hh158VTnKVmhNJ0qpLGulN67vjNOG6mgUXiq2q+VlqqHlPF4+22bKXMOgvH+AN2Qu7xMAcQ5k7gbNQQ2W/xhZIDx81O20c3lRL3QEdF3Y0hGiPsI=
 
 after_success:
 - python addsettings.py
