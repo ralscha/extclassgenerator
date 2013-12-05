@@ -1,0 +1,23 @@
+Ext.define("ch.rasc.extclassgenerator.bean.Address",
+{
+  extend : "Ext.data.Model",
+  uses : [ "MyApp.Employee" ],
+  config : {
+    fields : [ {
+      name : "id",
+      type : "int"
+    }, {
+      name : "e_id",
+      type : "int"
+    } ],
+    associations : [ {
+      type : "hasOne",
+      model : "MyApp.Employee",
+      associationKey : "employee",
+      foreignKey : "e_id",
+      primaryKey : "eId",
+      setterName : "setE",
+      getterName : "getE"
+    } ]
+  }
+});
