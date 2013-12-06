@@ -6,4 +6,4 @@ env:
 
 after_success:
 - python addsettings.py
-- mvn clean deploy --settings ~/.m2/mySettings.xml
+- mvn clean deploy -DskipTests=true --settings ~/.m2/mySettings.xml
