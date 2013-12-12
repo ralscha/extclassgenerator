@@ -19,7 +19,7 @@
 	<inceptionYear>2013</inceptionYear>
 
 	<name>Ext Class Generator</name>
-	<description>Generator that creates Ext Javascript classes</description>
+	<description>Generator that creates Ext Javascript classes for Ext JS and Sencha Touch</description>
 	<url>https://github.com/ralscha/extclassgenerator/</url>
 
 	<developers>
@@ -49,7 +49,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>3.2.5.RELEASE</spring.version>
+		<spring.version>4.0.0.RC2</spring.version>
 		<jackson.version>2.3.0</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -64,8 +64,8 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -132,6 +132,20 @@
 		</dependency>
 
 	</dependencies>
+
+	<repositories>
+
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+	</repositories>
+
 
 	<build>
 		<plugins>
@@ -269,6 +283,7 @@
 						<exclude>**/*.md</exclude>
 						<exclude>**/*.json</exclude>
 						<exclude>**/*.py</exclude>
+						<exclude>**/*.yml</exclude>
 						<exclude>**/.gitignore</exclude>
 					</excludes>
 					<strictCheck>true</strictCheck>
