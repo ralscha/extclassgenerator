@@ -49,7 +49,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>4.0.0.RC2</spring.version>
+		<spring.version>4.0.0.RELEASE</spring.version>
 		<jackson.version>2.3.0</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -132,20 +132,6 @@
 		</dependency>
 
 	</dependencies>
-
-	<repositories>
-
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>http://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-
-	</repositories>
-
 
 	<build>
 		<plugins>
