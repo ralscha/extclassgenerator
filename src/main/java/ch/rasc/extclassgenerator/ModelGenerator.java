@@ -333,6 +333,10 @@ public abstract class ModelGenerator {
 			if (StringUtils.hasText(modelAnnotation.messageProperty())) {
 				model.setMessageProperty(modelAnnotation.messageProperty());
 			}
+
+			if (StringUtils.hasText(modelAnnotation.writer())) {
+				model.setWriter(modelAnnotation.writer());
+			}
 		}
 
 		final Set<String> hasReadMethod = new HashSet<String>();

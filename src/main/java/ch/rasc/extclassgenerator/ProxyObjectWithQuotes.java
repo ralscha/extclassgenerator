@@ -53,6 +53,8 @@ class ProxyObjectWithQuotes {
 
 	private Map<String, String> reader;
 
+	private String writer;
+
 	public ProxyObjectWithQuotes(ModelBean model, OutputConfig config) {
 		if (StringUtils.hasText(model.getIdProperty()) && !model.getIdProperty().equals("id")) {
 			this.idParam = model.getIdProperty();
@@ -104,6 +106,10 @@ class ProxyObjectWithQuotes {
 			}
 		} else if (StringUtils.hasText(model.getMessageProperty())) {
 			this.reader = Collections.singletonMap("messageProperty", model.getMessageProperty());
+		}
+
+		if (StringUtils.hasText(model.getWriter())) {
+			this.writer = model.getWriter();
 		}
 	}
 

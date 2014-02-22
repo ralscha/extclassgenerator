@@ -56,6 +56,8 @@ public class ModelBean {
 
 	private String messageProperty;
 
+	private String writer;
+
 	public String getName() {
 		return name;
 	}
@@ -325,6 +327,29 @@ public class ModelBean {
 	 */
 	public void setMessageProperty(String messageProperty) {
 		this.messageProperty = messageProperty;
+	}
+
+	public String getWriter() {
+		return writer;
+	}
+
+	/**
+	 * If set add a writer property to the proxy.
+	 * 
+	 * <pre>
+	 *   proxy: {
+	 *     type: 'direct',
+	 *     writer: 'mywriter'
+	 *   }
+	 * </pre>
+	 * 
+	 * See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Proxy-cfg-writer"
+	 * >Ext.data.proxy.Proxy#writer</a>
+	 * 
+	 */
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 }
