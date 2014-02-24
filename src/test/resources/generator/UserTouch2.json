@@ -3,11 +3,11 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
   extend : "Ext.data.Model",
   config : {
     fields : [ {
-      name : "email",
-      type : "string"
-    }, {
       name : "id",
       type : "auto"
+    }, {
+      name : "email",
+      type : "string"
     } ],
     validations : [ {
       type : "presence",
