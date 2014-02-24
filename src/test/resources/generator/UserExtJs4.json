@@ -2,11 +2,11 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
 {
   extend : "Ext.data.Model",
   fields : [ {
-    name : "id",
-    type : "auto"
-  }, {
     name : "email",
     type : "string"
+  }, {
+    name : "id",
+    type : "auto"
   } ],
   validations : [ {
     type : "presence",
