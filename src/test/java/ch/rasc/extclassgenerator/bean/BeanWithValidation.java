@@ -57,8 +57,7 @@ public class BeanWithValidation {
 
 	@Future
 	public Date future;
-
-	@Past
+	
 	public Date past;
 
 	@NotBlank
@@ -67,6 +66,13 @@ public class BeanWithValidation {
 	@CreditCardNumber
 	public String creditCardNumber;
 
+	@Past
+	public Date getPast() {
+		return past;
+	}
+	public void setPast(Date past) {
+		this.past = past;
+	}
 	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
 	static {
 
