@@ -5,6 +5,12 @@ Ext.define("MyApp.Book",
   config : {
     idProperty : "isbn",
     fields : [ {
+      name : "additionalProperty1",
+      type : "int"
+    }, {
+      name : "additionalProperty2",
+      type : "string"
+    }, {
       name : "title",
       type : "string"
     }, {

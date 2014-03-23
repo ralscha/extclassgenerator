@@ -33,7 +33,7 @@ public class BelongsToAssociation extends AbstractAssociation {
 	/**
 	 * Creates an instance of a belongsTo association. Sets {@link #model} to
 	 * the provided parameters.
-	 * 
+	 *
 	 * @param model The name of the model that is being associated with.
 	 */
 	public BelongsToAssociation(String model) {
@@ -44,7 +44,7 @@ public class BelongsToAssociation extends AbstractAssociation {
 	 * Creates an instance of a belongsTo association. Sets {@link #model} to
 	 * the full qualified name of the model class or the string from
 	 * {@link Model#value()} if present on the class.
-	 * 
+	 *
 	 * @param model The class of the model that is being associated with.
 	 */
 	public BelongsToAssociation(Class<?> model) {
@@ -63,7 +63,7 @@ public class BelongsToAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-setterName"
 	 * >setterName</a> config property.
-	 * 
+	 *
 	 * @param setterName the new name for the setter function
 	 */
 	public void setSetterName(String setterName) {
@@ -82,7 +82,7 @@ public class BelongsToAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-getterName"
 	 * >getterName</a> config property.
-	 * 
+	 *
 	 * @param getterName the new name for the getter function
 	 */
 	public void setGetterName(String getterName) {

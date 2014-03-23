@@ -33,7 +33,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	/**
 	 * Creates an instance of a hasOne association. Sets {@link #model} to the
 	 * provided parameters.
-	 * 
+	 *
 	 * @param model The name of the model that is being associated with.
 	 */
 	public HasOneAssociation(String model) {
@@ -44,7 +44,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	 * Creates an instance of a hasOne association. Sets {@link #model} to the
 	 * full qualified name of the model class or the string from
 	 * {@link Model#value()} if present on the class.
-	 * 
+	 *
 	 * @param model The class of the model that is being associated with.
 	 */
 	public HasOneAssociation(Class<?> model) {
@@ -63,7 +63,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasOne-cfg-setterName"
 	 * >setterName</a> config property.
-	 * 
+	 *
 	 * @param setterName the new name for the getterName
 	 */
 	public void setSetterName(String setterName) {
@@ -82,7 +82,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasOne-cfg-getterName"
 	 * >getterName</a> config property.
-	 * 
+	 *
 	 * @param getterName the new name for the getterName
 	 */
 	public void setGetterName(String getterName) {

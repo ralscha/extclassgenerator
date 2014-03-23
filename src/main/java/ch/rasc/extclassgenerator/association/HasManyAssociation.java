@@ -33,7 +33,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	/**
 	 * Creates an instance of a hasMany association. Sets {@link #model} to the
 	 * provided parameters.
-	 * 
+	 *
 	 * @param model The name of the model that is being associated with.
 	 */
 	public HasManyAssociation(String model) {
@@ -44,7 +44,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	 * Creates an instance of a hasMany association. Sets {@link #model} to the
 	 * full qualified name of the model class or the string from
 	 * {@link Model#value()} if present on the class.
-	 * 
+	 *
 	 * @param model The class of the model that is being associated with.
 	 */
 	public HasManyAssociation(Class<?> model) {
@@ -62,7 +62,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-autoLoad"
 	 * >autoLoad</a> config property.
-	 * 
+	 *
 	 * @param autoLoad the new value for autoLoad
 	 */
 	public void setAutoLoad(Boolean autoLoad) {
@@ -81,7 +81,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-name"
 	 * >name</a> config property.
-	 * 
+	 *
 	 * @param name the new name for the function
 	 */
 	public void setName(String name) {

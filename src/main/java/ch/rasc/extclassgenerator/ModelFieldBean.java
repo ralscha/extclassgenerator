@@ -53,13 +53,18 @@ public class ModelFieldBean {
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
-	 * 
+	 *
 	 * @param name name of the field
 	 * @param type type of the field
 	 */
 	public ModelFieldBean(String name, ModelType type) {
 		this.name = name;
-		this.type = type;
+
+		if (type != null) {
+			this.type = type;
+		} else {
+			this.type = ModelType.AUTO;
+		}
 	}
 
 	public String getName() {
@@ -70,7 +75,7 @@ public class ModelFieldBean {
 	 * Name of the field. Property '<a
 	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-name"
 	 * >name</a>' in JS.
-	 * 
+	 *
 	 * @param name new name for the field
 	 */
 	public void setName(String name) {
@@ -86,7 +91,7 @@ public class ModelFieldBean {
 	 * Type of the field. Property '<a
 	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-type"
 	 * >type</a>' in JS.
-	 * 
+	 *
 	 * @param type new type for the field
 	 */
 	public void setType(ModelType type) {
@@ -101,7 +106,7 @@ public class ModelFieldBean {
 	 * The default value. Property '<a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-defaultValue"
 	 * >defaultValue</a>' in JS.
-	 * 
+	 *
 	 * @param defaultValue new defaultValue
 	 */
 	public void setDefaultValue(Object defaultValue) {
@@ -120,7 +125,7 @@ public class ModelFieldBean {
 	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.Date">Ext.Date</a>
 	 * <p>
 	 * Will be ignored if the field is not a {@link ModelType#DATE} field.
-	 * 
+	 *
 	 * @param dateFormat new dateFormat String
 	 */
 	public void setDateFormat(String dateFormat) {
@@ -142,7 +147,7 @@ public class ModelFieldBean {
 	 * Only used if type of field is {@link ModelType#INTEGER},
 	 * {@link ModelType#FLOAT}, {@link ModelType#STRING} or
 	 * {@link ModelType#BOOLEAN}.
-	 * 
+	 *
 	 * @param useNull new value for useNull
 	 */
 	public void setUseNull(Boolean useNull) {
@@ -160,7 +165,7 @@ public class ModelFieldBean {
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-mapping"
 	 * >mapping</a>' in JS.<br>
 	 * <p>
-	 * 
+	 *
 	 * @param mapping A path expression
 	 */
 	public void setMapping(String mapping) {
@@ -179,7 +184,7 @@ public class ModelFieldBean {
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-persist"
 	 * >persist</a>' in JS.<br>
 	 * <p>
-	 * 
+	 *
 	 * @param persist defaults to true, only a false value will be generated
 	 */
 	public void setPersist(Boolean persist) {
@@ -197,7 +202,7 @@ public class ModelFieldBean {
 	 * Property '<a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" >
 	 * Ext.data.Field.convert</a>' in JS.<br>
-	 * 
+	 *
 	 * @param convert A function. JavaScript Syntax example: function(v, record)
 	 *            { return ... ; }
 	 */

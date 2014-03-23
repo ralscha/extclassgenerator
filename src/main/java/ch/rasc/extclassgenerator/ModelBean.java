@@ -66,7 +66,7 @@ public class ModelBean {
 	 * "Classname" of the model. See <a
 	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model"
 	 * >Ext.data.Model</a>.
-	 * 
+	 *
 	 * @param name new name for the model object
 	 */
 	public void setName(String name) {
@@ -81,7 +81,7 @@ public class ModelBean {
 	 * Name of the id property. See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model-cfg-idProperty"
 	 * >Ext.data.Model#idProperty</a>.
-	 * 
+	 *
 	 * @param idProperty new value for the idProperty config option
 	 */
 	public void setIdProperty(String idProperty) {
@@ -94,7 +94,7 @@ public class ModelBean {
 
 	/**
 	 * Overwrites all field definitions with the provided map.
-	 * 
+	 *
 	 * @param fields new collection of {@link ModelFieldBean}
 	 */
 	public void setFields(Map<String, ModelFieldBean> fields) {
@@ -119,7 +119,7 @@ public class ModelBean {
 
 	/**
 	 * Add all provided fields to the collection of fields
-	 * 
+	 *
 	 * @param modelFields collection of {@link ModelFieldBean}
 	 */
 	public void addFields(List<ModelFieldBean> modelFields) {
@@ -145,7 +145,7 @@ public class ModelBean {
 	/**
 	 * Looks for the {@link ModelFieldBean} with the provided name and returns
 	 * it.
-	 * 
+	 *
 	 * @param fieldName name of a field
 	 * @return a {@link ModelFieldBean} or null if not found
 	 */
@@ -156,7 +156,7 @@ public class ModelBean {
 	/**
 	 * Adds one instance of {@link ModelFieldBean} to the internal collection of
 	 * fields
-	 * 
+	 *
 	 * @param bean instance of {@link ModelFieldBean}
 	 */
 	public void addField(ModelFieldBean bean) {
@@ -168,7 +168,7 @@ public class ModelBean {
 	/**
 	 * Adds one instance of one of the subclasses of {@link AbstractValidation}
 	 * to the internal collection of validations
-	 * 
+	 *
 	 * @param bean instance of subclass of {@link AbstractValidation}
 	 */
 	public void addValidation(AbstractValidation bean) {
@@ -180,7 +180,7 @@ public class ModelBean {
 	/**
 	 * Adds one instance of {@link AbstractAssociation} to the internal
 	 * collection of associations
-	 * 
+	 *
 	 * @param bean instance of {@link AbstractAssociation}
 	 */
 	public void addAssociation(AbstractAssociation bean) {
@@ -197,13 +197,13 @@ public class ModelBean {
 	 * If true a reader config with root : 'records' will be added to the model
 	 * object. This configuration is needed it the STORE_READ method return an
 	 * instance of {@link ExtDirectStoreResult}
-	 * 
+	 *
 	 * <pre>
 	 * reader : {
 	 *   root : 'records'
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @param paging new value for paging
 	 */
 	public void setPaging(boolean paging) {
@@ -218,7 +218,7 @@ public class ModelBean {
 	 * If set to true the pageParam, startParam and limitParam option of the
 	 * proxy will be set to undefined. This prevents the proxy of sending the
 	 * page, start and limit parameter to the server.
-	 * 
+	 *
 	 * <pre>
 	 *   proxy: {
 	 *     type: 'direct',
@@ -227,7 +227,7 @@ public class ModelBean {
 	 *     limitParam: undefined,
 	 *   }
 	 * </pre>
-	 * 
+	 *
 	 * Default value is false
 	 */
 	public void setDisablePagingParameters(boolean disablePagingParameters) {
@@ -248,7 +248,7 @@ public class ModelBean {
 	 * href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-directFn"
 	 * >directFn</a> instead.
-	 * 
+	 *
 	 * @param readMethod new value for read method
 	 */
 	public void setReadMethod(String readMethod) {
@@ -264,7 +264,7 @@ public class ModelBean {
 	 * action.methodName. See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
 	 * >Ext.data.proxy.Direct#api</a>.
-	 * 
+	 *
 	 * @param createMethod new value for create method
 	 */
 	public void setCreateMethod(String createMethod) {
@@ -280,7 +280,7 @@ public class ModelBean {
 	 * action.methodName. See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
 	 * >Ext.data.proxy.Direct#api</a>.
-	 * 
+	 *
 	 * @param updateMethod new value for update method
 	 */
 	public void setUpdateMethod(String updateMethod) {
@@ -296,7 +296,7 @@ public class ModelBean {
 	 * action.methodName. See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
 	 * >Ext.data.proxy.Direct#api</a>.
-	 * 
+	 *
 	 * @param destroyMethod new value for destroy method
 	 */
 	public void setDestroyMethod(String destroyMethod) {
@@ -312,17 +312,17 @@ public class ModelBean {
 
 	/**
 	 * if set add to reader
-	 * 
+	 *
 	 * <pre>
 	 * reader : {
 	 *   messageProperty : 'your property name'
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * It is useful to add a customized message in case of error See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-messageProperty"
 	 * >Ext.data.reader.Reader#messageProperty</a>
-	 * 
+	 *
 	 * @param messageProperty the messageProperty to set
 	 */
 	public void setMessageProperty(String messageProperty) {
@@ -335,18 +335,18 @@ public class ModelBean {
 
 	/**
 	 * If set add a writer property to the proxy.
-	 * 
+	 *
 	 * <pre>
 	 *   proxy: {
 	 *     type: 'direct',
 	 *     writer: 'mywriter'
 	 *   }
 	 * </pre>
-	 * 
+	 *
 	 * See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Proxy-cfg-writer"
 	 * >Ext.data.proxy.Proxy#writer</a>
-	 * 
+	 *
 	 */
 	public void setWriter(String writer) {
 		this.writer = writer;

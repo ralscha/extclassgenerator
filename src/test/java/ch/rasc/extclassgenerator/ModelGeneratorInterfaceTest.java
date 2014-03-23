@@ -26,24 +26,28 @@ public class ModelGeneratorInterfaceTest {
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}
-	
+
 	@Test
 	public void testInterfaceExtJs() {
-		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);		
+		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
 		outputConfig.setDebug(false);
 		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("User", code, false, false);
+
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		GeneratorTestUtil.compareExtJs4Code("User" + prefix, code, false, false);
 	}
-	
+
 	@Test
 	public void testInterfaceTouch2() {
-		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);		
+		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
 		outputConfig.setDebug(false);
 		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("User", code, false, false);
+
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		GeneratorTestUtil.compareTouch2Code("User" + prefix, code, false, false);
 	}
 }

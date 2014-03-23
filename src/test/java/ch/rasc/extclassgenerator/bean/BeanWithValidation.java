@@ -57,7 +57,7 @@ public class BeanWithValidation {
 
 	@Future
 	public Date future;
-	
+
 	public Date past;
 
 	@NotBlank
@@ -70,9 +70,11 @@ public class BeanWithValidation {
 	public Date getPast() {
 		return past;
 	}
+
 	public void setPast(Date past) {
 		this.past = past;
 	}
+
 	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
 	static {
 

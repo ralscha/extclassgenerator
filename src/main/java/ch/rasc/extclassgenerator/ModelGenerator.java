@@ -22,6 +22,7 @@ import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.ref.SoftReference;
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -39,6 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ReflectionUtils;
@@ -71,14 +73,14 @@ public abstract class ModelGenerator {
 	 * Instrospects the provided class, creates a model object (JS code) and
 	 * writes it into the response. Creates compressed JS code. Method ignores
 	 * any validation annotations.
-	 * 
+	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
 	 * @param format specifies which code (ExtJS or Touch) the generator should
 	 *            create.
 	 * @throws IOException
-	 * 
+	 *
 	 * @see #writeModel(HttpServletRequest, HttpServletResponse, Class,
 	 *      OutputFormat, boolean)
 	 */
@@ -90,7 +92,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Instrospects the provided class, creates a model object (JS code) and
 	 * writes it into the response. Method ignores any validation annotations.
-	 * 
+	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
@@ -108,7 +110,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Instrospects the provided class, creates a model object (JS code) and
 	 * writes it into the response.
-	 * 
+	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
@@ -135,7 +137,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Creates a model object (JS code) based on the provided {@link ModelBean}
 	 * and writes it into the response. Creates compressed JS code.
-	 * 
+	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
@@ -151,7 +153,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Creates a model object (JS code) based on the provided ModelBean and
 	 * writes it into the response.
-	 * 
+	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
@@ -176,7 +178,7 @@ public abstract class ModelGenerator {
 	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
 	 * to create the JS code. Calling this method does not add any validation
 	 * configuration.
-	 * 
+	 *
 	 * @param clazz the model will be created based on this class.
 	 * @return a instance of {@link ModelBean} that describes the provided class
 	 *         and can be used for Javascript generation.
@@ -192,7 +194,7 @@ public abstract class ModelGenerator {
 	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
 	 * to create the JS code. Models are being cached. A second call with the
 	 * same parameters will return the model from the cache.
-	 * 
+	 *
 	 * @param clazz the model will be created based on this class.
 	 * @param includeValidation specifies what validation configuration should
 	 *            be added
@@ -208,7 +210,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Instrospects the provided class, creates a model object (JS code) and
 	 * returns it. This method does not add any validation configuration.
-	 * 
+	 *
 	 * @param clazz class that the generator should introspect
 	 * @param format specifies which code (ExtJS or Touch) the generator should
 	 *            create
@@ -229,7 +231,7 @@ public abstract class ModelGenerator {
 	/**
 	 * Instrospects the provided class, creates a model object (JS code) and
 	 * returns it.
-	 * 
+	 *
 	 * @param clazz class that the generator should introspect
 	 * @param format specifies which code (ExtJS or Touch) the generator should
 	 *            create
@@ -251,7 +253,7 @@ public abstract class ModelGenerator {
 	 * format. The generated code is cached unless debug is true. A second call
 	 * to this method with the same model name and format will return the code
 	 * from the cache.
-	 * 
+	 *
 	 * @param model generate code based on this {@link ModelBean}
 	 * @param format specifies which code (ExtJS or Touch) the generator should
 	 *            create
@@ -364,130 +366,34 @@ public abstract class ModelGenerator {
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
-					
-					Class<?> javaType = method.getReturnType();		
-					if (javaType.equals(Void.TYPE)) {
-						return;
-					}
-						
-					ModelType modelType = null;
-					for (ModelType mt : ModelType.values()) {
-						if (mt.supports(javaType)) {
-							modelType = mt;
-							break;
-						}
-					}
-					
-					String name;					
-
-					ModelFieldBean modelFieldBean = null;
-
-					ModelField modelFieldAnnotation = method.getAnnotation(ModelField.class);
-					if (modelFieldAnnotation != null) {
-
-						if (StringUtils.hasText(modelFieldAnnotation.value())) {
-							name = modelFieldAnnotation.value();
-						} else {
-							if (method.getName().startsWith("get")) {
-								name = StringUtils.uncapitalize(method.getName().substring(3));
-							} else if (method.getName().startsWith("is")) {
-								name = StringUtils.uncapitalize(method.getName().substring(2));
-							} else {
-								name = method.getName();
-							}
-						}
-
-						ModelType type;
-						if (modelFieldAnnotation.type() != ModelType.AUTO) {
-							type = modelFieldAnnotation.type();
-						} else {
-							if (modelType != null) {
-								type = modelType;
-							} else {
-								type = ModelType.AUTO;
-							}
-						}
-
-						modelFieldBean = new ModelFieldBean(name, type);
-
-						if (StringUtils.hasText(modelFieldAnnotation.dateFormat()) && type == ModelType.DATE) {
-							modelFieldBean.setDateFormat(modelFieldAnnotation.dateFormat());
-						}
-
-						String defaultValue = modelFieldAnnotation.defaultValue();
-						if (StringUtils.hasText(defaultValue)) {
-							if (ModelField.DEFAULTVALUE_UNDEFINED.equals(defaultValue)) {
-								modelFieldBean.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
-							} else {
-								if (type == ModelType.BOOLEAN) {
-									modelFieldBean.setDefaultValue(Boolean.parseBoolean(defaultValue));
-								} else if (type == ModelType.INTEGER) {
-									modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
-								} else if (type == ModelType.FLOAT) {
-									modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
-								} else {
-									modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
-								}
-							}
-						}
-
-						if (modelFieldAnnotation.useNull()
-								&& (type == ModelType.INTEGER || type == ModelType.FLOAT
-										|| type == ModelType.STRING || type == ModelType.BOOLEAN)) {
-							modelFieldBean.setUseNull(true);
-						}
-
-						if (StringUtils.hasText(modelFieldAnnotation.mapping())) {
-							modelFieldBean.setMapping(modelFieldAnnotation.mapping());
-						}
-
-						if (!modelFieldAnnotation.persist()) {
-							modelFieldBean.setPersist(modelFieldAnnotation.persist());
-						}
-
-						if (StringUtils.hasText(modelFieldAnnotation.convert())) {
-							modelFieldBean.setConvert(modelFieldAnnotation.convert());
-						}
-
-						modelFields.add(modelFieldBean);
-					} else {
-						
-						if (method.getName().startsWith("get")) {
-							name = StringUtils.uncapitalize(method.getName().substring(3));
-						} else if (method.getName().startsWith("is")) {
-							name = StringUtils.uncapitalize(method.getName().substring(2));
-						} else {
-							name = method.getName();
-						}
-						
-						if (modelType != null) {						
-							modelFieldBean = new ModelFieldBean(name, modelType);
-							modelFields.add(modelFieldBean);
-						}
-					}
-
-					ModelAssociation modelAssociationAnnotation = method.getAnnotation(ModelAssociation.class);
-					if (modelAssociationAnnotation != null) {
-						associations.add(AbstractAssociation.createAssociation(modelAssociationAnnotation, model,
-								method.getReturnType(), method.getDeclaringClass(), name));
-					}
-
-					if (modelFieldBean != null && outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
-						Annotation[] methodAnnotations = method.getAnnotations();
-
-						for (Annotation fieldAnnotation : methodAnnotations) {
-							AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
-									outputConfig.getIncludeValidation());
-						}
-
-					}
-					
+					createModelBean(model, method, modelFields, associations, outputConfig);
 				}
 			});
 		} else {
 
+			final Set<String> fields = new HashSet<String>();
+
+			Set<ModelField> modelFieldsOnType = AnnotationUtils.getRepeatableAnnotation(clazz, ModelFields.class,
+					ModelField.class);
+			for (ModelField modelField : modelFieldsOnType) {
+				if (StringUtils.hasText(modelField.value())) {
+					ModelFieldBean modelFieldBean = new ModelFieldBean(modelField.value(), modelField.type());
+					updateModelFieldBean(modelFieldBean, modelField);
+					modelFields.add(modelFieldBean);
+				}
+			}
+
+			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils.getRepeatableAnnotation(clazz,
+					ModelAssociations.class, ModelAssociation.class);
+			for (ModelAssociation modelAssociationAnnotation : modelAssociationsOnType) {
+				AbstractAssociation modelAssociation = AbstractAssociation
+						.createAssociation(modelAssociationAnnotation);
+				if (modelAssociation != null) {
+					associations.add(modelAssociation);
+				}
+			}
+
 			ReflectionUtils.doWithFields(clazz, new FieldCallback() {
-				private final Set<String> fields = new HashSet<String>();
 
 				@Override
 				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
@@ -498,114 +404,9 @@ public abstract class ModelGenerator {
 									.getAnnotation(JsonIgnore.class) == null))) {
 
 						// ignore superclass declarations of fields already
-						// found in
-						// a subclass
+						// found in a subclass
 						fields.add(field.getName());
-
-						Class<?> javaType = field.getType();
-
-						ModelType modelType = null;
-						for (ModelType mt : ModelType.values()) {
-							if (mt.supports(javaType)) {
-								modelType = mt;
-								break;
-							}
-						}
-
-						ModelFieldBean modelFieldBean = null;
-
-						ModelField modelFieldAnnotation = field.getAnnotation(ModelField.class);
-						if (modelFieldAnnotation != null) {
-
-							String name;
-							if (StringUtils.hasText(modelFieldAnnotation.value())) {
-								name = modelFieldAnnotation.value();
-							} else {
-								name = field.getName();
-							}
-
-							ModelType type;
-							if (modelFieldAnnotation.type() != ModelType.AUTO) {
-								type = modelFieldAnnotation.type();
-							} else {
-								if (modelType != null) {
-									type = modelType;
-								} else {
-									type = ModelType.AUTO;
-								}
-							}
-
-							modelFieldBean = new ModelFieldBean(name, type);
-
-							if (StringUtils.hasText(modelFieldAnnotation.dateFormat()) && type == ModelType.DATE) {
-								modelFieldBean.setDateFormat(modelFieldAnnotation.dateFormat());
-							}
-
-							String defaultValue = modelFieldAnnotation.defaultValue();
-							if (StringUtils.hasText(defaultValue)) {
-								if (ModelField.DEFAULTVALUE_UNDEFINED.equals(defaultValue)) {
-									modelFieldBean.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
-								} else {
-									if (type == ModelType.BOOLEAN) {
-										modelFieldBean.setDefaultValue(Boolean.parseBoolean(defaultValue));
-									} else if (type == ModelType.INTEGER) {
-										modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
-									} else if (type == ModelType.FLOAT) {
-										modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
-									} else {
-										modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
-									}
-								}
-							}
-
-							if (modelFieldAnnotation.useNull()
-									&& (type == ModelType.INTEGER || type == ModelType.FLOAT
-											|| type == ModelType.STRING || type == ModelType.BOOLEAN)) {
-								modelFieldBean.setUseNull(true);
-							}
-
-							if (StringUtils.hasText(modelFieldAnnotation.mapping())) {
-								modelFieldBean.setMapping(modelFieldAnnotation.mapping());
-							}
-
-							if (!modelFieldAnnotation.persist()) {
-								modelFieldBean.setPersist(modelFieldAnnotation.persist());
-							}
-
-							if (StringUtils.hasText(modelFieldAnnotation.convert())) {
-								modelFieldBean.setConvert(modelFieldAnnotation.convert());
-							}
-
-							modelFields.add(modelFieldBean);
-						} else {
-							if (modelType != null) {
-								modelFieldBean = new ModelFieldBean(field.getName(), modelType);
-								modelFields.add(modelFieldBean);
-							}
-						}
-
-						ModelAssociation modelAssociationAnnotation = field.getAnnotation(ModelAssociation.class);
-						if (modelAssociationAnnotation != null) {
-							associations.add(AbstractAssociation.createAssociation(modelAssociationAnnotation, model,
-									field.getType(), field.getDeclaringClass(), field.getName()));
-						}
-
-						if (modelFieldBean != null && outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
-							Annotation[] fieldAnnotations = field.getAnnotations();
-
-							for (Annotation fieldAnnotation : fieldAnnotations) {
-								AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
-										outputConfig.getIncludeValidation());
-							}
-
-							PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(clazz, field.getName());
-							if (pd != null && pd.getReadMethod() != null) {
-								for (Annotation readMethodAnnotation : pd.getReadMethod().getAnnotations()) {
-									AbstractValidation.addValidationToModel(model, modelFieldBean,
-											readMethodAnnotation, outputConfig.getIncludeValidation());
-								}
-							}
-						}
+						createModelBean(model, field, modelFields, associations, outputConfig);
 
 					}
 				}
@@ -618,6 +419,141 @@ public abstract class ModelGenerator {
 
 		modelCache.put(key, new SoftReference<ModelBean>(model));
 		return model;
+	}
+
+	private static void createModelBean(ModelBean model, AccessibleObject accessibleObject,
+			List<ModelFieldBean> modelFields, List<AbstractAssociation> associations, OutputConfig outputConfig) {
+		Class<?> javaType = null;
+		String name = null;
+		Class<?> declaringClass = null;
+
+		if (accessibleObject instanceof Field) {
+			Field field = (Field) accessibleObject;
+			javaType = field.getType();
+			name = field.getName();
+			declaringClass = field.getDeclaringClass();
+		} else if (accessibleObject instanceof Method) {
+			Method method = (Method) accessibleObject;
+
+			javaType = method.getReturnType();
+			if (javaType.equals(Void.TYPE)) {
+				return;
+			}
+
+			if (method.getName().startsWith("get")) {
+				name = StringUtils.uncapitalize(method.getName().substring(3));
+			} else if (method.getName().startsWith("is")) {
+				name = StringUtils.uncapitalize(method.getName().substring(2));
+			} else {
+				name = method.getName();
+			}
+
+			declaringClass = method.getDeclaringClass();
+		}
+
+		ModelType modelType = null;
+		for (ModelType mt : ModelType.values()) {
+			if (mt.supports(javaType)) {
+				modelType = mt;
+				break;
+			}
+		}
+
+		ModelFieldBean modelFieldBean = null;
+
+		ModelField modelFieldAnnotation = accessibleObject.getAnnotation(ModelField.class);
+		if (modelFieldAnnotation != null) {
+
+			if (StringUtils.hasText(modelFieldAnnotation.value())) {
+				name = modelFieldAnnotation.value();
+			}
+
+			ModelType type = null;
+			if (modelFieldAnnotation.type() != ModelType.AUTO) {
+				type = modelFieldAnnotation.type();
+			} else {
+				type = modelType;
+			}
+
+			modelFieldBean = new ModelFieldBean(name, type);
+			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
+
+			modelFields.add(modelFieldBean);
+		} else {
+			if (modelType != null) {
+				modelFieldBean = new ModelFieldBean(name, modelType);
+				modelFields.add(modelFieldBean);
+			}
+		}
+
+		ModelAssociation modelAssociationAnnotation = accessibleObject.getAnnotation(ModelAssociation.class);
+		if (modelAssociationAnnotation != null) {
+			associations.add(AbstractAssociation.createAssociation(modelAssociationAnnotation, model, javaType,
+					declaringClass, name));
+		}
+
+		if (modelFieldBean != null && outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
+			Annotation[] fieldAnnotations = accessibleObject.getAnnotations();
+
+			for (Annotation fieldAnnotation : fieldAnnotations) {
+				AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
+						outputConfig.getIncludeValidation());
+			}
+
+			if (accessibleObject instanceof Field) {
+				PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(declaringClass, name);
+				if (pd != null && pd.getReadMethod() != null) {
+					for (Annotation readMethodAnnotation : pd.getReadMethod().getAnnotations()) {
+						AbstractValidation.addValidationToModel(model, modelFieldBean, readMethodAnnotation,
+								outputConfig.getIncludeValidation());
+					}
+				}
+			}
+		}
+
+	}
+
+	private static void updateModelFieldBean(ModelFieldBean modelFieldBean, ModelField modelFieldAnnotation) {
+
+		ModelType type = modelFieldBean.getType();
+
+		if (StringUtils.hasText(modelFieldAnnotation.dateFormat()) && type == ModelType.DATE) {
+			modelFieldBean.setDateFormat(modelFieldAnnotation.dateFormat());
+		}
+
+		String defaultValue = modelFieldAnnotation.defaultValue();
+		if (StringUtils.hasText(defaultValue)) {
+			if (ModelField.DEFAULTVALUE_UNDEFINED.equals(defaultValue)) {
+				modelFieldBean.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
+			} else {
+				if (type == ModelType.BOOLEAN) {
+					modelFieldBean.setDefaultValue(Boolean.parseBoolean(defaultValue));
+				} else if (type == ModelType.INTEGER) {
+					modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
+				} else if (type == ModelType.FLOAT) {
+					modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
+				} else {
+					modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
+				}
+			}
+		}
+
+		if (modelFieldAnnotation.useNull()
+				&& (type == ModelType.INTEGER || type == ModelType.FLOAT || type == ModelType.STRING || type == ModelType.BOOLEAN)) {
+			modelFieldBean.setUseNull(true);
+		}
+
+		if (StringUtils.hasText(modelFieldAnnotation.mapping())) {
+			modelFieldBean.setMapping(modelFieldAnnotation.mapping());
+		}
+
+		if (!modelFieldAnnotation.persist()) {
+			modelFieldBean.setPersist(modelFieldAnnotation.persist());
+		}
+
+		if (StringUtils.hasText(modelFieldAnnotation.convert())) {
+			modelFieldBean.setConvert(modelFieldAnnotation.convert());
+		}
 	}
 
 	public static String generateJavascript(ModelBean model, OutputConfig config) {
