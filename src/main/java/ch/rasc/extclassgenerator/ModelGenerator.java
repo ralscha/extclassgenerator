@@ -27,10 +27,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -359,14 +357,11 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		final List<ModelFieldBean> modelFields = new ArrayList<ModelFieldBean>();
-		final List<AbstractAssociation> associations = new ArrayList<AbstractAssociation>();
-
 		if (clazz.isInterface()) {
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
-					createModelBean(model, method, modelFields, associations, outputConfig);
+					createModelBean(model, method, outputConfig);
 				}
 			});
 		} else {
@@ -379,7 +374,7 @@ public abstract class ModelGenerator {
 				if (StringUtils.hasText(modelField.value())) {
 					ModelFieldBean modelFieldBean = new ModelFieldBean(modelField.value(), modelField.type());
 					updateModelFieldBean(modelFieldBean, modelField);
-					modelFields.add(modelFieldBean);
+					model.addField(modelFieldBean);
 				}
 			}
 
@@ -389,7 +384,17 @@ public abstract class ModelGenerator {
 				AbstractAssociation modelAssociation = AbstractAssociation
 						.createAssociation(modelAssociationAnnotation);
 				if (modelAssociation != null) {
-					associations.add(modelAssociation);
+					model.addAssociation(modelAssociation);
+				}
+			}
+
+			Set<ModelValidation> modelValidationsOnType = AnnotationUtils.getRepeatableAnnotation(clazz,
+					ModelValidations.class, ModelValidation.class);
+			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
+				AbstractValidation modelValidation = AbstractValidation.createValidation(modelValidationAnnotation,
+						outputConfig.getIncludeValidation());
+				if (modelValidation != null) {
+					model.addValidation(modelValidation);
 				}
 			}
 
@@ -406,7 +411,7 @@ public abstract class ModelGenerator {
 						// ignore superclass declarations of fields already
 						// found in a subclass
 						fields.add(field.getName());
-						createModelBean(model, field, modelFields, associations, outputConfig);
+						createModelBean(model, field, outputConfig);
 
 					}
 				}
@@ -414,15 +419,11 @@ public abstract class ModelGenerator {
 			});
 		}
 
-		model.addFields(modelFields);
-		model.addAssociations(associations);
-
 		modelCache.put(key, new SoftReference<ModelBean>(model));
 		return model;
 	}
 
-	private static void createModelBean(ModelBean model, AccessibleObject accessibleObject,
-			List<ModelFieldBean> modelFields, List<AbstractAssociation> associations, OutputConfig outputConfig) {
+	private static void createModelBean(ModelBean model, AccessibleObject accessibleObject, OutputConfig outputConfig) {
 		Class<?> javaType = null;
 		String name = null;
 		Class<?> declaringClass = null;
@@ -478,34 +479,47 @@ public abstract class ModelGenerator {
 			modelFieldBean = new ModelFieldBean(name, type);
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
 
-			modelFields.add(modelFieldBean);
+			model.addField(modelFieldBean);
 		} else {
 			if (modelType != null) {
 				modelFieldBean = new ModelFieldBean(name, modelType);
-				modelFields.add(modelFieldBean);
+				model.addField(modelFieldBean);
 			}
 		}
 
 		ModelAssociation modelAssociationAnnotation = accessibleObject.getAnnotation(ModelAssociation.class);
 		if (modelAssociationAnnotation != null) {
-			associations.add(AbstractAssociation.createAssociation(modelAssociationAnnotation, model, javaType,
+			model.addAssociation(AbstractAssociation.createAssociation(modelAssociationAnnotation, model, javaType,
 					declaringClass, name));
 		}
 
 		if (modelFieldBean != null && outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
-			Annotation[] fieldAnnotations = accessibleObject.getAnnotations();
 
-			for (Annotation fieldAnnotation : fieldAnnotations) {
-				AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
-						outputConfig.getIncludeValidation());
-			}
+			Set<ModelValidation> modelValidationAnnotations = AnnotationUtils.getRepeatableAnnotation(accessibleObject,
+					ModelValidations.class, ModelValidation.class);
+			if (!modelValidationAnnotations.isEmpty()) {
+				for (ModelValidation modelValidationAnnotation : modelValidationAnnotations) {
+					AbstractValidation modelValidation = AbstractValidation.createValidation(modelValidationAnnotation,
+							outputConfig.getIncludeValidation());
+					if (modelValidation != null) {
+						model.addValidation(modelValidation);
+					}
+				}
+			} else {
+				Annotation[] fieldAnnotations = accessibleObject.getAnnotations();
 
-			if (accessibleObject instanceof Field) {
-				PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(declaringClass, name);
-				if (pd != null && pd.getReadMethod() != null) {
-					for (Annotation readMethodAnnotation : pd.getReadMethod().getAnnotations()) {
-						AbstractValidation.addValidationToModel(model, modelFieldBean, readMethodAnnotation,
-								outputConfig.getIncludeValidation());
+				for (Annotation fieldAnnotation : fieldAnnotations) {
+					AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
+							outputConfig.getIncludeValidation());
+				}
+
+				if (accessibleObject instanceof Field) {
+					PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(declaringClass, name);
+					if (pd != null && pd.getReadMethod() != null) {
+						for (Annotation readMethodAnnotation : pd.getReadMethod().getAnnotations()) {
+							AbstractValidation.addValidationToModel(model, modelFieldBean, readMethodAnnotation,
+									outputConfig.getIncludeValidation());
+						}
 					}
 				}
 			}

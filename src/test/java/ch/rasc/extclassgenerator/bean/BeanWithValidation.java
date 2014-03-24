@@ -35,7 +35,11 @@ import org.hibernate.validator.constraints.Range;
 
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
+import ch.rasc.extclassgenerator.ModelValidation;
+import ch.rasc.extclassgenerator.ModelValidationType;
+import ch.rasc.extclassgenerator.ModelValidations;
 
+@ModelValidations({ @ModelValidation(propertyName = "email", value = ModelValidationType.PRESENCE) })
 public class BeanWithValidation {
 
 	@Email

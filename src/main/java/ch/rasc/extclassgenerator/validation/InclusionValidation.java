@@ -13,27 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.rasc.extclassgenerator.bean;
+package ch.rasc.extclassgenerator.validation;
 
-import java.util.UUID;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 
-import javax.validation.constraints.Size;
+public class InclusionValidation extends AbstractValidation {
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
+	@JsonRawValue
+	private final String list;
 
-import ch.rasc.extclassgenerator.Model;
-import ch.rasc.extclassgenerator.ModelField;
+	public InclusionValidation(String field, String list) {
+		super("inclusion", field);
 
-@Model
-public interface User {
+		this.list = list;
+	}
 
-	@ModelField
-	UUID getId();
-
-	@NotEmpty
-	@Email
-	@Size(max = 128)
-	String getEmail();
+	public String getList() {
+		return list;
+	}
 
 }

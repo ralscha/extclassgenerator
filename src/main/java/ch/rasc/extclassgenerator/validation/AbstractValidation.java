@@ -17,12 +17,18 @@ package ch.rasc.extclassgenerator.validation;
 
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.StringUtils;
 
 import ch.rasc.extclassgenerator.IncludeValidation;
 import ch.rasc.extclassgenerator.ModelBean;
 import ch.rasc.extclassgenerator.ModelFieldBean;
+import ch.rasc.extclassgenerator.ModelValidation;
+import ch.rasc.extclassgenerator.ModelValidationParameter;
+import ch.rasc.extclassgenerator.ModelValidationType;
 
 /**
  * Base class for the validation objects
@@ -102,6 +108,104 @@ public abstract class AbstractValidation {
 				model.addValidation(new RangeValidation(modelFieldBean.getName(), min, max));
 			}
 		}
+	}
+
+	public static AbstractValidation createValidation(ModelValidation modelValidationAnnotation,
+			IncludeValidation includeValidation) {
+		String name = modelValidationAnnotation.propertyName();
+		if (!StringUtils.hasText(name)) {
+			return null;
+		}
+
+		ModelValidationType validationType = modelValidationAnnotation.value();
+
+		if ((includeValidation == IncludeValidation.ALL || (includeValidation == IncludeValidation.BUILTIN && validationType
+				.isBuiltin())) && validationType.isValid(modelValidationAnnotation)) {
+			switch (validationType) {
+			case GENERIC:
+				String type = getParameterValue(modelValidationAnnotation.parameters(), "type");
+				Map<String, Object> options = new LinkedHashMap<String, Object>();
+				for (ModelValidationParameter parameter : modelValidationAnnotation.parameters()) {
+					options.put(parameter.name(), parameter.value());
+				}
+				return new GenericValidation(type, name, options);
+			case CREDITCARDNUMBER:
+				return new CreditCardNumberValidation(name);
+			case DIGITS:
+				String integer = getParameterValue(modelValidationAnnotation.parameters(), "integer");
+				String fraction = getParameterValue(modelValidationAnnotation.parameters(), "fraction");
+				return new DigitsValidation(name, Integer.valueOf(integer), Integer.valueOf(fraction));
+			case EMAIL:
+				return new EmailValidation(name);
+			case FORMAT:
+				return new FormatValidation(name, modelValidationAnnotation.parameters()[0].value());
+			case FUTURE:
+				return new FutureValidation(name);
+			case INCLUSION:
+				String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
+				return new InclusionValidation(name, list);
+			case LENGTH:
+				String minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
+				String maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
+				Long min = null;
+				Long max = null;
+
+				if (minValue != null) {
+					min = Long.valueOf(minValue);
+				}
+				if (maxValue != null) {
+					max = Long.valueOf(maxValue);
+				}
+				return new LengthValidation(name, min, max);
+			case NOTBLANK:
+				return new NotBlankValidation(name);
+			case PAST:
+				return new PastValidation(name);
+			case PRESENCE:
+				return new PresenceValidation(name);
+			case RANGE:
+				minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
+				maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
+
+				if ((minValue != null && minValue.indexOf(".") != -1)
+						|| (maxValue != null && maxValue.indexOf(".") != -1)) {
+					BigDecimal minBD = null;
+					BigDecimal maxBD = null;
+
+					if (minValue != null) {
+						minBD = new BigDecimal(minValue);
+					}
+					if (maxValue != null) {
+						maxBD = new BigDecimal(maxValue);
+					}
+					return new RangeValidation(name, minBD, maxBD);
+				}
+				min = null;
+				max = null;
+
+				if (minValue != null) {
+					min = Long.valueOf(minValue);
+				}
+				if (maxValue != null) {
+					max = Long.valueOf(maxValue);
+				}
+				return new RangeValidation(name, min, max);
+
+			default:
+				return null;
+			}
+		}
+
+		return null;
+	}
+
+	private static String getParameterValue(ModelValidationParameter[] parameters, String param) {
+		for (ModelValidationParameter modelValidationParameter : parameters) {
+			if (param.equals(modelValidationParameter.name())) {
+				return modelValidationParameter.value();
+			}
+		}
+		return null;
 	}
 
 }

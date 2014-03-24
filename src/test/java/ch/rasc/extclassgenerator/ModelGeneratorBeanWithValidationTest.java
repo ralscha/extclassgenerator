@@ -33,6 +33,7 @@ import ch.rasc.extclassgenerator.validation.FutureValidation;
 import ch.rasc.extclassgenerator.validation.LengthValidation;
 import ch.rasc.extclassgenerator.validation.NotBlankValidation;
 import ch.rasc.extclassgenerator.validation.PastValidation;
+import ch.rasc.extclassgenerator.validation.PresenceValidation;
 import ch.rasc.extclassgenerator.validation.RangeValidation;
 
 public class ModelGeneratorBeanWithValidationTest {
@@ -128,69 +129,74 @@ public class ModelGeneratorBeanWithValidationTest {
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 
-		assertThat(modelBean.getValidations()).hasSize(11);
-		assertThat(modelBean.getValidations().get(0)).isInstanceOf(EmailValidation.class);
-		EmailValidation emailValidation = (EmailValidation) modelBean.getValidations().get(0);
+		assertThat(modelBean.getValidations()).hasSize(12);
+
+		assertThat(modelBean.getValidations().get(0)).isInstanceOf(PresenceValidation.class);
+		PresenceValidation presenceValidation = (PresenceValidation) modelBean.getValidations().get(0);
+		assertThat(presenceValidation.getType()).isEqualTo("presence");
+
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(EmailValidation.class);
+		EmailValidation emailValidation = (EmailValidation) modelBean.getValidations().get(1);
 		assertThat(emailValidation.getType()).isEqualTo("email");
 		assertThat(emailValidation.getField()).isEqualTo("email");
 
-		assertThat(modelBean.getValidations().get(1)).isInstanceOf(RangeValidation.class);
-		RangeValidation rangeValidation = (RangeValidation) modelBean.getValidations().get(1);
+		assertThat(modelBean.getValidations().get(2)).isInstanceOf(RangeValidation.class);
+		RangeValidation rangeValidation = (RangeValidation) modelBean.getValidations().get(2);
 		assertThat(rangeValidation.getType()).isEqualTo("range");
 		assertThat(rangeValidation.getField()).isEqualTo("minMax1");
 		assertThat(rangeValidation.getMin()).isNull();
 		assertThat(rangeValidation.getMax()).isEqualTo(new BigDecimal("100"));
 
-		assertThat(modelBean.getValidations().get(2)).isInstanceOf(RangeValidation.class);
-		rangeValidation = (RangeValidation) modelBean.getValidations().get(2);
+		assertThat(modelBean.getValidations().get(3)).isInstanceOf(RangeValidation.class);
+		rangeValidation = (RangeValidation) modelBean.getValidations().get(3);
 		assertThat(rangeValidation.getType()).isEqualTo("range");
 		assertThat(rangeValidation.getField()).isEqualTo("minMax1");
 		assertThat(rangeValidation.getMax()).isNull();
 		assertThat(rangeValidation.getMin()).isEqualByComparingTo(new BigDecimal("1"));
 
-		assertThat(modelBean.getValidations().get(3)).isInstanceOf(RangeValidation.class);
-		rangeValidation = (RangeValidation) modelBean.getValidations().get(3);
+		assertThat(modelBean.getValidations().get(4)).isInstanceOf(RangeValidation.class);
+		rangeValidation = (RangeValidation) modelBean.getValidations().get(4);
 		assertThat(rangeValidation.getType()).isEqualTo("range");
 		assertThat(rangeValidation.getField()).isEqualTo("minMax2");
 		assertThat(rangeValidation.getMin()).isNull();
 		assertThat(rangeValidation.getMax()).isEqualTo(new BigDecimal(10000));
 
-		assertThat(modelBean.getValidations().get(4)).isInstanceOf(RangeValidation.class);
-		rangeValidation = (RangeValidation) modelBean.getValidations().get(4);
+		assertThat(modelBean.getValidations().get(5)).isInstanceOf(RangeValidation.class);
+		rangeValidation = (RangeValidation) modelBean.getValidations().get(5);
 		assertThat(rangeValidation.getType()).isEqualTo("range");
 		assertThat(rangeValidation.getField()).isEqualTo("minMax2");
 		assertThat(rangeValidation.getMax()).isNull();
 		assertThat(rangeValidation.getMin()).isEqualTo(new BigDecimal(20));
 
-		assertThat(modelBean.getValidations().get(5)).isInstanceOf(RangeValidation.class);
-		rangeValidation = (RangeValidation) modelBean.getValidations().get(5);
+		assertThat(modelBean.getValidations().get(6)).isInstanceOf(RangeValidation.class);
+		rangeValidation = (RangeValidation) modelBean.getValidations().get(6);
 		assertThat(rangeValidation.getType()).isEqualTo("range");
 		assertThat(rangeValidation.getField()).isEqualTo("minMax3");
 		assertThat(rangeValidation.getMin()).isEqualTo(new BigDecimal(20));
 		assertThat(rangeValidation.getMax()).isEqualTo(new BigDecimal(50));
 
-		assertThat(modelBean.getValidations().get(6)).isInstanceOf(DigitsValidation.class);
-		DigitsValidation digitsValidation = (DigitsValidation) modelBean.getValidations().get(6);
+		assertThat(modelBean.getValidations().get(7)).isInstanceOf(DigitsValidation.class);
+		DigitsValidation digitsValidation = (DigitsValidation) modelBean.getValidations().get(7);
 		assertThat(digitsValidation.getType()).isEqualTo("digits");
 		assertThat(digitsValidation.getField()).isEqualTo("digits");
 		assertThat(digitsValidation.getInteger()).isEqualTo(10);
 		assertThat(digitsValidation.getFraction()).isEqualTo(2);
 
-		assertThat(modelBean.getValidations().get(7)).isInstanceOf(FutureValidation.class);
-		assertThat(modelBean.getValidations().get(7).getType()).isEqualTo("future");
-		assertThat(modelBean.getValidations().get(7).getField()).isEqualTo("future");
+		assertThat(modelBean.getValidations().get(8)).isInstanceOf(FutureValidation.class);
+		assertThat(modelBean.getValidations().get(8).getType()).isEqualTo("future");
+		assertThat(modelBean.getValidations().get(8).getField()).isEqualTo("future");
 
-		assertThat(modelBean.getValidations().get(8)).isInstanceOf(PastValidation.class);
-		assertThat(modelBean.getValidations().get(8).getType()).isEqualTo("past");
-		assertThat(modelBean.getValidations().get(8).getField()).isEqualTo("past");
+		assertThat(modelBean.getValidations().get(9)).isInstanceOf(PastValidation.class);
+		assertThat(modelBean.getValidations().get(9).getType()).isEqualTo("past");
+		assertThat(modelBean.getValidations().get(9).getField()).isEqualTo("past");
 
-		assertThat(modelBean.getValidations().get(9)).isInstanceOf(NotBlankValidation.class);
-		assertThat(modelBean.getValidations().get(9).getType()).isEqualTo("notBlank");
-		assertThat(modelBean.getValidations().get(9).getField()).isEqualTo("notBlank");
+		assertThat(modelBean.getValidations().get(10)).isInstanceOf(NotBlankValidation.class);
+		assertThat(modelBean.getValidations().get(10).getType()).isEqualTo("notBlank");
+		assertThat(modelBean.getValidations().get(10).getField()).isEqualTo("notBlank");
 
-		assertThat(modelBean.getValidations().get(10)).isInstanceOf(CreditCardNumberValidation.class);
-		assertThat(modelBean.getValidations().get(10).getType()).isEqualTo("creditCardNumber");
-		assertThat(modelBean.getValidations().get(10).getField()).isEqualTo("creditCardNumber");
+		assertThat(modelBean.getValidations().get(11)).isInstanceOf(CreditCardNumberValidation.class);
+		assertThat(modelBean.getValidations().get(11).getType()).isEqualTo("creditCardNumber");
+		assertThat(modelBean.getValidations().get(11).getField()).isEqualTo("creditCardNumber");
 
 	}
 

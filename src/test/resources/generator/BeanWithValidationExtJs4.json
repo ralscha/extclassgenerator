@@ -30,6 +30,9 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithValidation",
     type : "string"
   } ],
   validations : [ {
+    type : "presence",
+    field : "email"
+  }, {
     type : "email",
     field : "email"
   }, {
