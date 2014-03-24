@@ -110,10 +110,10 @@ public abstract class AbstractValidation {
 		}
 	}
 
-	public static AbstractValidation createValidation(ModelValidation modelValidationAnnotation,
+	public static AbstractValidation createValidation(String propertyName, ModelValidation modelValidationAnnotation,
 			IncludeValidation includeValidation) {
-		String name = modelValidationAnnotation.propertyName();
-		if (!StringUtils.hasText(name)) {
+
+		if (!StringUtils.hasText(propertyName)) {
 			return null;
 		}
 
@@ -128,25 +128,25 @@ public abstract class AbstractValidation {
 				for (ModelValidationParameter parameter : modelValidationAnnotation.parameters()) {
 					options.put(parameter.name(), parameter.value());
 				}
-				return new GenericValidation(type, name, options);
+				return new GenericValidation(type, propertyName, options);
 			case CREDITCARDNUMBER:
-				return new CreditCardNumberValidation(name);
+				return new CreditCardNumberValidation(propertyName);
 			case DIGITS:
 				String integer = getParameterValue(modelValidationAnnotation.parameters(), "integer");
 				String fraction = getParameterValue(modelValidationAnnotation.parameters(), "fraction");
-				return new DigitsValidation(name, Integer.valueOf(integer), Integer.valueOf(fraction));
+				return new DigitsValidation(propertyName, Integer.valueOf(integer), Integer.valueOf(fraction));
 			case EMAIL:
-				return new EmailValidation(name);
+				return new EmailValidation(propertyName);
 			case FORMAT:
-				return new FormatValidation(name, modelValidationAnnotation.parameters()[0].value());
+				return new FormatValidation(propertyName, modelValidationAnnotation.parameters()[0].value());
 			case FUTURE:
-				return new FutureValidation(name);
+				return new FutureValidation(propertyName);
 			case INCLUSION:
 				String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
-				return new InclusionValidation(name, list);
+				return new InclusionValidation(propertyName, list);
 			case EXCLUSION:
 				list = getParameterValue(modelValidationAnnotation.parameters(), "list");
-				return new ExclusionValidation(name, list);				
+				return new ExclusionValidation(propertyName, list);
 			case LENGTH:
 				String minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
 				String maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
@@ -159,13 +159,13 @@ public abstract class AbstractValidation {
 				if (maxValue != null) {
 					max = Long.valueOf(maxValue);
 				}
-				return new LengthValidation(name, min, max);
+				return new LengthValidation(propertyName, min, max);
 			case NOTBLANK:
-				return new NotBlankValidation(name);
+				return new NotBlankValidation(propertyName);
 			case PAST:
-				return new PastValidation(name);
+				return new PastValidation(propertyName);
 			case PRESENCE:
-				return new PresenceValidation(name);
+				return new PresenceValidation(propertyName);
 			case RANGE:
 				minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
 				maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
@@ -181,7 +181,7 @@ public abstract class AbstractValidation {
 					if (maxValue != null) {
 						maxBD = new BigDecimal(maxValue);
 					}
-					return new RangeValidation(name, minBD, maxBD);
+					return new RangeValidation(propertyName, minBD, maxBD);
 				}
 				min = null;
 				max = null;
@@ -192,7 +192,7 @@ public abstract class AbstractValidation {
 				if (maxValue != null) {
 					max = Long.valueOf(maxValue);
 				}
-				return new RangeValidation(name, min, max);
+				return new RangeValidation(propertyName, min, max);
 
 			default:
 				return null;

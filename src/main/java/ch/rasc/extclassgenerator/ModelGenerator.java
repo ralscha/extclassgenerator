@@ -391,7 +391,8 @@ public abstract class ModelGenerator {
 			Set<ModelValidation> modelValidationsOnType = AnnotationUtils.getRepeatableAnnotation(clazz,
 					ModelValidations.class, ModelValidation.class);
 			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
-				AbstractValidation modelValidation = AbstractValidation.createValidation(modelValidationAnnotation,
+				AbstractValidation modelValidation = AbstractValidation.createValidation(
+						modelValidationAnnotation.propertyName(), modelValidationAnnotation,
 						outputConfig.getIncludeValidation());
 				if (modelValidation != null) {
 					model.addValidation(modelValidation);
@@ -499,8 +500,8 @@ public abstract class ModelGenerator {
 					ModelValidations.class, ModelValidation.class);
 			if (!modelValidationAnnotations.isEmpty()) {
 				for (ModelValidation modelValidationAnnotation : modelValidationAnnotations) {
-					AbstractValidation modelValidation = AbstractValidation.createValidation(modelValidationAnnotation,
-							outputConfig.getIncludeValidation());
+					AbstractValidation modelValidation = AbstractValidation.createValidation(name,
+							modelValidationAnnotation, outputConfig.getIncludeValidation());
 					if (modelValidation != null) {
 						model.addValidation(modelValidation);
 					}
