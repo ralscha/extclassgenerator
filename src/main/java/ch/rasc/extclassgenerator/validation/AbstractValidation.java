@@ -144,6 +144,9 @@ public abstract class AbstractValidation {
 			case INCLUSION:
 				String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
 				return new InclusionValidation(name, list);
+			case EXCLUSION:
+				list = getParameterValue(modelValidationAnnotation.parameters(), "list");
+				return new ExclusionValidation(name, list);				
 			case LENGTH:
 				String minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
 				String maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
