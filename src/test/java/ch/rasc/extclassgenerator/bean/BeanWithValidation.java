@@ -27,6 +27,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.Email;
@@ -45,6 +46,9 @@ public class BeanWithValidation {
 	@Email
 	public String email;
 
+	@Pattern(regexp="^/\\w.*\\.\\w.*") 
+	public String url;
+	
 	@DecimalMax("100")
 	@DecimalMin("1")
 	public BigDecimal minMax1;
@@ -85,6 +89,9 @@ public class BeanWithValidation {
 		ModelFieldBean field = new ModelFieldBean("email", ModelType.STRING);
 		expectedFields.add(field);
 
+		field = new ModelFieldBean("url", ModelType.STRING);
+		expectedFields.add(field);
+		
 		field = new ModelFieldBean("minMax1", ModelType.FLOAT);
 		expectedFields.add(field);
 

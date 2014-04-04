@@ -6,6 +6,9 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithValidation",
       name : "email",
       type : "string"
     }, {
+      name : "url",
+      type : "string"
+    }, {
       name : "minMax1",
       type : "float"
     }, {
@@ -36,6 +39,10 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithValidation",
     }, {
       type : "email",
       field : "email"
+    }, {
+      type : "format",
+      field : "url",
+      matcher : /^\/\w.*\.\w.*/
     }, {
       type : "range",
       field : "minMax1",

@@ -25,7 +25,7 @@ public class FormatValidation extends AbstractValidation {
 	public FormatValidation(String field, String regexPattern) {
 		super("format", field);
 
-		this.matcher = "/" + regexPattern + "/";
+		this.matcher = "/" + regexPattern.replace("/", "\\/") + "/";
 	}
 
 	public String getMatcher() {
