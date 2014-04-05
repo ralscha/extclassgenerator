@@ -15,22 +15,17 @@
  */
 package ch.rasc.extclassgenerator;
 
-/**
- * Enumeration of all possible output formats for the model generator
- */
-public enum OutputFormat {
-	/**
-	 * Instructs the model generator to create Ext JS 4 compatible code.
-	 */
-	EXTJS4,
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-	/**
-	 * Instructs the model generator to create Ext JS 5 compatible code.
-	 */
-	EXTJS5,
+@JsonInclude(Include.NON_NULL)
+public final class ApiObject {
 
-	/**
-	 * Instructs the model generator to create Sencha Touch 2 compatible code.
-	 */
-	TOUCH2
+	public String read;
+
+	public String create;
+
+	public String update;
+
+	public String destroy;
 }

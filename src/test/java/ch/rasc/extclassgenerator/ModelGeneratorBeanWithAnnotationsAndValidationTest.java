@@ -17,12 +17,8 @@ package ch.rasc.extclassgenerator;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 import ch.rasc.extclassgenerator.bean.BeanWithAnnotations;
 import ch.rasc.extclassgenerator.validation.EmailValidation;
@@ -38,211 +34,16 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 	}
 
 	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseClassOfQOutputFormatBoolean() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class,
-				OutputFormat.EXTJS4, IncludeValidation.BUILTIN, true);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class,
-				OutputFormat.TOUCH2, IncludeValidation.BUILTIN, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false,
-				false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class,
-				OutputFormat.EXTJS4, IncludeValidation.BUILTIN, true);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class,
-				OutputFormat.TOUCH2, IncludeValidation.BUILTIN, true);
-		GeneratorTestUtil
-				.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, false);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class, outputConfig);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class, outputConfig);
-		GeneratorTestUtil
-				.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BeanWithAnnotations.class, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, true);
+	public void testWithQuotes() {
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotationsValidation", true,
+				IncludeValidation.BUILTIN, false);
 	}
 
 	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormat() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.EXTJS4);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), false,
-				false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.TOUCH2);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false,
-				false);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		model = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil
-				.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-	}
-
-	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormatBoolean() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.EXTJS4, false);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), false,
-				false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.TOUCH2, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false,
-				false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.EXTJS4, true);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, false);
-
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, OutputFormat.TOUCH2, true);
-		GeneratorTestUtil
-				.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, false);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		model = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil
-				.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil
-				.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", response.getContentAsString(), true, true);
-	}
-
-	@Test
-	public void testGenerateJavascriptClassOfQOutputFormatBoolean() {
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", ModelGenerator.generateJavascript(
-				BeanWithAnnotations.class, OutputFormat.EXTJS4, IncludeValidation.BUILTIN, true), true, false);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation", ModelGenerator.generateJavascript(
-				BeanWithAnnotations.class, OutputFormat.EXTJS4, IncludeValidation.BUILTIN, false), false, false);
-
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", ModelGenerator.generateJavascript(
-				BeanWithAnnotations.class, OutputFormat.TOUCH2, IncludeValidation.BUILTIN, true), true, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation", ModelGenerator.generateJavascript(
-				BeanWithAnnotations.class, OutputFormat.TOUCH2, IncludeValidation.BUILTIN, false), false, false);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(BeanWithAnnotations.class, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(BeanWithAnnotations.class, outputConfig), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(BeanWithAnnotations.class, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(BeanWithAnnotations.class, outputConfig), false, true);
+	public void testWithoutQuotes() {
+		GeneratorTestUtil.testWriteModelBuiltinValidation(BeanWithAnnotations.class, "BeanWithAnnotationsValidation");
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotationsValidation", false,
+				IncludeValidation.BUILTIN, false);
 	}
 
 	@Test
@@ -288,56 +89,6 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 		assertThat(formatValidation.getField()).isEqualTo("aString");
 		assertThat(formatValidation.getMatcher())
 				.isEqualTo("/\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]/");
-	}
-
-	@Test
-	public void testGenerateJavascriptModelBeanOutputFormatBoolean() {
-		ModelBean model = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, true), true, false);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false), false, false);
-
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, true), true, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false), false, false);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
-		model = ModelGenerator.createModel(BeanWithAnnotations.class, outputConfig);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, outputConfig), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("BeanWithAnnotationsValidation",
-				ModelGenerator.generateJavascript(model, outputConfig), false, true);
 	}
 
 }

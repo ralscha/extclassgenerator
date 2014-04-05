@@ -58,12 +58,6 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 	private static final String OPTION_SURROUNDAPIWITHQUOTES = "surroundApiWithQuotes";
 
-	private final static ObjectMapper mapper = new ObjectMapper();
-
-	static {
-		mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
-	}
-
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 		processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Running " + getClass().getSimpleName());
@@ -87,6 +81,8 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		if (StringUtils.hasText(outputFormatString)) {
 			if (OutputFormat.TOUCH2.name().equalsIgnoreCase(outputFormatString)) {
 				outputConfig.setOutputFormat(OutputFormat.TOUCH2);
+			} else if (OutputFormat.EXTJS5.name().equalsIgnoreCase(outputFormatString)) {
+				outputConfig.setOutputFormat(OutputFormat.EXTJS5);
 			}
 		}
 
@@ -198,6 +194,23 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 		String configObjectString;
 		try {
+			
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+
+			if (!outputConfig.isSurroundApiWithQuotes()) {
+				if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
+					mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
+				} else {
+					mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesMixin.class);
+				}
+				mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
+			} else {
+				if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
+					mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithApiQuotesMixin.class);
+				}
+			}
+			
 			if (outputConfig.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(modelObject);
 			} else {

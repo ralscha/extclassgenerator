@@ -1,0 +1,21 @@
+Ext.define("Sch.Bean3",
+{
+  extend : "Ext.data.Model",
+  fields : [ {
+    name : "id",
+    type : "string"
+  }, {
+    name : "name",
+    type : "string"
+  } ],
+  proxy : {
+    type : "direct",
+    directFn : "read",
+    reader : {
+      rootProperty : "theRootProperty",
+      messageProperty : "theMessageProperty",
+      totalProperty : "theTotalProperty",
+      successProperty : "theSuccessProperty"
+    }
+  }
+});

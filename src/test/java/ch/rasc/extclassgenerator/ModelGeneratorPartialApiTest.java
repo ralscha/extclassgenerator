@@ -17,12 +17,8 @@ package ch.rasc.extclassgenerator;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 import ch.rasc.extclassgenerator.bean.PartialApi;
 
@@ -34,184 +30,13 @@ public class ModelGeneratorPartialApiTest {
 	}
 
 	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseClassOfQOutputFormatBoolean() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), true, true);
+	public void testWithQuotes() {
+		GeneratorTestUtil.testGenerateJavascript(PartialApi.class, "PartialApi", true, IncludeValidation.NONE, true);
 	}
 
 	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseClassOfQOutputFormat() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, PartialApi.class, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), false, true);
-	}
-
-	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormat() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(PartialApi.class);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), false, true);
-	}
-
-	@Test
-	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormatBoolean() throws IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse();
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(PartialApi.class);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", response.getContentAsString(), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model, outputConfig);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", response.getContentAsString(), true, true);
-	}
-
-	@Test
-	public void testGenerateJavascriptClassOfQOutputFormatBoolean() {
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi",
-				ModelGenerator.generateJavascript(PartialApi.class, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi",
-				ModelGenerator.generateJavascript(PartialApi.class, outputConfig), false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("PartialApi",
-				ModelGenerator.generateJavascript(PartialApi.class, outputConfig), true, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("PartialApi",
-				ModelGenerator.generateJavascript(PartialApi.class, outputConfig), false, true);
+	public void testWithoutQuotes() {
+		GeneratorTestUtil.testGenerateJavascript(PartialApi.class, "PartialApi", false, IncludeValidation.NONE, true);
 	}
 
 	@Test
@@ -232,46 +57,5 @@ public class ModelGeneratorPartialApiTest {
 			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
-	}
-
-	@Test
-	public void testGenerateJavascriptModelBeanOutputFormatBoolean() {
-		ModelBean model = ModelGenerator.createModel(PartialApi.class);
-
-		OutputConfig outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", ModelGenerator.generateJavascript(model, outputConfig), true,
-				true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareExtJs4Code("PartialApi", ModelGenerator.generateJavascript(model, outputConfig),
-				false, true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(true);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", ModelGenerator.generateJavascript(model, outputConfig), true,
-				true);
-
-		outputConfig = new OutputConfig();
-		outputConfig.setUseSingleQuotes(true);
-		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
-		outputConfig.setDebug(false);
-		outputConfig.setSurroundApiWithQuotes(true);
-		outputConfig.setIncludeValidation(IncludeValidation.NONE);
-		GeneratorTestUtil.compareTouch2Code("PartialApi", ModelGenerator.generateJavascript(model, outputConfig),
-				false, true);
 	}
 }

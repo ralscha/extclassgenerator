@@ -28,7 +28,7 @@ public class ModelGeneratorInterfaceTest {
 	}
 
 	@Test
-	public void testInterfaceExtJs() {
+	public void testInterfaceExtJs4() {
 		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
@@ -37,6 +37,18 @@ public class ModelGeneratorInterfaceTest {
 
 		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
 		GeneratorTestUtil.compareExtJs4Code("User" + prefix, code, false, false);
+	}
+
+	@Test
+	public void testInterfaceExtJs5() {
+		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
+		OutputConfig outputConfig = new OutputConfig();
+		outputConfig.setOutputFormat(OutputFormat.EXTJS5);
+		outputConfig.setDebug(false);
+		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
+
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		GeneratorTestUtil.compareExtJs5Code("User" + prefix, code, false, false);
 	}
 
 	@Test

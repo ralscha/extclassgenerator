@@ -46,9 +46,9 @@ public class BeanWithValidation {
 	@Email
 	public String email;
 
-	@Pattern(regexp="^/\\w.*\\.\\w.*") 
+	@Pattern(regexp = "^/\\w.*\\.\\w.*")
 	public String url;
-	
+
 	@DecimalMax("100")
 	@DecimalMin("1")
 	public BigDecimal minMax1;
@@ -91,7 +91,7 @@ public class BeanWithValidation {
 
 		field = new ModelFieldBean("url", ModelType.STRING);
 		expectedFields.add(field);
-		
+
 		field = new ModelFieldBean("minMax1", ModelType.FLOAT);
 		expectedFields.add(field);
 

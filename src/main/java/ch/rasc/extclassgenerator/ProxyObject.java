@@ -15,7 +15,6 @@
  */
 package ch.rasc.extclassgenerator;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,29 +24,22 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonRawValue;
 
-/**
- * Internal class used by the {@link ModelGenerator} to serialize the model code
- */
 @JsonInclude(Include.NON_NULL)
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @SuppressWarnings("unused")
-class ProxyObjectWithoutQuotes {
+public class ProxyObject {
+
 	private final String type = "direct";
 
 	private String idParam;
 
-	@JsonRawValue
 	private Object pageParam = null;
 
-	@JsonRawValue
 	private Object startParam = null;
 
-	@JsonRawValue
 	private Object limitParam = null;
 
-	@JsonRawValue
 	private String directFn;
 
 	private ApiObject api;
@@ -56,16 +48,53 @@ class ProxyObjectWithoutQuotes {
 
 	private String writer;
 
-	public ProxyObjectWithoutQuotes(ModelBean model, OutputConfig config) {
+	protected ProxyObject(ModelBean model, OutputConfig config) {
 		if (StringUtils.hasText(model.getIdProperty()) && !model.getIdProperty().equals("id")) {
 			this.idParam = model.getIdProperty();
 		}
 
 		if (model.isDisablePagingParameters()) {
-			Object value = config.getOutputFormat() == OutputFormat.EXTJS4 ? "undefined" : false;
+			Object value;
+			if (config.getOutputFormat() == OutputFormat.EXTJS4) {
+				value = "undefined";
+			} else if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+				value = "";
+			} else {
+				value = false;
+			}
 			pageParam = value;
 			startParam = value;
 			limitParam = value;
+		}
+
+		Map<String, String> readerConfigObject = new HashMap<String, String>();
+
+		String rootPropertyName = config.getOutputFormat() == OutputFormat.EXTJS4 ? "root" : "rootProperty";
+
+		if (StringUtils.hasText(model.getRootProperty())) {
+			readerConfigObject.put(rootPropertyName, model.getRootProperty());
+		} else if (model.isPaging()) {
+			readerConfigObject.put(rootPropertyName, "records");
+		}
+
+		if (StringUtils.hasText(model.getMessageProperty())) {
+			readerConfigObject.put("messageProperty", model.getMessageProperty());
+		}
+
+		if (StringUtils.hasText(model.getTotalProperty())) {
+			readerConfigObject.put("totalProperty", model.getTotalProperty());
+		}
+
+		if (StringUtils.hasText(model.getSuccessProperty())) {
+			readerConfigObject.put("successProperty", model.getSuccessProperty());
+		}
+
+		if (!readerConfigObject.isEmpty()) {
+			this.reader = readerConfigObject;
+		}
+
+		if (StringUtils.hasText(model.getWriter())) {
+			this.writer = model.getWriter();
 		}
 
 		boolean hasApiMethods = false;
@@ -95,39 +124,6 @@ class ProxyObjectWithoutQuotes {
 		if (hasApiMethods) {
 			this.api = apiObject;
 		}
-
-		if (model.isPaging()) {
-			String rootPropertyName = config.getOutputFormat() == OutputFormat.EXTJS4 ? "root" : "rootProperty";
-			if (StringUtils.hasText(model.getMessageProperty())) {
-				this.reader = new HashMap<String, String>();
-				this.reader.put(rootPropertyName, "records");
-				this.reader.put("messageProperty", model.getMessageProperty());
-			} else {
-				this.reader = Collections.singletonMap(rootPropertyName, "records");
-			}
-		} else if (StringUtils.hasText(model.getMessageProperty())) {
-			this.reader = Collections.singletonMap("messageProperty", model.getMessageProperty());
-		}
-
-		if (StringUtils.hasText(model.getWriter())) {
-			this.writer = model.getWriter();
-		}
-	}
-
-	@JsonAutoDetect(fieldVisibility = Visibility.ANY)
-	@JsonInclude(Include.NON_NULL)
-	private final class ApiObject {
-		@JsonRawValue
-		private String read;
-
-		@JsonRawValue
-		private String create;
-
-		@JsonRawValue
-		private String update;
-
-		@JsonRawValue
-		private String destroy;
 	}
 
 	public boolean hasMethods() {

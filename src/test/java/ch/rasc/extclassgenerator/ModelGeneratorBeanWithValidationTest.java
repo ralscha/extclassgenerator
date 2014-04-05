@@ -140,13 +140,13 @@ public class ModelGeneratorBeanWithValidationTest {
 		EmailValidation emailValidation = (EmailValidation) modelBean.getValidations().get(1);
 		assertThat(emailValidation.getType()).isEqualTo("email");
 		assertThat(emailValidation.getField()).isEqualTo("email");
-		
+
 		assertThat(modelBean.getValidations().get(2)).isInstanceOf(FormatValidation.class);
 		FormatValidation formatValidation = (FormatValidation) modelBean.getValidations().get(2);
 		assertThat(formatValidation.getType()).isEqualTo("format");
 		assertThat(formatValidation.getField()).isEqualTo("url");
 		assertThat(formatValidation.getMatcher()).isEqualTo("/^\\/\\w.*\\.\\w.*/");
-		
+
 		assertThat(modelBean.getValidations().get(3)).isInstanceOf(RangeValidation.class);
 		RangeValidation rangeValidation = (RangeValidation) modelBean.getValidations().get(3);
 		assertThat(rangeValidation.getType()).isEqualTo("range");

@@ -56,6 +56,12 @@ public class ModelBean {
 
 	private String messageProperty;
 
+	private String successProperty;
+
+	private String totalProperty;
+
+	private String rootProperty;
+
 	private String writer;
 
 	public String getName() {
@@ -350,6 +356,78 @@ public class ModelBean {
 	 */
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+
+	public String getSuccessProperty() {
+		return successProperty;
+	}
+
+	/**
+	 * If set add to reader
+	 *
+	 * <pre>
+	 * reader : {
+	 *   successProperty : 'success'
+	 * }
+	 * </pre>
+	 *
+	 * See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-successProperty"
+	 * >Ext.data.reader.Reader#successProperty</a>
+	 * <p>
+	 * If not present default value 'success' is used.
+	 */
+	public void setSuccessProperty(String successProperty) {
+		this.successProperty = successProperty;
+	}
+
+	public String getTotalProperty() {
+		return totalProperty;
+	}
+
+	/**
+	 * If set add to reader
+	 *
+	 * <pre>
+	 * reader : {
+	 *   totalProperty : 'total'
+	 * }
+	 * </pre>
+	 *
+	 * See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-totalProperty"
+	 * >Ext.data.reader.Reader#totalProperty</a>
+	 * <p>
+	 * If not present default value 'total' is used.
+	 */
+	public void setTotalProperty(String totalProperty) {
+		this.totalProperty = totalProperty;
+	}
+
+	public String getRootProperty() {
+		return rootProperty;
+	}
+
+	/**
+	 * If set a reader config with root : 'rootProperty' (Ext JS 4) or
+	 * rootProperty : 'rootProperty' (Sencha Touch 2 and Ext JS 5) will be added
+	 * to the model object.
+	 *
+	 * <pre>
+	 * reader : {
+	 *   rootProperty : 'rootProperty'
+	 * }
+	 * </pre>
+	 *
+	 * If {@link #paging()} and {@link #rootProperty()} are present
+	 * {@link #rootProperty()} has precedence.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-root"
+	 * >Ext.data.reader.Reader#root</a>
+	 */
+	public void setRootProperty(String rootProperty) {
+		this.rootProperty = rootProperty;
 	}
 
 }

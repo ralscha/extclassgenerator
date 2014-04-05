@@ -317,29 +317,15 @@ public abstract class ModelGenerator {
 			model.setPaging(modelAnnotation.paging());
 			model.setDisablePagingParameters(modelAnnotation.disablePagingParameters());
 
-			if (StringUtils.hasText(modelAnnotation.createMethod())) {
-				model.setCreateMethod(modelAnnotation.createMethod());
-			}
-
-			if (StringUtils.hasText(modelAnnotation.readMethod())) {
-				model.setReadMethod(modelAnnotation.readMethod());
-			}
-
-			if (StringUtils.hasText(modelAnnotation.updateMethod())) {
-				model.setUpdateMethod(modelAnnotation.updateMethod());
-			}
-
-			if (StringUtils.hasText(modelAnnotation.destroyMethod())) {
-				model.setDestroyMethod(modelAnnotation.destroyMethod());
-			}
-
-			if (StringUtils.hasText(modelAnnotation.messageProperty())) {
-				model.setMessageProperty(modelAnnotation.messageProperty());
-			}
-
-			if (StringUtils.hasText(modelAnnotation.writer())) {
-				model.setWriter(modelAnnotation.writer());
-			}
+			model.setCreateMethod(trimToNull(modelAnnotation.createMethod()));
+			model.setReadMethod(trimToNull(modelAnnotation.readMethod()));
+			model.setUpdateMethod(trimToNull(modelAnnotation.updateMethod()));
+			model.setDestroyMethod(trimToNull(modelAnnotation.destroyMethod()));
+			model.setMessageProperty(trimToNull(modelAnnotation.messageProperty()));
+			model.setWriter(trimToNull(modelAnnotation.writer()));
+			model.setSuccessProperty(trimToNull(modelAnnotation.successProperty()));
+			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
+			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
 		}
 
 		final Set<String> hasReadMethod = new HashSet<String>();
@@ -558,17 +544,13 @@ public abstract class ModelGenerator {
 			modelFieldBean.setUseNull(true);
 		}
 
-		if (StringUtils.hasText(modelFieldAnnotation.mapping())) {
-			modelFieldBean.setMapping(modelFieldAnnotation.mapping());
-		}
+		modelFieldBean.setMapping(trimToNull(modelFieldAnnotation.mapping()));
 
 		if (!modelFieldAnnotation.persist()) {
 			modelFieldBean.setPersist(modelFieldAnnotation.persist());
 		}
 
-		if (StringUtils.hasText(modelFieldAnnotation.convert())) {
-			modelFieldBean.setConvert(modelFieldAnnotation.convert());
-		}
+		modelFieldBean.setConvert(trimToNull(modelFieldAnnotation.convert()));
 	}
 
 	public static String generateJavascript(ModelBean model, OutputConfig config) {
@@ -584,6 +566,20 @@ public abstract class ModelGenerator {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+
+		if (!config.isSurroundApiWithQuotes()) {
+			if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
+			} else {
+				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesMixin.class);
+			}
+			mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
+		} else {
+			if (config.getOutputFormat() != OutputFormat.EXTJS5) {
+				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithApiQuotesMixin.class);
+			}
+		}
+
 		Map<String, Object> modelObject = new LinkedHashMap<String, Object>();
 		modelObject.put("extend", "Ext.data.Model");
 
@@ -616,19 +612,12 @@ public abstract class ModelGenerator {
 			configObject.put("validations", model.getValidations());
 		}
 
-		if (config.isSurroundApiWithQuotes()) {
-			ProxyObjectWithQuotes proxyObject = new ProxyObjectWithQuotes(model, config);
-			if (proxyObject.hasMethods()) {
-				configObject.put("proxy", proxyObject);
-			}
-		} else {
-			ProxyObjectWithoutQuotes proxyObject = new ProxyObjectWithoutQuotes(model, config);
-			if (proxyObject.hasMethods()) {
-				configObject.put("proxy", proxyObject);
-			}
+		ProxyObject proxyObject = new ProxyObject(model, config);
+		if (proxyObject.hasMethods()) {
+			configObject.put("proxy", proxyObject);
 		}
 
-		if (config.getOutputFormat() == OutputFormat.EXTJS4) {
+		if (config.getOutputFormat() == OutputFormat.EXTJS4 || config.getOutputFormat() == OutputFormat.EXTJS5) {
 			modelObject.putAll(configObject);
 		} else {
 			modelObject.put("config", configObject);
@@ -669,6 +658,14 @@ public abstract class ModelGenerator {
 			jsCache.put(new JsCacheKey(model, config), new SoftReference<String>(result));
 		}
 		return result;
+	}
+
+	private static String trimToNull(String str) {
+		String trimmedStr = StringUtils.trimWhitespace(str);
+		if (StringUtils.hasLength(trimmedStr)) {
+			return trimmedStr;
+		}
+		return null;
 	}
 
 	/**
