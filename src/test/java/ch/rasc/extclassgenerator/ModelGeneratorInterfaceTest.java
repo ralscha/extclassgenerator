@@ -35,7 +35,7 @@ public class ModelGeneratorInterfaceTest {
 		outputConfig.setDebug(false);
 		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
 
-		String prefix = "-windows"; //System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
 		GeneratorTestUtil.compareExtJs4Code("User" + prefix, code, false, false);
 	}
 
@@ -47,7 +47,7 @@ public class ModelGeneratorInterfaceTest {
 		outputConfig.setDebug(false);
 		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
 
-		String prefix = "-windows"; //System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
 		GeneratorTestUtil.compareExtJs5Code("User" + prefix, code, false, false);
 	}
 
@@ -59,7 +59,7 @@ public class ModelGeneratorInterfaceTest {
 		outputConfig.setDebug(false);
 		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
 
-		String prefix = "-windows"; //System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
+		String prefix = System.getProperty("os.name").toLowerCase().indexOf("win") >= 0 ? "-windows" : "";
 		GeneratorTestUtil.compareTouch2Code("User" + prefix, code, false, false);
 	}
 }
