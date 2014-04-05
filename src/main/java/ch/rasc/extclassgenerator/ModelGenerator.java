@@ -27,8 +27,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -344,12 +348,25 @@ public abstract class ModelGenerator {
 		}
 
 		if (clazz.isInterface()) {
+			final List<Method> methods = new ArrayList<Method>();
+			
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
-					createModelBean(model, method, outputConfig);
+					methods.add(method);
 				}
 			});
+			
+			Collections.sort(methods, new Comparator<Method>() {
+				@Override
+				public int compare(Method o1, Method o2) {
+					return o1.getName().compareTo(o2.getName());
+				}
+			});
+			
+			for (Method method : methods) {
+				createModelBean(model, method, outputConfig);
+			}
 		} else {
 
 			final Set<String> fields = new HashSet<String>();
