@@ -59,7 +59,7 @@ public class ModelGeneratorTest {
 		assertThat(getNameField).isEqualsToByComparingFields(nameField);
 
 		ModelGenerator.clearCaches();
-		nameField.setType(ModelType.INTEGER);
+		nameField.setModelType(ModelType.INTEGER);
 		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(

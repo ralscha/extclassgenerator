@@ -1,0 +1,22 @@
+Ext.define("Sch.BeanWithCustomType",
+{
+  extend : "Ext.data.Model",
+  config : {
+    fields : [ {
+      name : "id",
+      type : "string"
+    }, {
+      name : "age",
+      type : "int"
+    }, {
+      name : "city",
+      type : "city"
+    }, {
+      name : "email",
+      type : "email"
+    }, {
+      name : "creditcardnumber",
+      type : "creditcardnumber"
+    } ]
+  }
+});

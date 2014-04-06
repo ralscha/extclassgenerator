@@ -349,21 +349,21 @@ public abstract class ModelGenerator {
 
 		if (clazz.isInterface()) {
 			final List<Method> methods = new ArrayList<Method>();
-			
+
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
 					methods.add(method);
 				}
 			});
-			
+
 			Collections.sort(methods, new Comparator<Method>() {
 				@Override
 				public int compare(Method o1, Method o2) {
 					return o1.getName().compareTo(o2.getName());
 				}
 			});
-			
+
 			for (Method method : methods) {
 				createModelBean(model, method, outputConfig);
 			}
@@ -375,7 +375,14 @@ public abstract class ModelGenerator {
 					ModelField.class);
 			for (ModelField modelField : modelFieldsOnType) {
 				if (StringUtils.hasText(modelField.value())) {
-					ModelFieldBean modelFieldBean = new ModelFieldBean(modelField.value(), modelField.type());
+					ModelFieldBean modelFieldBean;
+
+					if (StringUtils.hasText(modelField.customType())) {
+						modelFieldBean = new ModelFieldBean(modelField.value(), modelField.customType());
+					} else {
+						modelFieldBean = new ModelFieldBean(modelField.value(), modelField.type());
+					}
+
 					updateModelFieldBean(modelFieldBean, modelField);
 					model.addField(modelFieldBean);
 				}
@@ -473,14 +480,20 @@ public abstract class ModelGenerator {
 				name = modelFieldAnnotation.value();
 			}
 
-			ModelType type = null;
-			if (modelFieldAnnotation.type() != ModelType.AUTO) {
-				type = modelFieldAnnotation.type();
+			if (StringUtils.hasText(modelFieldAnnotation.customType())) {
+				modelFieldBean = new ModelFieldBean(name, modelFieldAnnotation.customType());
 			} else {
-				type = modelType;
+				ModelType type = null;
+				if (modelFieldAnnotation.type() != ModelType.AUTO) {
+					type = modelFieldAnnotation.type();
+				} else {
+					type = modelType;
+				}
+				
+				modelFieldBean = new ModelFieldBean(name, type);
 			}
-
-			modelFieldBean = new ModelFieldBean(name, type);
+			
+			
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
 
 			model.addField(modelFieldBean);
@@ -533,7 +546,7 @@ public abstract class ModelGenerator {
 
 	private static void updateModelFieldBean(ModelFieldBean modelFieldBean, ModelField modelFieldAnnotation) {
 
-		ModelType type = modelFieldBean.getType();
+		ModelType type = modelFieldBean.getModelType();
 
 		if (StringUtils.hasText(modelFieldAnnotation.dateFormat()) && type == ModelType.DATE) {
 			modelFieldBean.setDateFormat(modelFieldAnnotation.dateFormat());

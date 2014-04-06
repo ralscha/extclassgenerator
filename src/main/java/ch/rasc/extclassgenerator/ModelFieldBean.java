@@ -15,16 +15,11 @@
  */
 package ch.rasc.extclassgenerator;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * Represents one field in a {@link ModelBean}
@@ -34,7 +29,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public class ModelFieldBean {
 	private String name;
 
-	private ModelType type;
+	@JsonIgnore
+	private ModelType modelType;
+
+	private String type;
 
 	@JsonRawValue
 	private Object defaultValue;
@@ -60,12 +58,24 @@ public class ModelFieldBean {
 	public ModelFieldBean(String name, ModelType type) {
 		this.name = name;
 
-		if (type != null) {
-			this.type = type;
+		if (type != null) {			
+			setModelType(type);
 		} else {
-			this.type = ModelType.AUTO;
+			setModelType(ModelType.AUTO);
 		}
 	}
+	
+	/**
+	 * Creates a new ModelFieldBean with name and type
+	 *
+	 * @param name name of the field
+	 * @param type type of the field
+	 */
+	public ModelFieldBean(String name, String type) {
+		this.name = name;
+		this.modelType = null;
+		this.type = type;
+	}	
 
 	public String getName() {
 		return name;
@@ -82,8 +92,11 @@ public class ModelFieldBean {
 		this.name = name;
 	}
 
-	@JsonSerialize(using = ModelTypeSerializer.class)
-	public ModelType getType() {
+	public ModelType getModelType() {
+		return modelType;
+	}
+
+	public String getType() {
 		return type;
 	}
 
@@ -94,7 +107,12 @@ public class ModelFieldBean {
 	 *
 	 * @param type new type for the field
 	 */
-	public void setType(ModelType type) {
+	public void setModelType(ModelType type) {
+		this.modelType = type;
+		this.type = type.getJsName();
+	}
+
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -208,14 +226,6 @@ public class ModelFieldBean {
 	 */
 	public void setConvert(String convert) {
 		this.convert = convert;
-	}
-
-	private final static class ModelTypeSerializer extends JsonSerializer<ModelType> {
-		@Override
-		public void serialize(ModelType value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-			jgen.writeString(value.getJsName());
-
-		}
 	}
 
 }
