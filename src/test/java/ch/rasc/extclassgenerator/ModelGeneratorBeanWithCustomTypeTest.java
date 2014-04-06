@@ -20,7 +20,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.rasc.extclassgenerator.bean.BeanWithAnnotations3;
 import ch.rasc.extclassgenerator.bean.BeanWithCustomType;
 
 public class ModelGeneratorBeanWithCustomTypeTest {
