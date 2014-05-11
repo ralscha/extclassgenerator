@@ -48,8 +48,8 @@
 	</scm>
 
 	<properties>
-		<spring.version>4.0.3.RELEASE</spring.version>
-		<jackson.version>2.3.2</jackson.version>
+		<spring.version>4.0.4.RELEASE</spring.version>
+		<jackson.version>2.4.0-rc3</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -132,7 +132,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.0.2.Final</version>
+			<version>5.1.1.Final</version>
 			<scope>test</scope>
 		</dependency>
 
