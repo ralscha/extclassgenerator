@@ -58,13 +58,13 @@ public class ModelFieldBean {
 	public ModelFieldBean(String name, ModelType type) {
 		this.name = name;
 
-		if (type != null) {			
+		if (type != null) {
 			setModelType(type);
 		} else {
 			setModelType(ModelType.AUTO);
 		}
 	}
-	
+
 	/**
 	 * Creates a new ModelFieldBean with name and type
 	 *
@@ -75,15 +75,14 @@ public class ModelFieldBean {
 		this.name = name;
 		this.modelType = null;
 		this.type = type;
-	}	
+	}
 
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Name of the field. Property '<a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-name"
+	 * Name of the field. Property '<a href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-name"
 	 * >name</a>' in JS.
 	 *
 	 * @param name new name for the field
@@ -101,8 +100,7 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * Type of the field. Property '<a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-type"
+	 * Type of the field. Property '<a href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-type"
 	 * >type</a>' in JS.
 	 *
 	 * @param type new type for the field
@@ -121,8 +119,7 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * The default value. Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-defaultValue"
+	 * The default value. Property '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-defaultValue"
 	 * >defaultValue</a>' in JS.
 	 *
 	 * @param defaultValue new defaultValue
@@ -137,8 +134,7 @@ public class ModelFieldBean {
 
 	/**
 	 * Specifies format of date. Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-dateFormat"
-	 * >dateFormat</a>' in JS.<br>
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-dateFormat" >dateFormat</a>' in JS.<br>
 	 * For a list of all supported formats see Sencha Doc: <a
 	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.Date">Ext.Date</a>
 	 * <p>
@@ -155,15 +151,11 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * If true null value is used if value cannot be parsed. If false default
-	 * values are used (0 for integer and float, "" for string and false for
-	 * boolean).<br>
-	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-useNull"
-	 * >useNull</a>' in JS.<br>
+	 * If true null value is used if value cannot be parsed. If false default values are used (0 for integer and float,
+	 * "" for string and false for boolean).<br>
+	 * Property '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-useNull" >useNull</a>' in JS.<br>
 	 * <p>
-	 * Only used if type of field is {@link ModelType#INTEGER},
-	 * {@link ModelType#FLOAT}, {@link ModelType#STRING} or
+	 * Only used if type of field is {@link ModelType#INTEGER}, {@link ModelType#FLOAT}, {@link ModelType#STRING} or
 	 * {@link ModelType#BOOLEAN}.
 	 *
 	 * @param useNull new value for useNull
@@ -177,11 +169,8 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * Typical use for a virtual field to extract field data from the model
-	 * object <br>
-	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-mapping"
-	 * >mapping</a>' in JS.<br>
+	 * Typical use for a virtual field to extract field data from the model object <br>
+	 * Property '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-mapping" >mapping</a>' in JS.<br>
 	 * <p>
 	 *
 	 * @param mapping A path expression
@@ -195,12 +184,9 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * Prevent the value of this field to be serialized or written with
-	 * Ext.data.writer.Writer <br>
+	 * Prevent the value of this field to be serialized or written with Ext.data.writer.Writer <br>
 	 * Typical use for a virtual field <br>
-	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-persist"
-	 * >persist</a>' in JS.<br>
+	 * Property '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-persist" >persist</a>' in JS.<br>
 	 * <p>
 	 *
 	 * @param persist defaults to true, only a false value will be generated
@@ -216,13 +202,10 @@ public class ModelFieldBean {
 	/**
 	 * function which coerces string values in raw data into the field's type <br>
 	 * Typical use for a virtual field <br>
-	 * http://localhost/ext4.1/docs/index.html#!/api/Ext.data.Field-cfg-convert
-	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" >
-	 * Ext.data.Field.convert</a>' in JS.<br>
+	 * http://localhost/ext4.1/docs/index.html#!/api/Ext.data.Field-cfg-convert Property '<a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" > Ext.data.Field.convert</a>' in JS.<br>
 	 *
-	 * @param convert A function. JavaScript Syntax example: function(v, record)
-	 *            { return ... ; }
+	 * @param convert A function. JavaScript Syntax example: function(v, record) { return ... ; }
 	 */
 	public void setConvert(String convert) {
 		this.convert = convert;

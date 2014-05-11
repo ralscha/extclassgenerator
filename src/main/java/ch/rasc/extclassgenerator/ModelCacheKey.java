@@ -29,8 +29,8 @@ final class ModelCacheKey {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((className == null) ? 0 : className.hashCode());
-		result = prime * result + ((includeValidation == null) ? 0 : includeValidation.hashCode());
+		result = prime * result + (className == null ? 0 : className.hashCode());
+		result = prime * result + (includeValidation == null ? 0 : includeValidation.hashCode());
 		return result;
 	}
 

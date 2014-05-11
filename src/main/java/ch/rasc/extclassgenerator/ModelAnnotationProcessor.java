@@ -194,7 +194,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 		String configObjectString;
 		try {
-			
+
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
 
@@ -210,7 +210,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 					mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithApiQuotesMixin.class);
 				}
 			}
-			
+
 			if (outputConfig.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(modelObject);
 			} else {

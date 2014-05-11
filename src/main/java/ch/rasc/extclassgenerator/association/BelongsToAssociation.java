@@ -31,8 +31,7 @@ public class BelongsToAssociation extends AbstractAssociation {
 	private String getterName;
 
 	/**
-	 * Creates an instance of a belongsTo association. Sets {@link #model} to
-	 * the provided parameters.
+	 * Creates an instance of a belongsTo association. Sets {@link #model} to the provided parameters.
 	 *
 	 * @param model The name of the model that is being associated with.
 	 */
@@ -41,9 +40,8 @@ public class BelongsToAssociation extends AbstractAssociation {
 	}
 
 	/**
-	 * Creates an instance of a belongsTo association. Sets {@link #model} to
-	 * the full qualified name of the model class or the string from
-	 * {@link Model#value()} if present on the class.
+	 * Creates an instance of a belongsTo association. Sets {@link #model} to the full qualified name of the model class
+	 * or the string from {@link Model#value()} if present on the class.
 	 *
 	 * @param model The class of the model that is being associated with.
 	 */
@@ -56,13 +54,12 @@ public class BelongsToAssociation extends AbstractAssociation {
 	}
 
 	/**
-	 * The name of the setter function that will be added to the local model's
-	 * prototype. Defaults to 'set' + the name of the foreign model, e.g.
-	 * setCategory.
+	 * The name of the setter function that will be added to the local model's prototype. Defaults to 'set' + the name
+	 * of the foreign model, e.g. setCategory.
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-setterName"
-	 * >setterName</a> config property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-setterName" >setterName</a> config
+	 * property.
 	 *
 	 * @param setterName the new name for the setter function
 	 */
@@ -75,13 +72,12 @@ public class BelongsToAssociation extends AbstractAssociation {
 	}
 
 	/**
-	 * The name of the getter function that will be added to the local model's
-	 * prototype. Defaults to 'get' + the name of the foreign model, e.g.
-	 * getCategory.
+	 * The name of the getter function that will be added to the local model's prototype. Defaults to 'get' + the name
+	 * of the foreign model, e.g. getCategory.
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-getterName"
-	 * >getterName</a> config property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.BelongsTo-cfg-getterName" >getterName</a> config
+	 * property.
 	 *
 	 * @param getterName the new name for the getter function
 	 */

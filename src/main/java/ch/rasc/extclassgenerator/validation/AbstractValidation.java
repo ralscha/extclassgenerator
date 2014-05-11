@@ -59,10 +59,10 @@ public abstract class AbstractValidation {
 		if (includeValidation == IncludeValidation.BUILTIN || includeValidation == IncludeValidation.ALL) {
 
 			if (annotationClassName.equals("javax.validation.constraints.NotNull")
-					|| (annotationClassName.equals("org.hibernate.validator.constraints.NotEmpty"))) {
+					|| annotationClassName.equals("org.hibernate.validator.constraints.NotEmpty")) {
 				model.addValidation(new PresenceValidation(modelFieldBean.getName()));
 			} else if (annotationClassName.equals("javax.validation.constraints.Size")
-					|| (annotationClassName.equals("org.hibernate.validator.constraints.Length"))) {
+					|| annotationClassName.equals("org.hibernate.validator.constraints.Length")) {
 
 				Integer min = (Integer) AnnotationUtils.getValue(fieldAnnotation, "min");
 				Integer max = (Integer) AnnotationUtils.getValue(fieldAnnotation, "max");
@@ -119,8 +119,9 @@ public abstract class AbstractValidation {
 
 		ModelValidationType validationType = modelValidationAnnotation.value();
 
-		if ((includeValidation == IncludeValidation.ALL || (includeValidation == IncludeValidation.BUILTIN && validationType
-				.isBuiltin())) && validationType.isValid(modelValidationAnnotation)) {
+		if ((includeValidation == IncludeValidation.ALL || includeValidation == IncludeValidation.BUILTIN
+				&& validationType.isBuiltin())
+				&& validationType.isValid(modelValidationAnnotation)) {
 			switch (validationType) {
 			case GENERIC:
 				String type = getParameterValue(modelValidationAnnotation.parameters(), "type");
@@ -170,8 +171,7 @@ public abstract class AbstractValidation {
 				minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
 				maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
 
-				if ((minValue != null && minValue.indexOf(".") != -1)
-						|| (maxValue != null && maxValue.indexOf(".") != -1)) {
+				if (minValue != null && minValue.indexOf(".") != -1 || maxValue != null && maxValue.indexOf(".") != -1) {
 					BigDecimal minBD = null;
 					BigDecimal maxBD = null;
 

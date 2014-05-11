@@ -88,7 +88,6 @@ public class BeanWithCustomType {
 		field = new ModelFieldBean("age", ModelType.INTEGER);
 		expectedFields.add(field);
 
-		
 		field = new ModelFieldBean("city", "city");
 		expectedFields.add(field);
 

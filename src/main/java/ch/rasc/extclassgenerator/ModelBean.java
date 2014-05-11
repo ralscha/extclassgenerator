@@ -28,8 +28,7 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
 /**
  * Represents a model. This object can be used to create JS code with
  * {@link ModelGenerator#writeModel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, ModelBean, OutputFormat, boolean)}
- * or
- * {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
+ * or {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
 public class ModelBean {
 	private String name;
@@ -69,8 +68,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * "Classname" of the model. See <a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model"
+	 * "Classname" of the model. See <a href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model"
 	 * >Ext.data.Model</a>.
 	 *
 	 * @param name new name for the model object
@@ -84,8 +82,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Name of the id property. See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model-cfg-idProperty"
+	 * Name of the id property. See <a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model-cfg-idProperty"
 	 * >Ext.data.Model#idProperty</a>.
 	 *
 	 * @param idProperty new value for the idProperty config option
@@ -149,8 +146,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Looks for the {@link ModelFieldBean} with the provided name and returns
-	 * it.
+	 * Looks for the {@link ModelFieldBean} with the provided name and returns it.
 	 *
 	 * @param fieldName name of a field
 	 * @return a {@link ModelFieldBean} or null if not found
@@ -160,8 +156,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of {@link ModelFieldBean} to the internal collection of
-	 * fields
+	 * Adds one instance of {@link ModelFieldBean} to the internal collection of fields
 	 *
 	 * @param bean instance of {@link ModelFieldBean}
 	 */
@@ -172,8 +167,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of one of the subclasses of {@link AbstractValidation}
-	 * to the internal collection of validations
+	 * Adds one instance of one of the subclasses of {@link AbstractValidation} to the internal collection of
+	 * validations
 	 *
 	 * @param bean instance of subclass of {@link AbstractValidation}
 	 */
@@ -184,8 +179,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of {@link AbstractAssociation} to the internal
-	 * collection of associations
+	 * Adds one instance of {@link AbstractAssociation} to the internal collection of associations
 	 *
 	 * @param bean instance of {@link AbstractAssociation}
 	 */
@@ -200,9 +194,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * If true a reader config with root : 'records' will be added to the model
-	 * object. This configuration is needed it the STORE_READ method return an
-	 * instance of {@link ExtDirectStoreResult}
+	 * If true a reader config with root : 'records' will be added to the model object. This configuration is needed it
+	 * the STORE_READ method return an instance of {@link ExtDirectStoreResult}
 	 *
 	 * <pre>
 	 * reader : {
@@ -221,9 +214,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * If set to true the pageParam, startParam and limitParam option of the
-	 * proxy will be set to undefined. This prevents the proxy of sending the
-	 * page, start and limit parameter to the server.
+	 * If set to true the pageParam, startParam and limitParam option of the proxy will be set to undefined. This
+	 * prevents the proxy of sending the page, start and limit parameter to the server.
 	 *
 	 * <pre>
 	 *   proxy: {
@@ -245,15 +237,11 @@ public class ModelBean {
 	}
 
 	/**
-	 * Specifies the read method. This is a ExtDirect reference in the form
-	 * action.methodName. See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
-	 * >Ext.data.proxy.Direct#api</a>.
+	 * Specifies the read method. This is a ExtDirect reference in the form action.methodName. See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api" >Ext.data.proxy.Direct#api</a>.
 	 * <p>
-	 * If only the readMethod is specified generator will write property <a
-	 * href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-directFn"
-	 * >directFn</a> instead.
+	 * If only the readMethod is specified generator will write property <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-directFn" >directFn</a> instead.
 	 *
 	 * @param readMethod new value for read method
 	 */
@@ -266,10 +254,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Specifies the create method. This is a ExtDirect reference in the form
-	 * action.methodName. See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
-	 * >Ext.data.proxy.Direct#api</a>.
+	 * Specifies the create method. This is a ExtDirect reference in the form action.methodName. See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api" >Ext.data.proxy.Direct#api</a>.
 	 *
 	 * @param createMethod new value for create method
 	 */
@@ -282,10 +268,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Specifies the update method. This is a ExtDirect reference in the form
-	 * action.methodName. See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
-	 * >Ext.data.proxy.Direct#api</a>.
+	 * Specifies the update method. This is a ExtDirect reference in the form action.methodName. See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api" >Ext.data.proxy.Direct#api</a>.
 	 *
 	 * @param updateMethod new value for update method
 	 */
@@ -298,10 +282,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Specifies the destroy method. This is a ExtDirect reference in the form
-	 * action.methodName. See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
-	 * >Ext.data.proxy.Direct#api</a>.
+	 * Specifies the destroy method. This is a ExtDirect reference in the form action.methodName. See <a href=
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api" >Ext.data.proxy.Direct#api</a>.
 	 *
 	 * @param destroyMethod new value for destroy method
 	 */
@@ -349,8 +331,7 @@ public class ModelBean {
 	 *   }
 	 * </pre>
 	 *
-	 * See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Proxy-cfg-writer"
+	 * See <a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Proxy-cfg-writer"
 	 * >Ext.data.proxy.Proxy#writer</a>
 	 *
 	 */
@@ -371,8 +352,7 @@ public class ModelBean {
 	 * }
 	 * </pre>
 	 *
-	 * See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-successProperty"
+	 * See <a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-successProperty"
 	 * >Ext.data.reader.Reader#successProperty</a>
 	 * <p>
 	 * If not present default value 'success' is used.
@@ -394,8 +374,7 @@ public class ModelBean {
 	 * }
 	 * </pre>
 	 *
-	 * See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-totalProperty"
+	 * See <a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-totalProperty"
 	 * >Ext.data.reader.Reader#totalProperty</a>
 	 * <p>
 	 * If not present default value 'total' is used.
@@ -409,9 +388,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * If set a reader config with root : 'rootProperty' (Ext JS 4) or
-	 * rootProperty : 'rootProperty' (Sencha Touch 2 and Ext JS 5) will be added
-	 * to the model object.
+	 * If set a reader config with root : 'rootProperty' (Ext JS 4) or rootProperty : 'rootProperty' (Sencha Touch 2 and
+	 * Ext JS 5) will be added to the model object.
 	 *
 	 * <pre>
 	 * reader : {
@@ -419,11 +397,9 @@ public class ModelBean {
 	 * }
 	 * </pre>
 	 *
-	 * If {@link #paging()} and {@link #rootProperty()} are present
-	 * {@link #rootProperty()} has precedence.
+	 * If {@link #paging()} and {@link #rootProperty()} are present {@link #rootProperty()} has precedence.
 	 * <p>
-	 * See <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-root"
+	 * See <a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.reader.Reader-cfg-root"
 	 * >Ext.data.reader.Reader#root</a>
 	 */
 	public void setRootProperty(String rootProperty) {

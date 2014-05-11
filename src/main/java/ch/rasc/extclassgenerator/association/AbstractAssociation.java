@@ -46,8 +46,8 @@ public abstract class AbstractAssociation {
 	private String instanceName;
 
 	/**
-	 * Creates an instance of the AbstractAssociation. Sets {@link #getType()}
-	 * and {@link #getModel()} to the provided parameters.
+	 * Creates an instance of the AbstractAssociation. Sets {@link #getType()} and {@link #getModel()} to the provided
+	 * parameters.
 	 *
 	 * @param type The type of the association.
 	 * @param model The name of the model that is being associated with.
@@ -62,8 +62,7 @@ public abstract class AbstractAssociation {
 	}
 
 	/**
-	 * The name of the property in the data to read the association from.
-	 * Defaults to the name of the associated model.
+	 * The name of the property in the data to read the association from. Defaults to the name of the associated model.
 	 * <p>
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-associationKey"
@@ -80,13 +79,12 @@ public abstract class AbstractAssociation {
 	}
 
 	/**
-	 * The name of the foreign key on the associated model that links it to the
-	 * owner model. Defaults to the lowercase name of the owner model + "_id"
-	 * (HAS_MANY) or to the field name (BELONGS_TO, HAS_ONE) + "_id".
+	 * The name of the foreign key on the associated model that links it to the owner model. Defaults to the lowercase
+	 * name of the owner model + "_id" (HAS_MANY) or to the field name (BELONGS_TO, HAS_ONE) + "_id".
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-foreignKey"
-	 * >foreignKey</a> config property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-foreignKey" >foreignKey</a> config
+	 * property.
 	 *
 	 * @param foreignKey the new name for the foreignKey
 	 */
@@ -103,8 +101,8 @@ public abstract class AbstractAssociation {
 	 * In general this will be the value of {@link Model#idProperty()}.
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-primaryKey"
-	 * >primaryKey</a> config property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-primaryKey" >primaryKey</a> config
+	 * property.
 	 *
 	 * @param primaryKey the new name for the primaryKey
 	 */

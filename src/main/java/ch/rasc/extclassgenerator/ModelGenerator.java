@@ -60,8 +60,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Generator for creating ExtJS and Touch Model objects (JS code) based on a
- * provided class or {@link ModelBean}.
+ * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided class or {@link ModelBean}.
  */
 public abstract class ModelGenerator {
 
@@ -72,19 +71,16 @@ public abstract class ModelGenerator {
 	private static final Map<ModelCacheKey, SoftReference<ModelBean>> modelCache = new ConcurrentHashMap<ModelCacheKey, SoftReference<ModelBean>>();
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and
-	 * writes it into the response. Creates compressed JS code. Method ignores
-	 * any validation annotations.
+	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response. Creates
+	 * compressed JS code. Method ignores any validation annotations.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create.
+	 * @param format specifies which code (ExtJS or Touch) the generator should create.
 	 * @throws IOException
 	 *
-	 * @see #writeModel(HttpServletRequest, HttpServletResponse, Class,
-	 *      OutputFormat, boolean)
+	 * @see #writeModel(HttpServletRequest, HttpServletResponse, Class, OutputFormat, boolean)
 	 */
 	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
 			OutputFormat format) throws IOException {
@@ -92,16 +88,14 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and
-	 * writes it into the response. Method ignores any validation annotations.
+	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response. Method ignores
+	 * any validation annotations.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @throws IOException
 	 */
 	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
@@ -110,18 +104,14 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and
-	 * writes it into the response.
+	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create
-	 * @param includeValidation specifies if any validation configurations
-	 *            should be added to the model code
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create
+	 * @param includeValidation specifies if any validation configurations should be added to the model code
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @throws IOException
 	 */
 	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
@@ -137,14 +127,13 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Creates a model object (JS code) based on the provided {@link ModelBean}
-	 * and writes it into the response. Creates compressed JS code.
+	 * Creates a model object (JS code) based on the provided {@link ModelBean} and writes it into the response. Creates
+	 * compressed JS code.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create.
+	 * @param format specifies which code (ExtJS or Touch) the generator should create.
 	 * @throws IOException
 	 */
 	public static void writeModel(HttpServletRequest request, HttpServletResponse response, ModelBean model,
@@ -153,16 +142,13 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Creates a model object (JS code) based on the provided ModelBean and
-	 * writes it into the response.
+	 * Creates a model object (JS code) based on the provided ModelBean and writes it into the response.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create.
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create.
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @throws IOException
 	 */
 	public static void writeModel(HttpServletRequest request, HttpServletResponse response, ModelBean model,
@@ -174,34 +160,29 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class and creates a {@link ModelBean} instance.
-	 * A program could customize this and call
+	 * Instrospects the provided class and creates a {@link ModelBean} instance. A program could customize this and call
 	 * {@link #generateJavascript(ModelBean, OutputFormat, boolean)} or
-	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
-	 * to create the JS code. Calling this method does not add any validation
-	 * configuration.
+	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)} to create the JS code.
+	 * Calling this method does not add any validation configuration.
 	 *
 	 * @param clazz the model will be created based on this class.
-	 * @return a instance of {@link ModelBean} that describes the provided class
-	 *         and can be used for Javascript generation.
+	 * @return a instance of {@link ModelBean} that describes the provided class and can be used for Javascript
+	 *         generation.
 	 */
 	public static ModelBean createModel(Class<?> clazz) {
 		return createModel(clazz, IncludeValidation.NONE);
 	}
 
 	/**
-	 * Instrospects the provided class and creates a {@link ModelBean} instance.
-	 * A program could customize this and call
+	 * Instrospects the provided class and creates a {@link ModelBean} instance. A program could customize this and call
 	 * {@link #generateJavascript(ModelBean, OutputFormat, boolean)} or
-	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
-	 * to create the JS code. Models are being cached. A second call with the
-	 * same parameters will return the model from the cache.
+	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)} to create the JS code.
+	 * Models are being cached. A second call with the same parameters will return the model from the cache.
 	 *
 	 * @param clazz the model will be created based on this class.
-	 * @param includeValidation specifies what validation configuration should
-	 *            be added
-	 * @return a instance of {@link ModelBean} that describes the provided class
-	 *         and can be used for Javascript generation.
+	 * @param includeValidation specifies what validation configuration should be added
+	 * @return a instance of {@link ModelBean} that describes the provided class and can be used for Javascript
+	 *         generation.
 	 */
 	public static ModelBean createModel(Class<?> clazz, IncludeValidation includeValidation) {
 		OutputConfig outputConfig = new OutputConfig();
@@ -210,14 +191,12 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and
-	 * returns it. This method does not add any validation configuration.
+	 * Instrospects the provided class, creates a model object (JS code) and returns it. This method does not add any
+	 * validation configuration.
 	 *
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
 	public static String generateJavascript(Class<?> clazz, OutputFormat format, boolean debug) {
@@ -231,16 +210,12 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and
-	 * returns it.
+	 * Instrospects the provided class, creates a model object (JS code) and returns it.
 	 *
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create
-	 * @param includeValidation specifies what validation configuration should
-	 *            be added to the mode code
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create
+	 * @param includeValidation specifies what validation configuration should be added to the mode code
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
 	public static String generateJavascript(Class<?> clazz, OutputFormat format, IncludeValidation includeValidation,
@@ -250,17 +225,13 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Creates JS code based on the provided {@link ModelBean} in the specified
-	 * {@link OutputFormat}. Code can be generated in pretty or compressed
-	 * format. The generated code is cached unless debug is true. A second call
-	 * to this method with the same model name and format will return the code
-	 * from the cache.
+	 * Creates JS code based on the provided {@link ModelBean} in the specified {@link OutputFormat}. Code can be
+	 * generated in pretty or compressed format. The generated code is cached unless debug is true. A second call to
+	 * this method with the same model name and format will return the code from the cache.
 	 *
 	 * @param model generate code based on this {@link ModelBean}
-	 * @param format specifies which code (ExtJS or Touch) the generator should
-	 *            create
-	 * @param debug if true the generator creates the output in pretty format,
-	 *            false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should create
+	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
 	public static String generateJavascript(ModelBean model, OutputFormat format, boolean debug) {
@@ -415,9 +386,9 @@ public abstract class ModelGenerator {
 				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
 					if (!fields.contains(field.getName())
 							&& (field.getAnnotation(ModelField.class) != null
-									|| field.getAnnotation(ModelAssociation.class) != null || ((Modifier.isPublic(field
-									.getModifiers()) || hasReadMethod.contains(field.getName())) && field
-									.getAnnotation(JsonIgnore.class) == null))) {
+									|| field.getAnnotation(ModelAssociation.class) != null || (Modifier.isPublic(field
+									.getModifiers()) || hasReadMethod.contains(field.getName()))
+									&& field.getAnnotation(JsonIgnore.class) == null)) {
 
 						// ignore superclass declarations of fields already
 						// found in a subclass
@@ -489,11 +460,10 @@ public abstract class ModelGenerator {
 				} else {
 					type = modelType;
 				}
-				
+
 				modelFieldBean = new ModelFieldBean(name, type);
 			}
-			
-			
+
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
 
 			model.addField(modelFieldBean);
