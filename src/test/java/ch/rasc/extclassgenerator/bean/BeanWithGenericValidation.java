@@ -28,16 +28,46 @@ import ch.rasc.extclassgenerator.ModelValidations;
 @ModelValidations({ @ModelValidation(propertyName = "singleton", value = ModelValidationType.PRESENCE) })
 public class BeanWithGenericValidation {
 
-
-	@ModelValidation(value = ModelValidationType.GENERIC, parameters={@ModelValidationParameter(name="type", value= "notUnique"), @ModelValidationParameter(name="update", value= "true")})
+	@ModelValidation(value = ModelValidationType.GENERIC, parameters = {
+			@ModelValidationParameter(name = "type", value = "notUnique"),
+			@ModelValidationParameter(name = "update", value = "true") })
 	public String singleton;
 
+	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = { "_" })
+	public String excluded;
+
+	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = { "_", "*" })
+	public String excluded2;
+
+	@ModelValidation(value = ModelValidationType.INCLUSION, exclusionOrInclusionList = { "fish", "fruit" })
+	public String included;
+
+	@ModelValidation(value = ModelValidationType.EXCLUSION, parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]"))
+	public String excludedV1;
+
+	@ModelValidation(value = ModelValidationType.INCLUSION, parameters = @ModelValidationParameter(name = "list", value = "[\"fish\",\"fruit\"]"))
+	public String includedV1;
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("singleton", ModelType.STRING);
 		expectedFields.add(field);
-		
+
+		field = new ModelFieldBean("excluded", ModelType.STRING);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("excluded2", ModelType.STRING);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("included", ModelType.STRING);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("excludedV1", ModelType.STRING);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("includedV1", ModelType.STRING);
+		expectedFields.add(field);
+
 	}
 }

@@ -5,6 +5,21 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation",
     fields : [ {
       name : "singleton",
       type : "string"
+    }, {
+      name : "excluded",
+      type : "string"
+    }, {
+      name : "excluded2",
+      type : "string"
+    }, {
+      name : "included",
+      type : "string"
+    }, {
+      name : "excludedV1",
+      type : "string"
+    }, {
+      name : "includedV1",
+      type : "string"
     } ],
     validations : [ {
       type : "presence",
@@ -13,6 +28,26 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation",
       type : "notUnique",
       field : "singleton",
       update : "true"
+    }, {
+      type : "exclusion",
+      field : "excluded",
+      list : [ "_" ]
+    }, {
+      type : "exclusion",
+      field : "excluded2",
+      list : [ "_", "*" ]
+    }, {
+      type : "inclusion",
+      field : "included",
+      list : [ "fish", "fruit" ]
+    }, {
+      type : "exclusion",
+      field : "excludedV1",
+      list : ["_"]
+    }, {
+      type : "inclusion",
+      field : "includedV1",
+      list : ["fish","fruit"]
     } ]
   }
 });
