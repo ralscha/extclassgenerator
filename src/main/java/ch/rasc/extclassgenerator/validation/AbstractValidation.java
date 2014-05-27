@@ -127,7 +127,8 @@ public abstract class AbstractValidation {
 				String type = getParameterValue(modelValidationAnnotation.parameters(), "type");
 				Map<String, Object> options = new LinkedHashMap<String, Object>();
 				for (ModelValidationParameter parameter : modelValidationAnnotation.parameters()) {
-					options.put(parameter.name(), parameter.value());
+					if(!parameter.name().equals("type"))
+						options.put(parameter.name(), parameter.value());
 				}
 				return new GenericValidation(type, propertyName, options);
 			case CREDITCARDNUMBER:

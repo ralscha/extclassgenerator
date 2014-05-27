@@ -1,0 +1,16 @@
+Ext.define("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation",
+{
+  extend : "Ext.data.Model",
+  fields : [ {
+    name : "singleton",
+    type : "string"
+  } ],
+  validations : [ {
+    type : "presence",
+    field : "singleton"
+  }, {
+    type : "notUnique",
+    field : "singleton",
+    update : "true"
+  } ]
+});
