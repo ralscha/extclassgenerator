@@ -25,7 +25,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import ch.rasc.extclassgenerator.bean.BeanWithGenericValidation;
+import ch.rasc.extclassgenerator.validation.ExclusionValidation;
+import ch.rasc.extclassgenerator.validation.ExclusionValidationArray;
 import ch.rasc.extclassgenerator.validation.GenericValidation;
+import ch.rasc.extclassgenerator.validation.InclusionValidation;
+import ch.rasc.extclassgenerator.validation.InclusionValidationArray;
 import ch.rasc.extclassgenerator.validation.LengthValidation;
 import ch.rasc.extclassgenerator.validation.PresenceValidation;
 import ch.rasc.extclassgenerator.validation.RangeValidation;
@@ -115,15 +119,15 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 		assertThat(modelBean.getIdProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
 		assertThat(modelBean.getName()).isEqualTo("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation");
-		assertThat(modelBean.getFields()).hasSize(1);
-		assertThat(BeanWithGenericValidation.expectedFields).hasSize(1);
+		assertThat(modelBean.getFields()).hasSize(6);
+		assertThat(BeanWithGenericValidation.expectedFields).hasSize(6);
 
 		for (ModelFieldBean expectedField : BeanWithGenericValidation.expectedFields) {
 			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 
-		assertThat(modelBean.getValidations()).hasSize(2);
+		assertThat(modelBean.getValidations()).hasSize(7);
 
 		assertThat(modelBean.getValidations().get(0)).isInstanceOf(PresenceValidation.class);
 		PresenceValidation presenceValidation = (PresenceValidation) modelBean.getValidations().get(0);
@@ -134,6 +138,32 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 		assertThat(genericValidation.getType()).isEqualTo("notUnique");
 		assertThat(genericValidation.getField()).isEqualTo("singleton");
 
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(GenericValidation.class);
+		ExclusionValidationArray exclusionValidationArray = (ExclusionValidationArray) modelBean.getValidations()
+				.get(2);
+		assertThat(exclusionValidationArray.getType()).isEqualTo("exclusion");
+		assertThat(exclusionValidationArray.getField()).isEqualTo("excluded");
+
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(GenericValidation.class);
+		exclusionValidationArray = (ExclusionValidationArray) modelBean.getValidations().get(3);
+		assertThat(exclusionValidationArray.getType()).isEqualTo("exclusion");
+		assertThat(exclusionValidationArray.getField()).isEqualTo("excluded2");
+
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(GenericValidation.class);
+		InclusionValidationArray inclusionValidationArray = (InclusionValidationArray) modelBean.getValidations()
+				.get(4);
+		assertThat(inclusionValidationArray.getType()).isEqualTo("inclusion");
+		assertThat(inclusionValidationArray.getField()).isEqualTo("included");
+
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(GenericValidation.class);
+		ExclusionValidation exclusionValidation = (ExclusionValidation) modelBean.getValidations().get(5);
+		assertThat(exclusionValidation.getType()).isEqualTo("exclusion");
+		assertThat(exclusionValidation.getField()).isEqualTo("excludedV1");
+
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(GenericValidation.class);
+		InclusionValidation inclusionValidation = (InclusionValidation) modelBean.getValidations().get(6);
+		assertThat(inclusionValidation.getType()).isEqualTo("inclusion");
+		assertThat(inclusionValidation.getField()).isEqualTo("includedV1");
 	}
 
 	@Test

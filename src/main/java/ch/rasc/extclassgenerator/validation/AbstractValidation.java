@@ -17,7 +17,9 @@ package ch.rasc.extclassgenerator.validation;
 
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.core.annotation.AnnotationUtils;
@@ -144,11 +146,21 @@ public abstract class AbstractValidation {
 			case FUTURE:
 				return new FutureValidation(propertyName);
 			case INCLUSION:
-				String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
-				return new InclusionValidation(propertyName, list);
+				if (modelValidationAnnotation.exclusionOrInclusionList().length > 0) {
+					List<String> list = Arrays.asList(modelValidationAnnotation.exclusionOrInclusionList());
+					return new InclusionValidationArray(propertyName, list);
+				} else {// backward compatibility
+					String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
+					return new InclusionValidation(propertyName, list);
+				}
 			case EXCLUSION:
-				list = getParameterValue(modelValidationAnnotation.parameters(), "list");
-				return new ExclusionValidation(propertyName, list);
+				if (modelValidationAnnotation.exclusionOrInclusionList().length > 0) {
+					List<String> list = Arrays.asList(modelValidationAnnotation.exclusionOrInclusionList());
+					return new ExclusionValidationArray(propertyName, list);
+				} else {// backward compatibility
+					String list = getParameterValue(modelValidationAnnotation.parameters(), "list");
+					return new ExclusionValidation(propertyName, list);
+				}
 			case LENGTH:
 				String minValue = getParameterValue(modelValidationAnnotation.parameters(), "min");
 				String maxValue = getParameterValue(modelValidationAnnotation.parameters(), "max");
