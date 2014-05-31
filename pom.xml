@@ -13,7 +13,7 @@
 
 	<groupId>ch.rasc</groupId>
 	<artifactId>extclassgenerator</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 
 	<inceptionYear>2013</inceptionYear>
 
@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>ch.rasc</groupId>
 			<artifactId>extclassgenerator-annotations</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.3</version>
 		</dependency>
 
 		<dependency>
