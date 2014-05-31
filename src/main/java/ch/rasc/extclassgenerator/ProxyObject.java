@@ -16,6 +16,7 @@
 package ch.rasc.extclassgenerator;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.util.StringUtils;
@@ -49,7 +50,8 @@ public class ProxyObject {
 	private String writer;
 
 	protected ProxyObject(ModelBean model, OutputConfig config) {
-		if (StringUtils.hasText(model.getIdProperty()) && !model.getIdProperty().equals("id")) {
+		if (StringUtils.hasText(model.getIdProperty())
+				&& !model.getIdProperty().equals("id")) {
 			this.idParam = model.getIdProperty();
 		}
 
@@ -57,9 +59,11 @@ public class ProxyObject {
 			Object value;
 			if (config.getOutputFormat() == OutputFormat.EXTJS4) {
 				value = "undefined";
-			} else if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+			}
+			else if (config.getOutputFormat() == OutputFormat.EXTJS5) {
 				value = "";
-			} else {
+			}
+			else {
 				value = false;
 			}
 			pageParam = value;
@@ -67,18 +71,21 @@ public class ProxyObject {
 			limitParam = value;
 		}
 
-		Map<String, String> readerConfigObject = new HashMap<String, String>();
+		Map<String, String> readerConfigObject = new LinkedHashMap<String, String>();
 
-		String rootPropertyName = config.getOutputFormat() == OutputFormat.EXTJS4 ? "root" : "rootProperty";
+		String rootPropertyName = config.getOutputFormat() == OutputFormat.EXTJS4 ? "root"
+				: "rootProperty";
 
 		if (StringUtils.hasText(model.getRootProperty())) {
 			readerConfigObject.put(rootPropertyName, model.getRootProperty());
-		} else if (model.isPaging()) {
+		}
+		else if (model.isPaging()) {
 			readerConfigObject.put(rootPropertyName, "records");
 		}
 
 		if (StringUtils.hasText(model.getMessageProperty())) {
-			readerConfigObject.put("messageProperty", model.getMessageProperty());
+			readerConfigObject.put("messageProperty",
+					model.getMessageProperty());
 		}
 
 		if (StringUtils.hasText(model.getTotalProperty())) {
@@ -86,7 +93,8 @@ public class ProxyObject {
 		}
 
 		if (StringUtils.hasText(model.getSuccessProperty())) {
-			readerConfigObject.put("successProperty", model.getSuccessProperty());
+			readerConfigObject.put("successProperty",
+					model.getSuccessProperty());
 		}
 
 		if (!readerConfigObject.isEmpty()) {
@@ -116,7 +124,8 @@ public class ProxyObject {
 		if (StringUtils.hasText(model.getReadMethod())) {
 			if (hasApiMethods) {
 				apiObject.read = model.getReadMethod();
-			} else {
+			}
+			else {
 				this.directFn = model.getReadMethod();
 			}
 		}

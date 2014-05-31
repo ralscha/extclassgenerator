@@ -75,8 +75,11 @@ public class OutputConfig {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (debug ? 1231 : 1237);
-		result = prime * result + (includeValidation == null ? 0 : includeValidation.hashCode());
-		result = prime * result + (outputFormat == null ? 0 : outputFormat.hashCode());
+		result = prime
+				* result
+				+ (includeValidation == null ? 0 : includeValidation.hashCode());
+		result = prime * result
+				+ (outputFormat == null ? 0 : outputFormat.hashCode());
 		result = prime * result + (surroundApiWithQuotes ? 1231 : 1237);
 		result = prime * result + (useSingleQuotes ? 1231 : 1237);
 		return result;

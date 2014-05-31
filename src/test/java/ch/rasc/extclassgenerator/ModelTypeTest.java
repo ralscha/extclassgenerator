@@ -42,11 +42,16 @@ public class ModelTypeTest {
 		assertThat(ModelType.INTEGER.getJsName()).isEqualTo("int");
 
 		assertThat(ModelType.INTEGER.supports(Object.class)).isFalse();
-		assertThat(ModelType.INTEGER.supports(Float.valueOf("1.1").getClass())).isFalse();
-		assertThat(ModelType.INTEGER.supports(Byte.valueOf("1").getClass())).isTrue();
-		assertThat(ModelType.INTEGER.supports(Short.valueOf("2").getClass())).isTrue();
-		assertThat(ModelType.INTEGER.supports(Integer.valueOf("3").getClass())).isTrue();
-		assertThat(ModelType.INTEGER.supports(Long.valueOf("4").getClass())).isTrue();
+		assertThat(ModelType.INTEGER.supports(Float.valueOf("1.1").getClass()))
+				.isFalse();
+		assertThat(ModelType.INTEGER.supports(Byte.valueOf("1").getClass()))
+				.isTrue();
+		assertThat(ModelType.INTEGER.supports(Short.valueOf("2").getClass()))
+				.isTrue();
+		assertThat(ModelType.INTEGER.supports(Integer.valueOf("3").getClass()))
+				.isTrue();
+		assertThat(ModelType.INTEGER.supports(Long.valueOf("4").getClass()))
+				.isTrue();
 		BigInteger bi = new BigInteger("5");
 		assertThat(ModelType.INTEGER.supports(bi.getClass())).isTrue();
 		assertThat(ModelType.INTEGER.supports(Byte.TYPE)).isTrue();
@@ -60,9 +65,12 @@ public class ModelTypeTest {
 		assertThat(ModelType.FLOAT.getJsName()).isEqualTo("float");
 
 		assertThat(ModelType.FLOAT.supports(Object.class)).isFalse();
-		assertThat(ModelType.FLOAT.supports(Integer.valueOf("3").getClass())).isFalse();
-		assertThat(ModelType.FLOAT.supports(Float.valueOf("1.1").getClass())).isTrue();
-		assertThat(ModelType.FLOAT.supports(Double.valueOf("2.2").getClass())).isTrue();
+		assertThat(ModelType.FLOAT.supports(Integer.valueOf("3").getClass()))
+				.isFalse();
+		assertThat(ModelType.FLOAT.supports(Float.valueOf("1.1").getClass()))
+				.isTrue();
+		assertThat(ModelType.FLOAT.supports(Double.valueOf("2.2").getClass()))
+				.isTrue();
 		BigDecimal bd = new BigDecimal("3.3");
 		assertThat(ModelType.FLOAT.supports(bd.getClass())).isTrue();
 		assertThat(ModelType.FLOAT.supports(Float.TYPE)).isTrue();
@@ -74,7 +82,8 @@ public class ModelTypeTest {
 		assertThat(ModelType.STRING.getJsName()).isEqualTo("string");
 
 		assertThat(ModelType.STRING.supports(Object.class)).isFalse();
-		assertThat(ModelType.STRING.supports(Integer.valueOf("3").getClass())).isFalse();
+		assertThat(ModelType.STRING.supports(Integer.valueOf("3").getClass()))
+				.isFalse();
 		assertThat(ModelType.STRING.supports("string".getClass())).isTrue();
 
 	}
@@ -84,7 +93,8 @@ public class ModelTypeTest {
 		assertThat(ModelType.DATE.getJsName()).isEqualTo("date");
 
 		assertThat(ModelType.DATE.supports(Object.class)).isFalse();
-		assertThat(ModelType.DATE.supports(Integer.valueOf("3").getClass())).isFalse();
+		assertThat(ModelType.DATE.supports(Integer.valueOf("3").getClass()))
+				.isFalse();
 
 		Date d = new Date(System.currentTimeMillis());
 		assertThat(ModelType.DATE.supports(d.getClass())).isTrue();
@@ -113,8 +123,11 @@ public class ModelTypeTest {
 		assertThat(ModelType.BOOLEAN.getJsName()).isEqualTo("boolean");
 
 		assertThat(ModelType.BOOLEAN.supports(Object.class)).isFalse();
-		assertThat(ModelType.BOOLEAN.supports(Integer.valueOf("3").getClass())).isFalse();
-		assertThat(ModelType.BOOLEAN.supports(Boolean.valueOf("true").getClass())).isTrue();
+		assertThat(ModelType.BOOLEAN.supports(Integer.valueOf("3").getClass()))
+				.isFalse();
+		assertThat(
+				ModelType.BOOLEAN.supports(Boolean.valueOf("true").getClass()))
+				.isTrue();
 		assertThat(ModelType.BOOLEAN.supports(Boolean.TYPE)).isTrue();
 	}
 }

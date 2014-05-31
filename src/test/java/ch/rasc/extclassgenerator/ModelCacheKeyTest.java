@@ -36,7 +36,8 @@ public class ModelCacheKeyTest {
 		ModelCacheKey key1 = new ModelCacheKey(null, null);
 		ModelCacheKey key2 = new ModelCacheKey("name", null);
 		ModelCacheKey key3 = new ModelCacheKey(null, IncludeValidation.ALL);
-		ModelCacheKey key4 = new ModelCacheKey("name", IncludeValidation.BUILTIN);
+		ModelCacheKey key4 = new ModelCacheKey("name",
+				IncludeValidation.BUILTIN);
 		ModelCacheKey key5 = new ModelCacheKey("name", IncludeValidation.NONE);
 
 		Map<ModelCacheKey, String> map = new ConcurrentHashMap<ModelCacheKey, String>();

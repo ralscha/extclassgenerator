@@ -31,26 +31,30 @@ public class ModelGeneratorBeanWithoutAnnotationsTest {
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModelBuiltinValidation(BeanWithoutAnnotations.class, "BeanWithoutAnnotations");
-		GeneratorTestUtil.testGenerateJavascript(BeanWithoutAnnotations.class, "BeanWithoutAnnotations", false,
-				IncludeValidation.NONE, false);
+		GeneratorTestUtil.testWriteModelBuiltinValidation(
+				BeanWithoutAnnotations.class, "BeanWithoutAnnotations");
+		GeneratorTestUtil.testGenerateJavascript(BeanWithoutAnnotations.class,
+				"BeanWithoutAnnotations", false, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator.createModel(BeanWithoutAnnotations.class);
+		ModelBean modelBean = ModelGenerator
+				.createModel(BeanWithoutAnnotations.class);
 		assertThat(modelBean.getReadMethod()).isNull();
 		assertThat(modelBean.getCreateMethod()).isNull();
 		assertThat(modelBean.getUpdateMethod()).isNull();
 		assertThat(modelBean.getDestroyMethod()).isNull();
 		assertThat(modelBean.getIdProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
-		assertThat(modelBean.getName()).isEqualTo("ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations");
+		assertThat(modelBean.getName()).isEqualTo(
+				"ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations");
 		assertThat(modelBean.getFields()).hasSize(24);
 		assertThat(BeanWithoutAnnotations.expectedFields).hasSize(24);
 
 		for (ModelFieldBean expectedField : BeanWithoutAnnotations.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(
+					expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

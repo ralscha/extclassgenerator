@@ -19,16 +19,15 @@ import java.util.List;
 
 public class ExclusionValidationArray extends AbstractValidation {
 
-	
 	private final List<String> list;
 
-	public ExclusionValidationArray(String field,  List<String> list) {
+	public ExclusionValidationArray(String field, List<String> list) {
 		super("exclusion", field);
 
 		this.list = list;
 	}
 
-	public  List<String> getList() {
+	public List<String> getList() {
 		return list;
 	}
 

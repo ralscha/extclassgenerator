@@ -31,20 +31,22 @@ public class ModelGeneratorBeanWithAnnotationsTest {
 
 	@Test
 	public void testWithQuotes() {
-		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotations", true,
-				IncludeValidation.NONE, false);
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class,
+				"BeanWithAnnotations", true, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModel(BeanWithAnnotations.class, "BeanWithAnnotations");
-		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotations", false,
-				IncludeValidation.NONE, false);
+		GeneratorTestUtil.testWriteModel(BeanWithAnnotations.class,
+				"BeanWithAnnotations");
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class,
+				"BeanWithAnnotations", false, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator.createModel(BeanWithAnnotations.class);
+		ModelBean modelBean = ModelGenerator
+				.createModel(BeanWithAnnotations.class);
 		assertThat(modelBean.getReadMethod()).isEqualTo("read");
 		assertThat(modelBean.getCreateMethod()).isEqualTo("create");
 		assertThat(modelBean.getUpdateMethod()).isEqualTo("update");
@@ -57,7 +59,8 @@ public class ModelGeneratorBeanWithAnnotationsTest {
 		assertThat(modelBean.getValidations()).isEmpty();
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(
+					expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

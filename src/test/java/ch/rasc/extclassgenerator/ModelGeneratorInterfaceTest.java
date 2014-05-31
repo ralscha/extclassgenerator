@@ -29,33 +29,39 @@ public class ModelGeneratorInterfaceTest {
 
 	@Test
 	public void testInterfaceExtJs4() {
-		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
+		ModelBean modelBean = ModelGenerator.createModel(User.class,
+				IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
 		outputConfig.setDebug(false);
-		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
+		String code = ModelGenerator
+				.generateJavascript(modelBean, outputConfig);
 
 		GeneratorTestUtil.compareExtJs4Code("User", code, false, false);
 	}
 
 	@Test
 	public void testInterfaceExtJs5() {
-		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
+		ModelBean modelBean = ModelGenerator.createModel(User.class,
+				IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.EXTJS5);
 		outputConfig.setDebug(false);
-		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
+		String code = ModelGenerator
+				.generateJavascript(modelBean, outputConfig);
 
 		GeneratorTestUtil.compareExtJs5Code("User", code, false, false);
 	}
 
 	@Test
 	public void testInterfaceTouch2() {
-		ModelBean modelBean = ModelGenerator.createModel(User.class, IncludeValidation.ALL);
+		ModelBean modelBean = ModelGenerator.createModel(User.class,
+				IncludeValidation.ALL);
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(OutputFormat.TOUCH2);
 		outputConfig.setDebug(false);
-		String code = ModelGenerator.generateJavascript(modelBean, outputConfig);
+		String code = ModelGenerator
+				.generateJavascript(modelBean, outputConfig);
 
 		GeneratorTestUtil.compareTouch2Code("User", code, false, false);
 	}

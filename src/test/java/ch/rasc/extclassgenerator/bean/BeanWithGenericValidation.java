@@ -36,10 +36,12 @@ public class BeanWithGenericValidation {
 	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = { "_" })
 	public String excluded;
 
-	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = { "_", "*" })
+	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = {
+			"_", "*" })
 	public String excluded2;
 
-	@ModelValidation(value = ModelValidationType.INCLUSION, exclusionOrInclusionList = { "fish", "fruit" })
+	@ModelValidation(value = ModelValidationType.INCLUSION, exclusionOrInclusionList = {
+			"fish", "fruit" })
 	public String included;
 
 	@ModelValidation(value = ModelValidationType.EXCLUSION, parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]"))

@@ -278,21 +278,28 @@ public class BeanWithoutAnnotations {
 		expectedFields.add(new ModelFieldBean("aShort", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aInt", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aLong", ModelType.INTEGER));
-		expectedFields.add(new ModelFieldBean("aByteObject", ModelType.INTEGER));
-		expectedFields.add(new ModelFieldBean("aShortObject", ModelType.INTEGER));
+		expectedFields
+				.add(new ModelFieldBean("aByteObject", ModelType.INTEGER));
+		expectedFields
+				.add(new ModelFieldBean("aShortObject", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aIntObject", ModelType.INTEGER));
-		expectedFields.add(new ModelFieldBean("aLongObject", ModelType.INTEGER));
+		expectedFields
+				.add(new ModelFieldBean("aLongObject", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aBigDecimal", ModelType.FLOAT));
-		expectedFields.add(new ModelFieldBean("aBigInteger", ModelType.INTEGER));
+		expectedFields
+				.add(new ModelFieldBean("aBigInteger", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aCalendar", ModelType.DATE));
-		expectedFields.add(new ModelFieldBean("aSecondCalendar", ModelType.DATE));
+		expectedFields
+				.add(new ModelFieldBean("aSecondCalendar", ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aFloat", ModelType.FLOAT));
 		expectedFields.add(new ModelFieldBean("aDouble", ModelType.FLOAT));
 		expectedFields.add(new ModelFieldBean("aFloatObject", ModelType.FLOAT));
-		expectedFields.add(new ModelFieldBean("aDoubleObject", ModelType.FLOAT));
+		expectedFields
+				.add(new ModelFieldBean("aDoubleObject", ModelType.FLOAT));
 		expectedFields.add(new ModelFieldBean("aString", ModelType.STRING));
 		expectedFields.add(new ModelFieldBean("aBoolean", ModelType.BOOLEAN));
-		expectedFields.add(new ModelFieldBean("aBooleanObject", ModelType.BOOLEAN));
+		expectedFields.add(new ModelFieldBean("aBooleanObject",
+				ModelType.BOOLEAN));
 		expectedFields.add(new ModelFieldBean("aDate", ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aSqlDate", ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aTimestamp", ModelType.DATE));

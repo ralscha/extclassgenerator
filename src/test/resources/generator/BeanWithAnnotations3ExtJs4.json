@@ -12,9 +12,9 @@ Ext.define("Sch.Bean3",
     type : "direct",
     directFn : read,
     reader : {
+      root : "theRootProperty",
       messageProperty : "theMessageProperty",
       totalProperty : "theTotalProperty",
-      root : "theRootProperty",
       successProperty : "theSuccessProperty"
     }
   }

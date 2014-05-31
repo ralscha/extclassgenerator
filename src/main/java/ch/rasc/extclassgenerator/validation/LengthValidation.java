@@ -26,14 +26,16 @@ public class LengthValidation extends AbstractValidation {
 	private final Long max;
 
 	public LengthValidation(String field, Integer min, Integer max) {
-		this(field, min != null ? Long.valueOf(min) : null, max != null ? Long.valueOf(max) : null);
+		this(field, min != null ? Long.valueOf(min) : null, max != null ? Long
+				.valueOf(max) : null);
 	}
 
 	public LengthValidation(String field, Long min, Long max) {
 		super("length", field);
 
 		if (min == null && max == null) {
-			throw new IllegalArgumentException("At least min or max must be set");
+			throw new IllegalArgumentException(
+					"At least min or max must be set");
 		}
 
 		this.min = min;

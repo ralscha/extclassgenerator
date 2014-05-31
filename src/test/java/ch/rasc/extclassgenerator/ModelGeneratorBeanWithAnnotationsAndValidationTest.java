@@ -35,20 +35,24 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 
 	@Test
 	public void testWithQuotes() {
-		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotationsValidation", true,
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class,
+				"BeanWithAnnotationsValidation", true,
 				IncludeValidation.BUILTIN, false);
 	}
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModelBuiltinValidation(BeanWithAnnotations.class, "BeanWithAnnotationsValidation");
-		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class, "BeanWithAnnotationsValidation", false,
+		GeneratorTestUtil.testWriteModelBuiltinValidation(
+				BeanWithAnnotations.class, "BeanWithAnnotationsValidation");
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class,
+				"BeanWithAnnotationsValidation", false,
 				IncludeValidation.BUILTIN, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator.createModel(BeanWithAnnotations.class, IncludeValidation.BUILTIN);
+		ModelBean modelBean = ModelGenerator.createModel(
+				BeanWithAnnotations.class, IncludeValidation.BUILTIN);
 		assertThat(modelBean.getReadMethod()).isEqualTo("read");
 		assertThat(modelBean.getCreateMethod()).isEqualTo("create");
 		assertThat(modelBean.getUpdateMethod()).isEqualTo("update");
@@ -60,35 +64,49 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 		assertThat(BeanWithAnnotations.expectedFields).hasSize(26);
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(
+					expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 
 		assertThat(modelBean.getValidations()).hasSize(5);
-		assertThat(modelBean.getValidations().get(0)).isInstanceOf(PresenceValidation.class);
-		assertThat(modelBean.getValidations().get(0).getType()).isEqualTo("presence");
-		assertThat(modelBean.getValidations().get(0).getField()).isEqualTo("aBigInteger");
+		assertThat(modelBean.getValidations().get(0)).isInstanceOf(
+				PresenceValidation.class);
+		assertThat(modelBean.getValidations().get(0).getType()).isEqualTo(
+				"presence");
+		assertThat(modelBean.getValidations().get(0).getField()).isEqualTo(
+				"aBigInteger");
 
-		assertThat(modelBean.getValidations().get(1)).isInstanceOf(PresenceValidation.class);
-		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo("presence");
-		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo("aDouble");
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(
+				PresenceValidation.class);
+		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo(
+				"presence");
+		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo(
+				"aDouble");
 
-		assertThat(modelBean.getValidations().get(2)).isInstanceOf(EmailValidation.class);
-		assertThat(modelBean.getValidations().get(2).getType()).isEqualTo("email");
-		assertThat(modelBean.getValidations().get(2).getField()).isEqualTo("aString");
+		assertThat(modelBean.getValidations().get(2)).isInstanceOf(
+				EmailValidation.class);
+		assertThat(modelBean.getValidations().get(2).getType()).isEqualTo(
+				"email");
+		assertThat(modelBean.getValidations().get(2).getField()).isEqualTo(
+				"aString");
 
-		assertThat(modelBean.getValidations().get(3)).isInstanceOf(LengthValidation.class);
-		LengthValidation lengthValidation = (LengthValidation) modelBean.getValidations().get(3);
+		assertThat(modelBean.getValidations().get(3)).isInstanceOf(
+				LengthValidation.class);
+		LengthValidation lengthValidation = (LengthValidation) modelBean
+				.getValidations().get(3);
 		assertThat(lengthValidation.getType()).isEqualTo("length");
 		assertThat(lengthValidation.getField()).isEqualTo("aString");
 		assertThat(lengthValidation.getMax()).isEqualTo(255L);
 
-		assertThat(modelBean.getValidations().get(4)).isInstanceOf(FormatValidation.class);
-		FormatValidation formatValidation = (FormatValidation) modelBean.getValidations().get(4);
+		assertThat(modelBean.getValidations().get(4)).isInstanceOf(
+				FormatValidation.class);
+		FormatValidation formatValidation = (FormatValidation) modelBean
+				.getValidations().get(4);
 		assertThat(formatValidation.getType()).isEqualTo("format");
 		assertThat(formatValidation.getField()).isEqualTo("aString");
-		assertThat(formatValidation.getMatcher())
-				.isEqualTo("/\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]/");
+		assertThat(formatValidation.getMatcher()).isEqualTo(
+				"/\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]/");
 	}
 
 }

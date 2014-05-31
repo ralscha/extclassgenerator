@@ -17,7 +17,6 @@ package ch.rasc.extclassgenerator.validation;
 
 import java.util.List;
 
-
 public class InclusionValidationArray extends AbstractValidation {
 
 	private final List<String> list;

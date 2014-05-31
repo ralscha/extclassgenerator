@@ -28,14 +28,16 @@ public class RangeValidation extends AbstractValidation {
 	private final BigDecimal max;
 
 	public RangeValidation(String field, Long min, Long max) {
-		this(field, min != null ? new BigDecimal(min) : null, max != null ? new BigDecimal(max) : null);
+		this(field, min != null ? new BigDecimal(min) : null,
+				max != null ? new BigDecimal(max) : null);
 	}
 
 	public RangeValidation(String field, BigDecimal min, BigDecimal max) {
 		super("range", field);
 
 		if (min == null && max == null) {
-			throw new IllegalArgumentException("At least min or max must be set");
+			throw new IllegalArgumentException(
+					"At least min or max must be set");
 		}
 
 		this.min = min;

@@ -30,7 +30,8 @@ final class JsCacheKey {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (config == null ? 0 : config.hashCode());
-		result = prime * result + (modelName == null ? 0 : modelName.hashCode());
+		result = prime * result
+				+ (modelName == null ? 0 : modelName.hashCode());
 		return result;
 	}
 
@@ -50,14 +51,16 @@ final class JsCacheKey {
 			if (other.config != null) {
 				return false;
 			}
-		} else if (!config.equals(other.config)) {
+		}
+		else if (!config.equals(other.config)) {
 			return false;
 		}
 		if (modelName == null) {
 			if (other.modelName != null) {
 				return false;
 			}
-		} else if (!modelName.equals(other.modelName)) {
+		}
+		else if (!modelName.equals(other.modelName)) {
 			return false;
 		}
 		return true;

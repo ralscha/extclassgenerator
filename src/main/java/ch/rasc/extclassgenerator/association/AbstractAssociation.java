@@ -46,8 +46,8 @@ public abstract class AbstractAssociation {
 	private String instanceName;
 
 	/**
-	 * Creates an instance of the AbstractAssociation. Sets {@link #getType()} and {@link #getModel()} to the provided
-	 * parameters.
+	 * Creates an instance of the AbstractAssociation. Sets {@link #getType()}
+	 * and {@link #getModel()} to the provided parameters.
 	 *
 	 * @param type The type of the association.
 	 * @param model The name of the model that is being associated with.
@@ -62,7 +62,8 @@ public abstract class AbstractAssociation {
 	}
 
 	/**
-	 * The name of the property in the data to read the association from. Defaults to the name of the associated model.
+	 * The name of the property in the data to read the association from.
+	 * Defaults to the name of the associated model.
 	 * <p>
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-associationKey"
@@ -79,12 +80,13 @@ public abstract class AbstractAssociation {
 	}
 
 	/**
-	 * The name of the foreign key on the associated model that links it to the owner model. Defaults to the lowercase
-	 * name of the owner model + "_id" (HAS_MANY) or to the field name (BELONGS_TO, HAS_ONE) + "_id".
+	 * The name of the foreign key on the associated model that links it to the
+	 * owner model. Defaults to the lowercase name of the owner model + "_id"
+	 * (HAS_MANY) or to the field name (BELONGS_TO, HAS_ONE) + "_id".
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-foreignKey" >foreignKey</a> config
-	 * property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-foreignKey"
+	 * >foreignKey</a> config property.
 	 *
 	 * @param foreignKey the new name for the foreignKey
 	 */
@@ -101,8 +103,8 @@ public abstract class AbstractAssociation {
 	 * In general this will be the value of {@link Model#idProperty()}.
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-primaryKey" >primaryKey</a> config
-	 * property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.Association-cfg-primaryKey"
+	 * >primaryKey</a> config property.
 	 *
 	 * @param primaryKey the new name for the primaryKey
 	 */
@@ -129,13 +131,15 @@ public abstract class AbstractAssociation {
 	protected static String getModelName(Class<?> model) {
 		Model modelAnnotation = model.getAnnotation(Model.class);
 
-		if (modelAnnotation != null && StringUtils.hasText(modelAnnotation.value())) {
+		if (modelAnnotation != null
+				&& StringUtils.hasText(modelAnnotation.value())) {
 			return modelAnnotation.value();
 		}
 		return model.getName();
 	}
 
-	public static AbstractAssociation createAssociation(ModelAssociation associationAnnotation) {
+	public static AbstractAssociation createAssociation(
+			ModelAssociation associationAnnotation) {
 		ModelAssociationType type = associationAnnotation.value();
 		String name = associationAnnotation.propertyName();
 
@@ -152,9 +156,11 @@ public abstract class AbstractAssociation {
 
 		if (type == ModelAssociationType.HAS_MANY) {
 			association = new HasManyAssociation(associationClass);
-		} else if (type == ModelAssociationType.BELONGS_TO) {
+		}
+		else if (type == ModelAssociationType.BELONGS_TO) {
 			association = new BelongsToAssociation(associationClass);
-		} else {
+		}
+		else {
 			association = new HasOneAssociation(associationClass);
 		}
 
@@ -166,11 +172,17 @@ public abstract class AbstractAssociation {
 
 		if (StringUtils.hasText(associationAnnotation.primaryKey())) {
 			association.setPrimaryKey(associationAnnotation.primaryKey());
-		} else if (type == ModelAssociationType.BELONGS_TO || type == ModelAssociationType.HAS_ONE) {
-			Model associationModelAnnotation = associationClass.getAnnotation(Model.class);
-			if (associationModelAnnotation != null && StringUtils.hasText(associationModelAnnotation.idProperty())
+		}
+		else if (type == ModelAssociationType.BELONGS_TO
+				|| type == ModelAssociationType.HAS_ONE) {
+			Model associationModelAnnotation = associationClass
+					.getAnnotation(Model.class);
+			if (associationModelAnnotation != null
+					&& StringUtils.hasText(associationModelAnnotation
+							.idProperty())
 					&& !associationModelAnnotation.idProperty().equals("id")) {
-				association.setPrimaryKey(associationModelAnnotation.idProperty());
+				association.setPrimaryKey(associationModelAnnotation
+						.idProperty());
 			}
 		}
 
@@ -179,12 +191,14 @@ public abstract class AbstractAssociation {
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(null, name, association.getType(), "setterName"));
+						getWarningText(null, name, association.getType(),
+								"setterName"));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(null, name, association.getType(), "getterName"));
+						getWarningText(null, name, association.getType(),
+								"getterName"));
 			}
 
 			if (associationAnnotation.autoLoad()) {
@@ -192,53 +206,74 @@ public abstract class AbstractAssociation {
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				hasManyAssociation.setName(associationAnnotation.name());
-			} else {
+			}
+			else {
 				hasManyAssociation.setName(name);
 			}
 
-		} else if (type == ModelAssociationType.BELONGS_TO) {
+		}
+		else if (type == ModelAssociationType.BELONGS_TO) {
 			BelongsToAssociation belongsToAssociation = (BelongsToAssociation) association;
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
-				belongsToAssociation.setSetterName(associationAnnotation.setterName());
-			} else {
-				belongsToAssociation.setSetterName("set" + StringUtils.capitalize(name));
+				belongsToAssociation.setSetterName(associationAnnotation
+						.setterName());
+			}
+			else {
+				belongsToAssociation.setSetterName("set"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
-				belongsToAssociation.setGetterName(associationAnnotation.getterName());
-			} else {
-				belongsToAssociation.setGetterName("get" + StringUtils.capitalize(name));
+				belongsToAssociation.setGetterName(associationAnnotation
+						.getterName());
+			}
+			else {
+				belongsToAssociation.setGetterName("get"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (associationAnnotation.autoLoad()) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(null, name, association.getType(), "autoLoad"));
+						getWarningText(null, name, association.getType(),
+								"autoLoad"));
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
-				LogFactory.getLog(ModelGenerator.class).warn(getWarningText(null, name, association.getType(), "name"));
+				LogFactory.getLog(ModelGenerator.class).warn(
+						getWarningText(null, name, association.getType(),
+								"name"));
 			}
-		} else {
+		}
+		else {
 			HasOneAssociation hasOneAssociation = (HasOneAssociation) association;
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
-				hasOneAssociation.setSetterName(associationAnnotation.setterName());
-			} else {
-				hasOneAssociation.setSetterName("set" + StringUtils.capitalize(name));
+				hasOneAssociation.setSetterName(associationAnnotation
+						.setterName());
+			}
+			else {
+				hasOneAssociation.setSetterName("set"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
-				hasOneAssociation.setGetterName(associationAnnotation.getterName());
-			} else {
-				hasOneAssociation.setGetterName("get" + StringUtils.capitalize(name));
+				hasOneAssociation.setGetterName(associationAnnotation
+						.getterName());
+			}
+			else {
+				hasOneAssociation.setGetterName("get"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (associationAnnotation.autoLoad()) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(null, name, association.getType(), "autoLoad"));
+						getWarningText(null, name, association.getType(),
+								"autoLoad"));
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
-				LogFactory.getLog(ModelGenerator.class).warn(getWarningText(null, name, association.getType(), "name"));
+				LogFactory.getLog(ModelGenerator.class).warn(
+						getWarningText(null, name, association.getType(),
+								"name"));
 			}
 		}
 
@@ -249,8 +284,10 @@ public abstract class AbstractAssociation {
 		return association;
 	}
 
-	public static AbstractAssociation createAssociation(ModelAssociation associationAnnotation, ModelBean model,
-			Class<?> typeOfFieldOrReturnValue, Class<?> declaringClass, String name) {
+	public static AbstractAssociation createAssociation(
+			ModelAssociation associationAnnotation, ModelBean model,
+			Class<?> typeOfFieldOrReturnValue, Class<?> declaringClass,
+			String name) {
 		ModelAssociationType type = associationAnnotation.value();
 
 		Class<?> associationClass = associationAnnotation.model();
@@ -262,9 +299,11 @@ public abstract class AbstractAssociation {
 
 		if (type == ModelAssociationType.HAS_MANY) {
 			association = new HasManyAssociation(associationClass);
-		} else if (type == ModelAssociationType.BELONGS_TO) {
+		}
+		else if (type == ModelAssociationType.BELONGS_TO) {
 			association = new BelongsToAssociation(associationClass);
-		} else {
+		}
+		else {
 			association = new HasOneAssociation(associationClass);
 		}
 
@@ -272,22 +311,34 @@ public abstract class AbstractAssociation {
 
 		if (StringUtils.hasText(associationAnnotation.foreignKey())) {
 			association.setForeignKey(associationAnnotation.foreignKey());
-		} else if (type == ModelAssociationType.HAS_MANY) {
-			association.setForeignKey(StringUtils.uncapitalize(declaringClass.getSimpleName()) + "_id");
-		} else if (type == ModelAssociationType.BELONGS_TO || type == ModelAssociationType.HAS_ONE) {
+		}
+		else if (type == ModelAssociationType.HAS_MANY) {
+			association.setForeignKey(StringUtils.uncapitalize(declaringClass
+					.getSimpleName()) + "_id");
+		}
+		else if (type == ModelAssociationType.BELONGS_TO
+				|| type == ModelAssociationType.HAS_ONE) {
 			association.setForeignKey(name + "_id");
 		}
 
 		if (StringUtils.hasText(associationAnnotation.primaryKey())) {
 			association.setPrimaryKey(associationAnnotation.primaryKey());
-		} else if (type == ModelAssociationType.HAS_MANY && StringUtils.hasText(model.getIdProperty())
+		}
+		else if (type == ModelAssociationType.HAS_MANY
+				&& StringUtils.hasText(model.getIdProperty())
 				&& !model.getIdProperty().equals("id")) {
 			association.setPrimaryKey(model.getIdProperty());
-		} else if (type == ModelAssociationType.BELONGS_TO || type == ModelAssociationType.HAS_ONE) {
-			Model associationModelAnnotation = associationClass.getAnnotation(Model.class);
-			if (associationModelAnnotation != null && StringUtils.hasText(associationModelAnnotation.idProperty())
+		}
+		else if (type == ModelAssociationType.BELONGS_TO
+				|| type == ModelAssociationType.HAS_ONE) {
+			Model associationModelAnnotation = associationClass
+					.getAnnotation(Model.class);
+			if (associationModelAnnotation != null
+					&& StringUtils.hasText(associationModelAnnotation
+							.idProperty())
 					&& !associationModelAnnotation.idProperty().equals("id")) {
-				association.setPrimaryKey(associationModelAnnotation.idProperty());
+				association.setPrimaryKey(associationModelAnnotation
+						.idProperty());
 			}
 		}
 
@@ -296,12 +347,14 @@ public abstract class AbstractAssociation {
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "setterName"));
+						getWarningText(declaringClass, name,
+								association.getType(), "setterName"));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "getterName"));
+						getWarningText(declaringClass, name,
+								association.getType(), "getterName"));
 			}
 
 			if (associationAnnotation.autoLoad()) {
@@ -309,55 +362,74 @@ public abstract class AbstractAssociation {
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				hasManyAssociation.setName(associationAnnotation.name());
-			} else {
+			}
+			else {
 				hasManyAssociation.setName(name);
 			}
 
-		} else if (type == ModelAssociationType.BELONGS_TO) {
+		}
+		else if (type == ModelAssociationType.BELONGS_TO) {
 			BelongsToAssociation belongsToAssociation = (BelongsToAssociation) association;
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
-				belongsToAssociation.setSetterName(associationAnnotation.setterName());
-			} else {
-				belongsToAssociation.setSetterName("set" + StringUtils.capitalize(name));
+				belongsToAssociation.setSetterName(associationAnnotation
+						.setterName());
+			}
+			else {
+				belongsToAssociation.setSetterName("set"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
-				belongsToAssociation.setGetterName(associationAnnotation.getterName());
-			} else {
-				belongsToAssociation.setGetterName("get" + StringUtils.capitalize(name));
+				belongsToAssociation.setGetterName(associationAnnotation
+						.getterName());
+			}
+			else {
+				belongsToAssociation.setGetterName("get"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (associationAnnotation.autoLoad()) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "autoLoad"));
+						getWarningText(declaringClass, name,
+								association.getType(), "autoLoad"));
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "name"));
+						getWarningText(declaringClass, name,
+								association.getType(), "name"));
 			}
-		} else {
+		}
+		else {
 			HasOneAssociation hasOneAssociation = (HasOneAssociation) association;
 
 			if (StringUtils.hasText(associationAnnotation.setterName())) {
-				hasOneAssociation.setSetterName(associationAnnotation.setterName());
-			} else {
-				hasOneAssociation.setSetterName("set" + StringUtils.capitalize(name));
+				hasOneAssociation.setSetterName(associationAnnotation
+						.setterName());
+			}
+			else {
+				hasOneAssociation.setSetterName("set"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (StringUtils.hasText(associationAnnotation.getterName())) {
-				hasOneAssociation.setGetterName(associationAnnotation.getterName());
-			} else {
-				hasOneAssociation.setGetterName("get" + StringUtils.capitalize(name));
+				hasOneAssociation.setGetterName(associationAnnotation
+						.getterName());
+			}
+			else {
+				hasOneAssociation.setGetterName("get"
+						+ StringUtils.capitalize(name));
 			}
 
 			if (associationAnnotation.autoLoad()) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "autoLoad"));
+						getWarningText(declaringClass, name,
+								association.getType(), "autoLoad"));
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				LogFactory.getLog(ModelGenerator.class).warn(
-						getWarningText(declaringClass, name, association.getType(), "name"));
+						getWarningText(declaringClass, name,
+								association.getType(), "name"));
 			}
 		}
 
@@ -368,14 +440,16 @@ public abstract class AbstractAssociation {
 		return association;
 	}
 
-	private static String getWarningText(Class<?> declaringClass, String name, String type, String propertyName) {
+	private static String getWarningText(Class<?> declaringClass, String name,
+			String type, String propertyName) {
 		String warning = "Field ";
 		if (declaringClass != null) {
 			warning += declaringClass.getName();
 			warning += ".";
 		}
 		warning += name;
-		return warning + ": A '" + type + "' association does not support property '" + propertyName
+		return warning + ": A '" + type
+				+ "' association does not support property '" + propertyName
 				+ "'. Property will be ignored.";
 	}
 

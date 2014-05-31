@@ -24,11 +24,13 @@ public class GenericValidation extends AbstractValidation {
 
 	private final Map<String, Object> options;
 
-	public GenericValidation(String type, String field, Map<String, Object> options) {
+	public GenericValidation(String type, String field,
+			Map<String, Object> options) {
 		super(type, field);
 		if (options != null) {
 			this.options = new LinkedHashMap<String, Object>(options);
-		} else {
+		}
+		else {
 			this.options = null;
 		}
 	}

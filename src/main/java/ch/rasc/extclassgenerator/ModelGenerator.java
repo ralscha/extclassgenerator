@@ -60,7 +60,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided class or {@link ModelBean}.
+ * Generator for creating ExtJS and Touch Model objects (JS code) based on a
+ * provided class or {@link ModelBean}.
  */
 public abstract class ModelGenerator {
 
@@ -71,88 +72,110 @@ public abstract class ModelGenerator {
 	private static final Map<ModelCacheKey, SoftReference<ModelBean>> modelCache = new ConcurrentHashMap<ModelCacheKey, SoftReference<ModelBean>>();
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response. Creates
-	 * compressed JS code. Method ignores any validation annotations.
-	 *
-	 * @param request the http servlet request
-	 * @param response the http servlet response
-	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should create.
-	 * @throws IOException
-	 *
-	 * @see #writeModel(HttpServletRequest, HttpServletResponse, Class, OutputFormat, boolean)
-	 */
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
-			OutputFormat format) throws IOException {
-		writeModel(request, response, clazz, format, IncludeValidation.NONE, false);
-	}
-
-	/**
-	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response. Method ignores
+	 * Instrospects the provided class, creates a model object (JS code) and
+	 * writes it into the response. Creates compressed JS code. Method ignores
 	 * any validation annotations.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should create
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create.
 	 * @throws IOException
+	 *
+	 * @see #writeModel(HttpServletRequest, HttpServletResponse, Class,
+	 * OutputFormat, boolean)
 	 */
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
-			OutputFormat format, boolean debug) throws IOException {
-		writeModel(request, response, clazz, format, IncludeValidation.NONE, debug);
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, Class<?> clazz, OutputFormat format)
+			throws IOException {
+		writeModel(request, response, clazz, format, IncludeValidation.NONE,
+				false);
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and writes it into the response.
+	 * Instrospects the provided class, creates a model object (JS code) and
+	 * writes it into the response. Method ignores any validation annotations.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should create
-	 * @param includeValidation specifies if any validation configurations should be added to the model code
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
 	 * @throws IOException
 	 */
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
-			OutputFormat format, IncludeValidation includeValidation, boolean debug) throws IOException {
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, Class<?> clazz, OutputFormat format,
+			boolean debug) throws IOException {
+		writeModel(request, response, clazz, format, IncludeValidation.NONE,
+				debug);
+	}
+
+	/**
+	 * Instrospects the provided class, creates a model object (JS code) and
+	 * writes it into the response.
+	 *
+	 * @param request the http servlet request
+	 * @param response the http servlet response
+	 * @param clazz class that the generator should introspect
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create
+	 * @param includeValidation specifies if any validation configurations
+	 * should be added to the model code
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
+	 * @throws IOException
+	 */
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, Class<?> clazz, OutputFormat format,
+			IncludeValidation includeValidation, boolean debug)
+			throws IOException {
 		ModelBean model = createModel(clazz, includeValidation);
 		writeModel(request, response, model, format, debug);
 	}
 
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, Class<?> clazz,
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, Class<?> clazz,
 			OutputConfig outputConfig) throws IOException {
 		ModelBean model = createModel(clazz, outputConfig);
 		writeModel(request, response, model, outputConfig);
 	}
 
 	/**
-	 * Creates a model object (JS code) based on the provided {@link ModelBean} and writes it into the response. Creates
-	 * compressed JS code.
+	 * Creates a model object (JS code) based on the provided {@link ModelBean}
+	 * and writes it into the response. Creates compressed JS code.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
-	 * @param format specifies which code (ExtJS or Touch) the generator should create.
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create.
 	 * @throws IOException
 	 */
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, ModelBean model,
-			OutputFormat format) throws IOException {
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, ModelBean model, OutputFormat format)
+			throws IOException {
 		writeModel(request, response, model, format, false);
 	}
 
 	/**
-	 * Creates a model object (JS code) based on the provided ModelBean and writes it into the response.
+	 * Creates a model object (JS code) based on the provided ModelBean and
+	 * writes it into the response.
 	 *
 	 * @param request the http servlet request
 	 * @param response the http servlet response
 	 * @param model {@link ModelBean} describing the model to be generated
-	 * @param format specifies which code (ExtJS or Touch) the generator should create.
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create.
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
 	 * @throws IOException
 	 */
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, ModelBean model,
-			OutputFormat format, boolean debug) throws IOException {
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, ModelBean model, OutputFormat format,
+			boolean debug) throws IOException {
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setDebug(debug);
 		outputConfig.setOutputFormat(format);
@@ -160,91 +183,113 @@ public abstract class ModelGenerator {
 	}
 
 	/**
-	 * Instrospects the provided class and creates a {@link ModelBean} instance. A program could customize this and call
+	 * Instrospects the provided class and creates a {@link ModelBean} instance.
+	 * A program could customize this and call
 	 * {@link #generateJavascript(ModelBean, OutputFormat, boolean)} or
-	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)} to create the JS code.
-	 * Calling this method does not add any validation configuration.
+	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
+	 * to create the JS code. Calling this method does not add any validation
+	 * configuration.
 	 *
 	 * @param clazz the model will be created based on this class.
-	 * @return a instance of {@link ModelBean} that describes the provided class and can be used for Javascript
-	 *         generation.
+	 * @return a instance of {@link ModelBean} that describes the provided class
+	 * and can be used for Javascript generation.
 	 */
 	public static ModelBean createModel(Class<?> clazz) {
 		return createModel(clazz, IncludeValidation.NONE);
 	}
 
 	/**
-	 * Instrospects the provided class and creates a {@link ModelBean} instance. A program could customize this and call
+	 * Instrospects the provided class and creates a {@link ModelBean} instance.
+	 * A program could customize this and call
 	 * {@link #generateJavascript(ModelBean, OutputFormat, boolean)} or
-	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)} to create the JS code.
-	 * Models are being cached. A second call with the same parameters will return the model from the cache.
+	 * {@link #writeModel(HttpServletRequest, HttpServletResponse, ModelBean, OutputFormat)}
+	 * to create the JS code. Models are being cached. A second call with the
+	 * same parameters will return the model from the cache.
 	 *
 	 * @param clazz the model will be created based on this class.
-	 * @param includeValidation specifies what validation configuration should be added
-	 * @return a instance of {@link ModelBean} that describes the provided class and can be used for Javascript
-	 *         generation.
+	 * @param includeValidation specifies what validation configuration should
+	 * be added
+	 * @return a instance of {@link ModelBean} that describes the provided class
+	 * and can be used for Javascript generation.
 	 */
-	public static ModelBean createModel(Class<?> clazz, IncludeValidation includeValidation) {
+	public static ModelBean createModel(Class<?> clazz,
+			IncludeValidation includeValidation) {
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setIncludeValidation(includeValidation);
 		return createModel(clazz, outputConfig);
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and returns it. This method does not add any
-	 * validation configuration.
+	 * Instrospects the provided class, creates a model object (JS code) and
+	 * returns it. This method does not add any validation configuration.
 	 *
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should create
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
-	public static String generateJavascript(Class<?> clazz, OutputFormat format, boolean debug) {
+	public static String generateJavascript(Class<?> clazz,
+			OutputFormat format, boolean debug) {
 		ModelBean model = createModel(clazz, IncludeValidation.NONE);
 		return generateJavascript(model, format, debug);
 	}
 
-	public static String generateJavascript(Class<?> clazz, OutputConfig outputConfig) {
+	public static String generateJavascript(Class<?> clazz,
+			OutputConfig outputConfig) {
 		ModelBean model = createModel(clazz, outputConfig);
 		return generateJavascript(model, outputConfig);
 	}
 
 	/**
-	 * Instrospects the provided class, creates a model object (JS code) and returns it.
+	 * Instrospects the provided class, creates a model object (JS code) and
+	 * returns it.
 	 *
 	 * @param clazz class that the generator should introspect
-	 * @param format specifies which code (ExtJS or Touch) the generator should create
-	 * @param includeValidation specifies what validation configuration should be added to the mode code
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create
+	 * @param includeValidation specifies what validation configuration should
+	 * be added to the mode code
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
-	public static String generateJavascript(Class<?> clazz, OutputFormat format, IncludeValidation includeValidation,
+	public static String generateJavascript(Class<?> clazz,
+			OutputFormat format, IncludeValidation includeValidation,
 			boolean debug) {
 		ModelBean model = createModel(clazz, includeValidation);
 		return generateJavascript(model, format, debug);
 	}
 
 	/**
-	 * Creates JS code based on the provided {@link ModelBean} in the specified {@link OutputFormat}. Code can be
-	 * generated in pretty or compressed format. The generated code is cached unless debug is true. A second call to
-	 * this method with the same model name and format will return the code from the cache.
+	 * Creates JS code based on the provided {@link ModelBean} in the specified
+	 * {@link OutputFormat}. Code can be generated in pretty or compressed
+	 * format. The generated code is cached unless debug is true. A second call
+	 * to this method with the same model name and format will return the code
+	 * from the cache.
 	 *
 	 * @param model generate code based on this {@link ModelBean}
-	 * @param format specifies which code (ExtJS or Touch) the generator should create
-	 * @param debug if true the generator creates the output in pretty format, false the output is compressed
+	 * @param format specifies which code (ExtJS or Touch) the generator should
+	 * create
+	 * @param debug if true the generator creates the output in pretty format,
+	 * false the output is compressed
 	 * @return the generated model object (JS code)
 	 */
-	public static String generateJavascript(ModelBean model, OutputFormat format, boolean debug) {
+	public static String generateJavascript(ModelBean model,
+			OutputFormat format, boolean debug) {
 		OutputConfig outputConfig = new OutputConfig();
 		outputConfig.setOutputFormat(format);
 		outputConfig.setDebug(debug);
 		return generateJavascript(model, outputConfig);
 	}
 
-	public static void writeModel(HttpServletRequest request, HttpServletResponse response, ModelBean model,
+	public static void writeModel(HttpServletRequest request,
+			HttpServletResponse response, ModelBean model,
 			OutputConfig outputConfig) throws IOException {
 
-		byte[] data = generateJavascript(model, outputConfig).getBytes(UTF8_CHARSET);
+		byte[] data = generateJavascript(model, outputConfig).getBytes(
+				UTF8_CHARSET);
 		String ifNoneMatch = request.getHeader("If-None-Match");
 		String etag = "\"0" + DigestUtils.md5DigestAsHex(data) + "\"";
 
@@ -266,12 +311,15 @@ public abstract class ModelGenerator {
 
 	}
 
-	public static ModelBean createModel(final Class<?> clazz, final OutputConfig outputConfig) {
+	public static ModelBean createModel(final Class<?> clazz,
+			final OutputConfig outputConfig) {
 
 		Assert.notNull(clazz, "clazz must not be null");
-		Assert.notNull(outputConfig.getIncludeValidation(), "includeValidation must not be null");
+		Assert.notNull(outputConfig.getIncludeValidation(),
+				"includeValidation must not be null");
 
-		ModelCacheKey key = new ModelCacheKey(clazz.getName(), outputConfig.getIncludeValidation());
+		ModelCacheKey key = new ModelCacheKey(clazz.getName(),
+				outputConfig.getIncludeValidation());
 		SoftReference<ModelBean> modelReference = modelCache.get(key);
 		if (modelReference != null && modelReference.get() != null) {
 			return modelReference.get();
@@ -281,24 +329,29 @@ public abstract class ModelGenerator {
 
 		final ModelBean model = new ModelBean();
 
-		if (modelAnnotation != null && StringUtils.hasText(modelAnnotation.value())) {
+		if (modelAnnotation != null
+				&& StringUtils.hasText(modelAnnotation.value())) {
 			model.setName(modelAnnotation.value());
-		} else {
+		}
+		else {
 			model.setName(clazz.getName());
 		}
 
 		if (modelAnnotation != null) {
 			model.setIdProperty(modelAnnotation.idProperty());
 			model.setPaging(modelAnnotation.paging());
-			model.setDisablePagingParameters(modelAnnotation.disablePagingParameters());
+			model.setDisablePagingParameters(modelAnnotation
+					.disablePagingParameters());
 
 			model.setCreateMethod(trimToNull(modelAnnotation.createMethod()));
 			model.setReadMethod(trimToNull(modelAnnotation.readMethod()));
 			model.setUpdateMethod(trimToNull(modelAnnotation.updateMethod()));
 			model.setDestroyMethod(trimToNull(modelAnnotation.destroyMethod()));
-			model.setMessageProperty(trimToNull(modelAnnotation.messageProperty()));
+			model.setMessageProperty(trimToNull(modelAnnotation
+					.messageProperty()));
 			model.setWriter(trimToNull(modelAnnotation.writer()));
-			model.setSuccessProperty(trimToNull(modelAnnotation.successProperty()));
+			model.setSuccessProperty(trimToNull(modelAnnotation
+					.successProperty()));
 			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
 		}
@@ -308,12 +361,14 @@ public abstract class ModelGenerator {
 		BeanInfo bi;
 		try {
 			bi = Introspector.getBeanInfo(clazz);
-		} catch (IntrospectionException e) {
+		}
+		catch (IntrospectionException e) {
 			throw new RuntimeException(e);
 		}
 
 		for (PropertyDescriptor pd : bi.getPropertyDescriptors()) {
-			if (pd.getReadMethod() != null && pd.getReadMethod().getAnnotation(JsonIgnore.class) == null) {
+			if (pd.getReadMethod() != null
+					&& pd.getReadMethod().getAnnotation(JsonIgnore.class) == null) {
 				hasReadMethod.add(pd.getName());
 			}
 		}
@@ -323,7 +378,8 @@ public abstract class ModelGenerator {
 
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
-				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
+				public void doWith(Method method)
+						throws IllegalArgumentException, IllegalAccessException {
 					methods.add(method);
 				}
 			});
@@ -338,20 +394,25 @@ public abstract class ModelGenerator {
 			for (Method method : methods) {
 				createModelBean(model, method, outputConfig);
 			}
-		} else {
+		}
+		else {
 
 			final Set<String> fields = new HashSet<String>();
 
-			Set<ModelField> modelFieldsOnType = AnnotationUtils.getRepeatableAnnotation(clazz, ModelFields.class,
-					ModelField.class);
+			Set<ModelField> modelFieldsOnType = AnnotationUtils
+					.getRepeatableAnnotation(clazz, ModelFields.class,
+							ModelField.class);
 			for (ModelField modelField : modelFieldsOnType) {
 				if (StringUtils.hasText(modelField.value())) {
 					ModelFieldBean modelFieldBean;
 
 					if (StringUtils.hasText(modelField.customType())) {
-						modelFieldBean = new ModelFieldBean(modelField.value(), modelField.customType());
-					} else {
-						modelFieldBean = new ModelFieldBean(modelField.value(), modelField.type());
+						modelFieldBean = new ModelFieldBean(modelField.value(),
+								modelField.customType());
+					}
+					else {
+						modelFieldBean = new ModelFieldBean(modelField.value(),
+								modelField.type());
 					}
 
 					updateModelFieldBean(modelFieldBean, modelField);
@@ -359,8 +420,9 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils.getRepeatableAnnotation(clazz,
-					ModelAssociations.class, ModelAssociation.class);
+			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils
+					.getRepeatableAnnotation(clazz, ModelAssociations.class,
+							ModelAssociation.class);
 			for (ModelAssociation modelAssociationAnnotation : modelAssociationsOnType) {
 				AbstractAssociation modelAssociation = AbstractAssociation
 						.createAssociation(modelAssociationAnnotation);
@@ -369,12 +431,15 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			Set<ModelValidation> modelValidationsOnType = AnnotationUtils.getRepeatableAnnotation(clazz,
-					ModelValidations.class, ModelValidation.class);
+			Set<ModelValidation> modelValidationsOnType = AnnotationUtils
+					.getRepeatableAnnotation(clazz, ModelValidations.class,
+							ModelValidation.class);
 			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
-				AbstractValidation modelValidation = AbstractValidation.createValidation(
-						modelValidationAnnotation.propertyName(), modelValidationAnnotation,
-						outputConfig.getIncludeValidation());
+				AbstractValidation modelValidation = AbstractValidation
+						.createValidation(
+								modelValidationAnnotation.propertyName(),
+								modelValidationAnnotation,
+								outputConfig.getIncludeValidation());
 				if (modelValidation != null) {
 					model.addValidation(modelValidation);
 				}
@@ -383,11 +448,13 @@ public abstract class ModelGenerator {
 			ReflectionUtils.doWithFields(clazz, new FieldCallback() {
 
 				@Override
-				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+				public void doWith(Field field)
+						throws IllegalArgumentException, IllegalAccessException {
 					if (!fields.contains(field.getName())
 							&& (field.getAnnotation(ModelField.class) != null
-									|| field.getAnnotation(ModelAssociation.class) != null || (Modifier.isPublic(field
-									.getModifiers()) || hasReadMethod.contains(field.getName()))
+									|| field.getAnnotation(ModelAssociation.class) != null || (Modifier
+									.isPublic(field.getModifiers()) || hasReadMethod
+									.contains(field.getName()))
 									&& field.getAnnotation(JsonIgnore.class) == null)) {
 
 						// ignore superclass declarations of fields already
@@ -405,7 +472,8 @@ public abstract class ModelGenerator {
 		return model;
 	}
 
-	private static void createModelBean(ModelBean model, AccessibleObject accessibleObject, OutputConfig outputConfig) {
+	private static void createModelBean(ModelBean model,
+			AccessibleObject accessibleObject, OutputConfig outputConfig) {
 		Class<?> javaType = null;
 		String name = null;
 		Class<?> declaringClass = null;
@@ -415,7 +483,8 @@ public abstract class ModelGenerator {
 			javaType = field.getType();
 			name = field.getName();
 			declaringClass = field.getDeclaringClass();
-		} else if (accessibleObject instanceof Method) {
+		}
+		else if (accessibleObject instanceof Method) {
 			Method method = (Method) accessibleObject;
 
 			javaType = method.getReturnType();
@@ -425,9 +494,11 @@ public abstract class ModelGenerator {
 
 			if (method.getName().startsWith("get")) {
 				name = StringUtils.uncapitalize(method.getName().substring(3));
-			} else if (method.getName().startsWith("is")) {
+			}
+			else if (method.getName().startsWith("is")) {
 				name = StringUtils.uncapitalize(method.getName().substring(2));
-			} else {
+			}
+			else {
 				name = method.getName();
 			}
 
@@ -444,7 +515,8 @@ public abstract class ModelGenerator {
 
 		ModelFieldBean modelFieldBean = null;
 
-		ModelField modelFieldAnnotation = accessibleObject.getAnnotation(ModelField.class);
+		ModelField modelFieldAnnotation = accessibleObject
+				.getAnnotation(ModelField.class);
 		if (modelFieldAnnotation != null) {
 
 			if (StringUtils.hasText(modelFieldAnnotation.value())) {
@@ -452,12 +524,15 @@ public abstract class ModelGenerator {
 			}
 
 			if (StringUtils.hasText(modelFieldAnnotation.customType())) {
-				modelFieldBean = new ModelFieldBean(name, modelFieldAnnotation.customType());
-			} else {
+				modelFieldBean = new ModelFieldBean(name,
+						modelFieldAnnotation.customType());
+			}
+			else {
 				ModelType type = null;
 				if (modelFieldAnnotation.type() != ModelType.AUTO) {
 					type = modelFieldAnnotation.type();
-				} else {
+				}
+				else {
 					type = modelType;
 				}
 
@@ -467,44 +542,56 @@ public abstract class ModelGenerator {
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
 
 			model.addField(modelFieldBean);
-		} else {
+		}
+		else {
 			if (modelType != null) {
 				modelFieldBean = new ModelFieldBean(name, modelType);
 				model.addField(modelFieldBean);
 			}
 		}
 
-		ModelAssociation modelAssociationAnnotation = accessibleObject.getAnnotation(ModelAssociation.class);
+		ModelAssociation modelAssociationAnnotation = accessibleObject
+				.getAnnotation(ModelAssociation.class);
 		if (modelAssociationAnnotation != null) {
-			model.addAssociation(AbstractAssociation.createAssociation(modelAssociationAnnotation, model, javaType,
+			model.addAssociation(AbstractAssociation.createAssociation(
+					modelAssociationAnnotation, model, javaType,
 					declaringClass, name));
 		}
 
-		if (modelFieldBean != null && outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
+		if (modelFieldBean != null
+				&& outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
 
-			Set<ModelValidation> modelValidationAnnotations = AnnotationUtils.getRepeatableAnnotation(accessibleObject,
-					ModelValidations.class, ModelValidation.class);
+			Set<ModelValidation> modelValidationAnnotations = AnnotationUtils
+					.getRepeatableAnnotation(accessibleObject,
+							ModelValidations.class, ModelValidation.class);
 			if (!modelValidationAnnotations.isEmpty()) {
 				for (ModelValidation modelValidationAnnotation : modelValidationAnnotations) {
-					AbstractValidation modelValidation = AbstractValidation.createValidation(name,
-							modelValidationAnnotation, outputConfig.getIncludeValidation());
+					AbstractValidation modelValidation = AbstractValidation
+							.createValidation(name, modelValidationAnnotation,
+									outputConfig.getIncludeValidation());
 					if (modelValidation != null) {
 						model.addValidation(modelValidation);
 					}
 				}
-			} else {
-				Annotation[] fieldAnnotations = accessibleObject.getAnnotations();
+			}
+			else {
+				Annotation[] fieldAnnotations = accessibleObject
+						.getAnnotations();
 
 				for (Annotation fieldAnnotation : fieldAnnotations) {
-					AbstractValidation.addValidationToModel(model, modelFieldBean, fieldAnnotation,
+					AbstractValidation.addValidationToModel(model,
+							modelFieldBean, fieldAnnotation,
 							outputConfig.getIncludeValidation());
 				}
 
 				if (accessibleObject instanceof Field) {
-					PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(declaringClass, name);
+					PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(
+							declaringClass, name);
 					if (pd != null && pd.getReadMethod() != null) {
-						for (Annotation readMethodAnnotation : pd.getReadMethod().getAnnotations()) {
-							AbstractValidation.addValidationToModel(model, modelFieldBean, readMethodAnnotation,
+						for (Annotation readMethodAnnotation : pd
+								.getReadMethod().getAnnotations()) {
+							AbstractValidation.addValidationToModel(model,
+									modelFieldBean, readMethodAnnotation,
 									outputConfig.getIncludeValidation());
 						}
 					}
@@ -514,33 +601,43 @@ public abstract class ModelGenerator {
 
 	}
 
-	private static void updateModelFieldBean(ModelFieldBean modelFieldBean, ModelField modelFieldAnnotation) {
+	private static void updateModelFieldBean(ModelFieldBean modelFieldBean,
+			ModelField modelFieldAnnotation) {
 
 		ModelType type = modelFieldBean.getModelType();
 
-		if (StringUtils.hasText(modelFieldAnnotation.dateFormat()) && type == ModelType.DATE) {
+		if (StringUtils.hasText(modelFieldAnnotation.dateFormat())
+				&& type == ModelType.DATE) {
 			modelFieldBean.setDateFormat(modelFieldAnnotation.dateFormat());
 		}
 
 		String defaultValue = modelFieldAnnotation.defaultValue();
 		if (StringUtils.hasText(defaultValue)) {
 			if (ModelField.DEFAULTVALUE_UNDEFINED.equals(defaultValue)) {
-				modelFieldBean.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
-			} else {
+				modelFieldBean
+						.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
+			}
+			else {
 				if (type == ModelType.BOOLEAN) {
-					modelFieldBean.setDefaultValue(Boolean.parseBoolean(defaultValue));
-				} else if (type == ModelType.INTEGER) {
+					modelFieldBean.setDefaultValue(Boolean
+							.parseBoolean(defaultValue));
+				}
+				else if (type == ModelType.INTEGER) {
 					modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
-				} else if (type == ModelType.FLOAT) {
-					modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
-				} else {
+				}
+				else if (type == ModelType.FLOAT) {
+					modelFieldBean
+							.setDefaultValue(Double.valueOf(defaultValue));
+				}
+				else {
 					modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
 				}
 			}
 		}
 
 		if (modelFieldAnnotation.useNull()
-				&& (type == ModelType.INTEGER || type == ModelType.FLOAT || type == ModelType.STRING || type == ModelType.BOOLEAN)) {
+				&& (type == ModelType.INTEGER || type == ModelType.FLOAT
+						|| type == ModelType.STRING || type == ModelType.BOOLEAN)) {
 			modelFieldBean.setUseNull(true);
 		}
 
@@ -569,14 +666,19 @@ public abstract class ModelGenerator {
 
 		if (!config.isSurroundApiWithQuotes()) {
 			if (config.getOutputFormat() == OutputFormat.EXTJS5) {
-				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
-			} else {
-				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithoutApiQuotesMixin.class);
+				mapper.addMixInAnnotations(ProxyObject.class,
+						ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
+			}
+			else {
+				mapper.addMixInAnnotations(ProxyObject.class,
+						ProxyObjectWithoutApiQuotesMixin.class);
 			}
 			mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
-		} else {
+		}
+		else {
 			if (config.getOutputFormat() != OutputFormat.EXTJS5) {
-				mapper.addMixInAnnotations(ProxyObject.class, ProxyObjectWithApiQuotesMixin.class);
+				mapper.addMixInAnnotations(ProxyObject.class,
+						ProxyObjectWithApiQuotesMixin.class);
 			}
 		}
 
@@ -598,7 +700,8 @@ public abstract class ModelGenerator {
 
 		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
 
-		if (StringUtils.hasText(model.getIdProperty()) && !model.getIdProperty().equals("id")) {
+		if (StringUtils.hasText(model.getIdProperty())
+				&& !model.getIdProperty().equals("id")) {
 			configObject.put("idProperty", model.getIdProperty());
 		}
 
@@ -617,9 +720,11 @@ public abstract class ModelGenerator {
 			configObject.put("proxy", proxyObject);
 		}
 
-		if (config.getOutputFormat() == OutputFormat.EXTJS4 || config.getOutputFormat() == OutputFormat.EXTJS5) {
+		if (config.getOutputFormat() == OutputFormat.EXTJS4
+				|| config.getOutputFormat() == OutputFormat.EXTJS5) {
 			modelObject.putAll(configObject);
-		} else {
+		}
+		else {
 			modelObject.put("config", configObject);
 		}
 
@@ -632,16 +737,21 @@ public abstract class ModelGenerator {
 		String configObjectString;
 		try {
 			if (config.isDebug()) {
-				configObjectString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(modelObject);
-			} else {
+				configObjectString = mapper.writerWithDefaultPrettyPrinter()
+						.writeValueAsString(modelObject);
+			}
+			else {
 				configObjectString = mapper.writeValueAsString(modelObject);
 			}
 
-		} catch (JsonGenerationException e) {
+		}
+		catch (JsonGenerationException e) {
 			throw new RuntimeException(e);
-		} catch (JsonMappingException e) {
+		}
+		catch (JsonMappingException e) {
 			throw new RuntimeException(e);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 
@@ -655,7 +765,8 @@ public abstract class ModelGenerator {
 		}
 
 		if (!config.isDebug()) {
-			jsCache.put(new JsCacheKey(model, config), new SoftReference<String>(result));
+			jsCache.put(new JsCacheKey(model, config),
+					new SoftReference<String>(result));
 		}
 		return result;
 	}
