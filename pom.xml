@@ -48,7 +48,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>4.0.4.RELEASE</spring.version>
+		<spring.version>4.0.5.RELEASE</spring.version>
 		<jackson.version>2.4.0-rc3</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -271,7 +271,7 @@
 						<exclude>**/*.md</exclude>
 						<exclude>**/*.json</exclude>
 						<exclude>**/*.py</exclude>
-						<exclude>**/*.yml</exclude>
+						<exclude>.travis.yml</exclude>
 						<exclude>**/.gitignore</exclude>
 					</excludes>
 					<strictCheck>true</strictCheck>
