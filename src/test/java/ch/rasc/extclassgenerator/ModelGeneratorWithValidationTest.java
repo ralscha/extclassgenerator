@@ -67,7 +67,7 @@ public class ModelGeneratorWithValidationTest {
 		field.setUseNull(true);
 		model.addField(field);
 
-		List<AbstractValidation> validations = new ArrayList<AbstractValidation>();
+		List<AbstractValidation> validations = new ArrayList<>();
 		validations.add(new PresenceValidation("id"));
 		validations.add(new EmailValidation("email"));
 		model.setValidations(validations);
@@ -76,7 +76,7 @@ public class ModelGeneratorWithValidationTest {
 		model.addValidation(new GenericValidation("myOwnValidator1", "name",
 				null));
 
-		Map<String, Object> options = new LinkedHashMap<String, Object>();
+		Map<String, Object> options = new LinkedHashMap<>();
 		options.put("o1", "s");
 		options.put("o2", 10);
 		options.put("o3", true);
@@ -101,7 +101,7 @@ public class ModelGeneratorWithValidationTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.User");
 
-		List<ModelFieldBean> fields = new ArrayList<ModelFieldBean>();
+		List<ModelFieldBean> fields = new ArrayList<>();
 		fields.add(new ModelFieldBean("id", ModelType.INTEGER));
 		fields.add(new ModelFieldBean("name", ModelType.STRING));
 		model.addFields(fields);
@@ -111,7 +111,7 @@ public class ModelGeneratorWithValidationTest {
 		model.addValidation(new GenericValidation("myOwnValidator1", "name",
 				null));
 
-		Map<String, Object> options = new LinkedHashMap<String, Object>();
+		Map<String, Object> options = new LinkedHashMap<>();
 		options.put("o1", "s");
 		options.put("o2", 10);
 		options.put("o3", true);

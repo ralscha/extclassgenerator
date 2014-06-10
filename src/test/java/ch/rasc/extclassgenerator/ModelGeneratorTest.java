@@ -103,7 +103,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 
 		ModelFieldBean field = new ModelFieldBean("active", ModelType.BOOLEAN);
@@ -129,7 +129,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.User");
 
-		List<ModelFieldBean> fields = new ArrayList<ModelFieldBean>();
+		List<ModelFieldBean> fields = new ArrayList<>();
 		fields.add(new ModelFieldBean("id", ModelType.INTEGER));
 		fields.add(new ModelFieldBean("name", ModelType.STRING));
 		model.addFields(fields);
@@ -169,7 +169,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 
 		ModelFieldBean field = new ModelFieldBean("active", ModelType.BOOLEAN);
@@ -195,7 +195,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -252,7 +252,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -309,7 +309,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -365,7 +365,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -420,7 +420,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -475,7 +475,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 
@@ -530,7 +530,7 @@ public class ModelGeneratorTest {
 		ModelBean model = new ModelBean();
 		model.setName("App.Info");
 
-		Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+		Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 		model.setFields(fields);
 

@@ -330,7 +330,7 @@ public class BeanWithAnnotations {
 		this.moreIds = moreIds;
 	}
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("by", ModelType.INTEGER);

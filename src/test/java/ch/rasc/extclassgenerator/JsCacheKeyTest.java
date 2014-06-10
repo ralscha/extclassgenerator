@@ -51,7 +51,7 @@ public class JsCacheKeyTest {
 		config.setOutputFormat(OutputFormat.EXTJS4);
 		JsCacheKey key5 = new JsCacheKey(m, config);
 
-		Map<JsCacheKey, String> map = new ConcurrentHashMap<JsCacheKey, String>();
+		Map<JsCacheKey, String> map = new ConcurrentHashMap<>();
 		map.put(key1, "one");
 		map.put(key2, "two");
 		map.put(key3, "three");

@@ -80,7 +80,7 @@ public class BeanWithCustomType {
 		this.creditcardnumber = creditcardnumber;
 	}
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 	static {
 		ModelFieldBean field = new ModelFieldBean("id", ModelType.STRING);
 		expectedFields.add(field);

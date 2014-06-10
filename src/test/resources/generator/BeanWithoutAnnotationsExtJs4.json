@@ -71,7 +71,22 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations",
     name : "aDateTime",
     type : "date"
   }, {
+    name : "aReadableDateTime",
+    type : "date"
+  }, {
     name : "aLocalDate",
+    type : "date"
+  }, {
+    name : "aJava8LocalDate",
+    type : "date"
+  }, {
+    name : "aJava8LocalDateTime",
+    type : "date"
+  }, {
+    name : "aJava8ZonedDateTime",
+    type : "date"
+  }, {
+    name : "aJava8OffsetDateTime",
     type : "date"
   } ]
 });

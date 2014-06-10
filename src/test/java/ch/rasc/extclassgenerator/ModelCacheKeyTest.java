@@ -40,7 +40,7 @@ public class ModelCacheKeyTest {
 				IncludeValidation.BUILTIN);
 		ModelCacheKey key5 = new ModelCacheKey("name", IncludeValidation.NONE);
 
-		Map<ModelCacheKey, String> map = new ConcurrentHashMap<ModelCacheKey, String>();
+		Map<ModelCacheKey, String> map = new ConcurrentHashMap<>();
 		map.put(key1, "one");
 		map.put(key2, "two");
 		map.put(key3, "three");

@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.ReadableDateTime;
 
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
@@ -78,7 +79,17 @@ public class BeanWithoutAnnotations {
 
 	private DateTime aDateTime;
 
+	private ReadableDateTime aReadableDateTime;
+
 	private LocalDate aLocalDate;
+
+	private java.time.LocalDate aJava8LocalDate;
+
+	private java.time.LocalDateTime aJava8LocalDateTime;
+
+	private java.time.ZonedDateTime aJava8ZonedDateTime;
+
+	private java.time.OffsetDateTime aJava8OffsetDateTime;
 
 	public byte getaByte() {
 		return aByte;
@@ -248,12 +259,55 @@ public class BeanWithoutAnnotations {
 		this.aDateTime = aDateTime;
 	}
 
+	public ReadableDateTime getaReadableDateTime() {
+		return aReadableDateTime;
+	}
+
+	public void setaReadableDateTime(ReadableDateTime aReadableDateTime) {
+		this.aReadableDateTime = aReadableDateTime;
+	}
+
 	public LocalDate getaLocalDate() {
 		return aLocalDate;
 	}
 
 	public void setaLocalDate(LocalDate aLocalDate) {
 		this.aLocalDate = aLocalDate;
+	}
+
+	public java.time.LocalDate getaJava8LocalDate() {
+		return aJava8LocalDate;
+	}
+
+	public void setaJava8LocalDate(java.time.LocalDate aJava8LocalDate) {
+		this.aJava8LocalDate = aJava8LocalDate;
+	}
+
+	public java.time.LocalDateTime getaJava8LocalDateTime() {
+		return aJava8LocalDateTime;
+	}
+
+	public void setaJava8LocalDateTime(
+			java.time.LocalDateTime aJava8LocalDateTime) {
+		this.aJava8LocalDateTime = aJava8LocalDateTime;
+	}
+
+	public java.time.ZonedDateTime getaJava8ZonedDateTime() {
+		return aJava8ZonedDateTime;
+	}
+
+	public void setaJava8ZonedDateTime(
+			java.time.ZonedDateTime aJava8ZonedDateTime) {
+		this.aJava8ZonedDateTime = aJava8ZonedDateTime;
+	}
+
+	public java.time.OffsetDateTime getaJava8OffsetDateTime() {
+		return aJava8OffsetDateTime;
+	}
+
+	public void setaJava8OffsetDateTime(
+			java.time.OffsetDateTime aJava8OffsetDateTime) {
+		this.aJava8OffsetDateTime = aJava8OffsetDateTime;
 	}
 
 	public Calendar getaCalendar() {
@@ -272,7 +326,7 @@ public class BeanWithoutAnnotations {
 		this.aSecondCalendar = aSecondCalendar;
 	}
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 	static {
 		expectedFields.add(new ModelFieldBean("aByte", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aShort", ModelType.INTEGER));
@@ -304,7 +358,17 @@ public class BeanWithoutAnnotations {
 		expectedFields.add(new ModelFieldBean("aSqlDate", ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aTimestamp", ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aDateTime", ModelType.DATE));
+		expectedFields.add(new ModelFieldBean("aReadableDateTime",
+				ModelType.DATE));
 		expectedFields.add(new ModelFieldBean("aLocalDate", ModelType.DATE));
+		expectedFields
+				.add(new ModelFieldBean("aJava8LocalDate", ModelType.DATE));
+		expectedFields.add(new ModelFieldBean("aJava8LocalDateTime",
+				ModelType.DATE));
+		expectedFields.add(new ModelFieldBean("aJava8ZonedDateTime",
+				ModelType.DATE));
+		expectedFields.add(new ModelFieldBean("aJava8OffsetDateTime",
+				ModelType.DATE));
 	}
 
 }

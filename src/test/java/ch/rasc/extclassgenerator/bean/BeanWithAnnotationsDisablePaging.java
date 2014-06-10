@@ -77,7 +77,7 @@ public class BeanWithAnnotationsDisablePaging extends Base {
 		this.accountNo = accountNo;
 	}
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("id", ModelType.INTEGER);

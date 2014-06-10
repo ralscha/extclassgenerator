@@ -50,7 +50,7 @@ public class BeanWithGenericValidation {
 	@ModelValidation(value = ModelValidationType.INCLUSION, parameters = @ModelValidationParameter(name = "list", value = "[\"fish\",\"fruit\"]"))
 	public String includedV1;
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("singleton", ModelType.STRING);
