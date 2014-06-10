@@ -33,7 +33,8 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
  * or
  * {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
-@JsonPropertyOrder(value = { "messageProperty", "totalProperty", "root", "successProperty" })
+@JsonPropertyOrder(value = { "messageProperty", "totalProperty", "root",
+		"successProperty" })
 public class ModelBean {
 	private String name;
 
