@@ -31,16 +31,15 @@ public class ModelGeneratorBeanWithoutAnnotationsTest {
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModelBuiltinValidation(
-				BeanWithoutAnnotations.class, "BeanWithoutAnnotations");
+		GeneratorTestUtil.testWriteModelBuiltinValidation(BeanWithoutAnnotations.class,
+				"BeanWithoutAnnotations");
 		GeneratorTestUtil.testGenerateJavascript(BeanWithoutAnnotations.class,
 				"BeanWithoutAnnotations", false, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator
-				.createModel(BeanWithoutAnnotations.class);
+		ModelBean modelBean = ModelGenerator.createModel(BeanWithoutAnnotations.class);
 		assertThat(modelBean.getReadMethod()).isNull();
 		assertThat(modelBean.getCreateMethod()).isNull();
 		assertThat(modelBean.getUpdateMethod()).isNull();
@@ -53,8 +52,7 @@ public class ModelGeneratorBeanWithoutAnnotationsTest {
 		assertThat(BeanWithoutAnnotations.expectedFields).hasSize(29);
 
 		for (ModelFieldBean expectedField : BeanWithoutAnnotations.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

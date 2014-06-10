@@ -45,8 +45,7 @@ public class ModelGeneratorBeanWithAnnotations3Test {
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator
-				.createModel(BeanWithAnnotations3.class);
+		ModelBean modelBean = ModelGenerator.createModel(BeanWithAnnotations3.class);
 		assertThat(modelBean.getReadMethod()).isEqualTo("read");
 		assertThat(modelBean.getCreateMethod()).isNull();
 		assertThat(modelBean.getUpdateMethod()).isNull();
@@ -54,19 +53,16 @@ public class ModelGeneratorBeanWithAnnotations3Test {
 		assertThat(modelBean.getIdProperty()).isEqualTo("id");
 		assertThat(modelBean.isDisablePagingParameters()).isFalse();
 		assertThat(modelBean.isPaging()).isFalse();
-		assertThat(modelBean.getMessageProperty()).isEqualTo(
-				"theMessageProperty");
+		assertThat(modelBean.getMessageProperty()).isEqualTo("theMessageProperty");
 		assertThat(modelBean.getRootProperty()).isEqualTo("theRootProperty");
 		assertThat(modelBean.getTotalProperty()).isEqualTo("theTotalProperty");
-		assertThat(modelBean.getSuccessProperty()).isEqualTo(
-				"theSuccessProperty");
+		assertThat(modelBean.getSuccessProperty()).isEqualTo("theSuccessProperty");
 		assertThat(modelBean.getName()).isEqualTo("Sch.Bean3");
 		assertThat(modelBean.getFields()).hasSize(2);
 		assertThat(BeanWithAnnotations3.expectedFields).hasSize(2);
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations3.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

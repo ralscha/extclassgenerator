@@ -30,8 +30,7 @@ final class JsCacheKey {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (config == null ? 0 : config.hashCode());
-		result = prime * result
-				+ (modelName == null ? 0 : modelName.hashCode());
+		result = prime * result + (modelName == null ? 0 : modelName.hashCode());
 		return result;
 	}
 

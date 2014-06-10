@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
  * Represents one field in a {@link ModelBean}
  */
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder(value = { "name", "type", "defaultValue", "dateFormat",
-		"useNull", "mapping" })
+@JsonPropertyOrder(value = { "name", "type", "defaultValue", "dateFormat", "useNull",
+		"mapping" })
 public class ModelFieldBean {
 	private String name;
 
@@ -85,8 +85,8 @@ public class ModelFieldBean {
 
 	/**
 	 * Name of the field. Property '<a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-name"
-	 * >name</a>' in JS.
+	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-name" >name</a>'
+	 * in JS.
 	 *
 	 * @param name new name for the field
 	 */
@@ -104,8 +104,8 @@ public class ModelFieldBean {
 
 	/**
 	 * Type of the field. Property '<a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-type"
-	 * >type</a>' in JS.
+	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-type" >type</a>'
+	 * in JS.
 	 *
 	 * @param type new type for the field
 	 */
@@ -157,16 +157,14 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * If true null value is used if value cannot be parsed. If false default
-	 * values are used (0 for integer and float, "" for string and false for
-	 * boolean).<br>
+	 * If true null value is used if value cannot be parsed. If false default values are
+	 * used (0 for integer and float, "" for string and false for boolean).<br>
 	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-useNull"
-	 * >useNull</a>' in JS.<br>
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-useNull" >useNull</a>'
+	 * in JS.<br>
 	 * <p>
-	 * Only used if type of field is {@link ModelType#INTEGER},
-	 * {@link ModelType#FLOAT}, {@link ModelType#STRING} or
-	 * {@link ModelType#BOOLEAN}.
+	 * Only used if type of field is {@link ModelType#INTEGER}, {@link ModelType#FLOAT},
+	 * {@link ModelType#STRING} or {@link ModelType#BOOLEAN}.
 	 *
 	 * @param useNull new value for useNull
 	 */
@@ -179,11 +177,10 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * Typical use for a virtual field to extract field data from the model
-	 * object <br>
+	 * Typical use for a virtual field to extract field data from the model object <br>
 	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-mapping"
-	 * >mapping</a>' in JS.<br>
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-mapping" >mapping</a>'
+	 * in JS.<br>
 	 * <p>
 	 *
 	 * @param mapping A path expression
@@ -201,8 +198,8 @@ public class ModelFieldBean {
 	 * Ext.data.writer.Writer <br>
 	 * Typical use for a virtual field <br>
 	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-persist"
-	 * >persist</a>' in JS.<br>
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-persist" >persist</a>'
+	 * in JS.<br>
 	 * <p>
 	 *
 	 * @param persist defaults to true, only a false value will be generated
@@ -218,13 +215,12 @@ public class ModelFieldBean {
 	/**
 	 * function which coerces string values in raw data into the field's type <br>
 	 * Typical use for a virtual field <br>
-	 * http://localhost/ext4.1/docs/index.html#!/api/Ext.data.Field-cfg-convert
-	 * Property '<a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" >
+	 * http://localhost/ext4.1/docs/index.html#!/api/Ext.data.Field-cfg-convert Property
+	 * '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" >
 	 * Ext.data.Field.convert</a>' in JS.<br>
 	 *
-	 * @param convert A function. JavaScript Syntax example: function(v, record)
-	 * { return ... ; }
+	 * @param convert A function. JavaScript Syntax example: function(v, record) { return
+	 * ... ; }
 	 */
 	public void setConvert(String convert) {
 		this.convert = convert;

@@ -68,8 +68,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			return ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS;
 		}
 
-		if (roundEnv.getRootElements() == null
-				|| roundEnv.getRootElements().isEmpty()) {
+		if (roundEnv.getRootElements() == null || roundEnv.getRootElements().isEmpty()) {
 			processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
 					"No sources to process");
 			return ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS;
@@ -77,20 +76,18 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 		OutputConfig outputConfig = new OutputConfig();
 
-		outputConfig.setDebug(!"false".equals(processingEnv.getOptions().get(
-				OPTION_DEBUG)));
-		boolean createBaseAndSubclass = "true".equals(processingEnv
-				.getOptions().get(OPTION_CREATEBASEANDSUBCLASS));
+		outputConfig.setDebug(!"false".equals(processingEnv.getOptions()
+				.get(OPTION_DEBUG)));
+		boolean createBaseAndSubclass = "true".equals(processingEnv.getOptions().get(
+				OPTION_CREATEBASEANDSUBCLASS));
 
-		String outputFormatString = processingEnv.getOptions().get(
-				OPTION_OUTPUTFORMAT);
+		String outputFormatString = processingEnv.getOptions().get(OPTION_OUTPUTFORMAT);
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
 		if (StringUtils.hasText(outputFormatString)) {
 			if (OutputFormat.TOUCH2.name().equalsIgnoreCase(outputFormatString)) {
 				outputConfig.setOutputFormat(OutputFormat.TOUCH2);
 			}
-			else if (OutputFormat.EXTJS5.name().equalsIgnoreCase(
-					outputFormatString)) {
+			else if (OutputFormat.EXTJS5.name().equalsIgnoreCase(outputFormatString)) {
 				outputConfig.setOutputFormat(OutputFormat.EXTJS5);
 			}
 		}
@@ -99,8 +96,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 				OPTION_INCLUDEVALIDATION);
 		outputConfig.setIncludeValidation(IncludeValidation.NONE);
 		if (StringUtils.hasText(includeValidationString)) {
-			if (IncludeValidation.ALL.name().equalsIgnoreCase(
-					includeValidationString)) {
+			if (IncludeValidation.ALL.name().equalsIgnoreCase(includeValidationString)) {
 				outputConfig.setIncludeValidation(IncludeValidation.ALL);
 			}
 			else if (IncludeValidation.BUILTIN.name().equalsIgnoreCase(
@@ -109,10 +105,10 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			}
 		}
 
-		outputConfig.setUseSingleQuotes("true".equals(processingEnv
-				.getOptions().get(OPTION_USESINGLEQUOTES)));
-		outputConfig.setSurroundApiWithQuotes("true".equals(processingEnv
-				.getOptions().get(OPTION_SURROUNDAPIWITHQUOTES)));
+		outputConfig.setUseSingleQuotes("true".equals(processingEnv.getOptions().get(
+				OPTION_USESINGLEQUOTES)));
+		outputConfig.setSurroundApiWithQuotes("true".equals(processingEnv.getOptions()
+				.get(OPTION_SURROUNDAPIWITHQUOTES)));
 
 		for (TypeElement annotation : annotations) {
 			Set<? extends Element> elements = roundEnv
@@ -122,8 +118,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 				try {
 					TypeElement typeElement = (TypeElement) element;
 
-					String qualifiedName = typeElement.getQualifiedName()
-							.toString();
+					String qualifiedName = typeElement.getQualifiedName().toString();
 					Class<?> modelClass = Class.forName(qualifiedName);
 
 					String code = ModelGenerator.generateJavascript(modelClass,
@@ -139,8 +134,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 							fileName = modelName.substring(lastDot + 1);
 							int firstDot = modelName.indexOf('.');
 							if (firstDot < lastDot) {
-								packageName = modelName.substring(firstDot + 1,
-										lastDot);
+								packageName = modelName.substring(firstDot + 1, lastDot);
 							}
 						}
 						else {
@@ -152,39 +146,38 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 					}
 
 					if (createBaseAndSubclass) {
-						code = code.replaceFirst(
-								"(Ext.define\\([\"'].+?)([\"'],)", "$1Base$2");
-						FileObject fo = processingEnv.getFiler()
-								.createResource(StandardLocation.SOURCE_OUTPUT,
-										packageName, fileName + "Base.js");
+						code = code.replaceFirst("(Ext.define\\([\"'].+?)([\"'],)",
+								"$1Base$2");
+						FileObject fo = processingEnv.getFiler().createResource(
+								StandardLocation.SOURCE_OUTPUT, packageName,
+								fileName + "Base.js");
 						OutputStream os = fo.openOutputStream();
 						os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
 						os.close();
 
 						try {
 							fo = processingEnv.getFiler().getResource(
-									StandardLocation.SOURCE_OUTPUT,
-									packageName, fileName + ".js");
+									StandardLocation.SOURCE_OUTPUT, packageName,
+									fileName + ".js");
 							InputStream is = fo.openInputStream();
 							is.close();
 						}
 						catch (FileNotFoundException e) {
-							String subClassCode = generateSubclassCode(
-									modelClass, outputConfig);
+							String subClassCode = generateSubclassCode(modelClass,
+									outputConfig);
 							fo = processingEnv.getFiler().createResource(
-									StandardLocation.SOURCE_OUTPUT,
-									packageName, fileName + ".js");
+									StandardLocation.SOURCE_OUTPUT, packageName,
+									fileName + ".js");
 							os = fo.openOutputStream();
-							os.write(subClassCode
-									.getBytes(ModelGenerator.UTF8_CHARSET));
+							os.write(subClassCode.getBytes(ModelGenerator.UTF8_CHARSET));
 							os.close();
 						}
 
 					}
 					else {
-						FileObject fo = processingEnv.getFiler()
-								.createResource(StandardLocation.SOURCE_OUTPUT,
-										packageName, fileName + ".js");
+						FileObject fo = processingEnv.getFiler().createResource(
+								StandardLocation.SOURCE_OUTPUT, packageName,
+								fileName + ".js");
 						OutputStream os = fo.openOutputStream();
 						os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
 						os.close();
@@ -192,12 +185,12 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 				}
 				catch (ClassNotFoundException e) {
-					processingEnv.getMessager().printMessage(
-							Diagnostic.Kind.ERROR, e.getMessage());
+					processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+							e.getMessage());
 				}
 				catch (IOException e) {
-					processingEnv.getMessager().printMessage(
-							Diagnostic.Kind.ERROR, e.getMessage());
+					processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+							e.getMessage());
 				}
 
 			}
@@ -206,13 +199,11 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		return ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS;
 	}
 
-	private static String generateSubclassCode(Class<?> clazz,
-			OutputConfig outputConfig) {
+	private static String generateSubclassCode(Class<?> clazz, OutputConfig outputConfig) {
 		Model modelAnnotation = clazz.getAnnotation(Model.class);
 
 		String name;
-		if (modelAnnotation != null
-				&& StringUtils.hasText(modelAnnotation.value())) {
+		if (modelAnnotation != null && StringUtils.hasText(modelAnnotation.value())) {
 			name = modelAnnotation.value();
 		}
 		else {
@@ -243,8 +234,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 					mapper.addMixInAnnotations(ProxyObject.class,
 							ProxyObjectWithoutApiQuotesMixin.class);
 				}
-				mapper.addMixInAnnotations(ApiObject.class,
-						ApiObjectMixin.class);
+				mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
 			}
 			else {
 				if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {

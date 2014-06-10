@@ -31,8 +31,8 @@ public class HasManyAssociation extends AbstractAssociation {
 	private String name;
 
 	/**
-	 * Creates an instance of a hasMany association. Sets {@link #model} to the
-	 * provided parameters.
+	 * Creates an instance of a hasMany association. Sets {@link #model} to the provided
+	 * parameters.
 	 *
 	 * @param model The name of the model that is being associated with.
 	 */
@@ -41,9 +41,9 @@ public class HasManyAssociation extends AbstractAssociation {
 	}
 
 	/**
-	 * Creates an instance of a hasMany association. Sets {@link #model} to the
-	 * full qualified name of the model class or the string from
-	 * {@link Model#value()} if present on the class.
+	 * Creates an instance of a hasMany association. Sets {@link #model} to the full
+	 * qualified name of the model class or the string from {@link Model#value()} if
+	 * present on the class.
 	 *
 	 * @param model The class of the model that is being associated with.
 	 */
@@ -74,9 +74,9 @@ public class HasManyAssociation extends AbstractAssociation {
 	}
 
 	/**
-	 * The name of the function to create on the owner model to retrieve the
-	 * child store. If not specified, the pluralized name of the child model is
-	 * used. Always specify this if the class name contains a package component.
+	 * The name of the function to create on the owner model to retrieve the child store.
+	 * If not specified, the pluralized name of the child model is used. Always specify
+	 * this if the class name contains a package component.
 	 * <p>
 	 * Corresponds to the <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-name"

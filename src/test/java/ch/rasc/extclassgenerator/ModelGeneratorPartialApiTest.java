@@ -31,14 +31,14 @@ public class ModelGeneratorPartialApiTest {
 
 	@Test
 	public void testWithQuotes() {
-		GeneratorTestUtil.testGenerateJavascript(PartialApi.class,
-				"PartialApi", true, IncludeValidation.NONE, true);
+		GeneratorTestUtil.testGenerateJavascript(PartialApi.class, "PartialApi", true,
+				IncludeValidation.NONE, true);
 	}
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testGenerateJavascript(PartialApi.class,
-				"PartialApi", false, IncludeValidation.NONE, true);
+		GeneratorTestUtil.testGenerateJavascript(PartialApi.class, "PartialApi", false,
+				IncludeValidation.NONE, true);
 	}
 
 	@Test
@@ -56,8 +56,7 @@ public class ModelGeneratorPartialApiTest {
 		assertThat(modelBean.getValidations()).isEmpty();
 
 		for (ModelFieldBean expectedField : PartialApi.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

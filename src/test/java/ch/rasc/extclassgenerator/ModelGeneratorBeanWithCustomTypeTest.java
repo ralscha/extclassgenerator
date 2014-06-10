@@ -37,16 +37,14 @@ public class ModelGeneratorBeanWithCustomTypeTest {
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModel(BeanWithCustomType.class,
-				"BeanWithCustomType");
+		GeneratorTestUtil.testWriteModel(BeanWithCustomType.class, "BeanWithCustomType");
 		GeneratorTestUtil.testGenerateJavascript(BeanWithCustomType.class,
 				"BeanWithCustomType", false, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator
-				.createModel(BeanWithCustomType.class);
+		ModelBean modelBean = ModelGenerator.createModel(BeanWithCustomType.class);
 		assertThat(modelBean.getReadMethod()).isNull();
 		assertThat(modelBean.getCreateMethod()).isNull();
 		assertThat(modelBean.getUpdateMethod()).isNull();
@@ -63,8 +61,7 @@ public class ModelGeneratorBeanWithCustomTypeTest {
 		assertThat(BeanWithCustomType.expectedFields).hasSize(5);
 
 		for (ModelFieldBean expectedField : BeanWithCustomType.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

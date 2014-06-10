@@ -77,16 +77,16 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormat()
 			throws IOException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(
-				BeanWithGenericValidation.class, IncludeValidation.ALL);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.EXTJS4);
+		ModelBean model = ModelGenerator.createModel(BeanWithGenericValidation.class,
+				IncludeValidation.ALL);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.EXTJS4);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
 				response.getContentAsString(), false, false);
 
 		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.TOUCH2);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.TOUCH2);
 		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
 				response.getContentAsString(), false, false);
 	}
@@ -95,57 +95,53 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 	public void testWriteModelHttpServletRequestHttpServletResponseModelBeanOutputFormatBoolean()
 			throws IOException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelBean model = ModelGenerator.createModel(
-				BeanWithGenericValidation.class, IncludeValidation.ALL);
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.EXTJS4, false);
+		ModelBean model = ModelGenerator.createModel(BeanWithGenericValidation.class,
+				IncludeValidation.ALL);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.EXTJS4, false);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
 				response.getContentAsString(), false, false);
 
 		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.TOUCH2, false);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.TOUCH2, false);
 		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
 				response.getContentAsString(), false, false);
 
 		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.EXTJS4, true);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.EXTJS4, true);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
 				response.getContentAsString(), true, false);
 
 		response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
-				model, OutputFormat.TOUCH2, true);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, model,
+				OutputFormat.TOUCH2, true);
 		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
 				response.getContentAsString(), true, false);
 	}
 
 	@Test
 	public void testGenerateJavascriptClassOfQOutputFormatBoolean() {
-		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(
-						BeanWithGenericValidation.class, OutputFormat.EXTJS4,
+		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation", ModelGenerator
+				.generateJavascript(BeanWithGenericValidation.class, OutputFormat.EXTJS4,
 						IncludeValidation.ALL, true), true, false);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(
-						BeanWithGenericValidation.class, OutputFormat.EXTJS4,
+		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation", ModelGenerator
+				.generateJavascript(BeanWithGenericValidation.class, OutputFormat.EXTJS4,
 						IncludeValidation.ALL, false), false, false);
 
-		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(
-						BeanWithGenericValidation.class, OutputFormat.TOUCH2,
+		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation", ModelGenerator
+				.generateJavascript(BeanWithGenericValidation.class, OutputFormat.TOUCH2,
 						IncludeValidation.ALL, true), true, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(
-						BeanWithGenericValidation.class, OutputFormat.TOUCH2,
+		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation", ModelGenerator
+				.generateJavascript(BeanWithGenericValidation.class, OutputFormat.TOUCH2,
 						IncludeValidation.ALL, false), false, false);
 	}
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator.createModel(
-				BeanWithGenericValidation.class, IncludeValidation.ALL);
+		ModelBean modelBean = ModelGenerator.createModel(BeanWithGenericValidation.class,
+				IncludeValidation.ALL);
 		assertThat(modelBean.getReadMethod()).isNull();
 		assertThat(modelBean.getCreateMethod()).isNull();
 		assertThat(modelBean.getUpdateMethod()).isNull();
@@ -158,8 +154,7 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 		assertThat(BeanWithGenericValidation.expectedFields).hasSize(6);
 
 		for (ModelFieldBean expectedField : BeanWithGenericValidation.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 
@@ -187,8 +182,8 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 
 		assertThat(modelBean.getValidations().get(1)).isInstanceOf(
 				GenericValidation.class);
-		exclusionValidationArray = (ExclusionValidationArray) modelBean
-				.getValidations().get(3);
+		exclusionValidationArray = (ExclusionValidationArray) modelBean.getValidations()
+				.get(3);
 		assertThat(exclusionValidationArray.getType()).isEqualTo("exclusion");
 		assertThat(exclusionValidationArray.getField()).isEqualTo("excluded2");
 
@@ -216,35 +211,33 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 
 	@Test
 	public void testGenerateJavascriptModelBeanOutputFormatBoolean() {
-		ModelBean model = ModelGenerator.createModel(
-				BeanWithGenericValidation.class, IncludeValidation.ALL);
+		ModelBean model = ModelGenerator.createModel(BeanWithGenericValidation.class,
+				IncludeValidation.ALL);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-						true), true, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, true),
+				true, false);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-						false), false, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false),
+				false, false);
 
 		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-						true), true, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, true),
+				true, false);
 		GeneratorTestUtil.compareTouch2Code("BeanWithGenericValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-						false), false, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false),
+				false, false);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testLengthValidation() {
 		@SuppressWarnings("unused")
-		LengthValidation lv = new LengthValidation("name", (Integer) null,
-				(Integer) null);
+		LengthValidation lv = new LengthValidation("name", (Integer) null, (Integer) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testRangeValidation() {
 		@SuppressWarnings("unused")
-		RangeValidation rv = new RangeValidation("name", (Long) null,
-				(Long) null);
+		RangeValidation rv = new RangeValidation("name", (Long) null, (Long) null);
 	}
 
 }

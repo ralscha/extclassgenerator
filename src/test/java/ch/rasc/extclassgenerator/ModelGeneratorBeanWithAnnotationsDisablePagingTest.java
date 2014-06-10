@@ -31,21 +31,16 @@ public class ModelGeneratorBeanWithAnnotationsDisablePagingTest {
 
 	@Test
 	public void testWithQuotes() {
-		GeneratorTestUtil.testGenerateJavascript(
-				BeanWithAnnotationsDisablePaging.class,
-				"BeanWithAnnotationsDisablePaging", true,
-				IncludeValidation.NONE, false);
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotationsDisablePaging.class,
+				"BeanWithAnnotationsDisablePaging", true, IncludeValidation.NONE, false);
 	}
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil.testWriteModel(
-				BeanWithAnnotationsDisablePaging.class,
+		GeneratorTestUtil.testWriteModel(BeanWithAnnotationsDisablePaging.class,
 				"BeanWithAnnotationsDisablePaging");
-		GeneratorTestUtil.testGenerateJavascript(
-				BeanWithAnnotationsDisablePaging.class,
-				"BeanWithAnnotationsDisablePaging", false,
-				IncludeValidation.NONE, false);
+		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotationsDisablePaging.class,
+				"BeanWithAnnotationsDisablePaging", false, IncludeValidation.NONE, false);
 	}
 
 	@Test
@@ -59,15 +54,13 @@ public class ModelGeneratorBeanWithAnnotationsDisablePagingTest {
 		assertThat(modelBean.getIdProperty()).isEqualTo("id");
 		assertThat(modelBean.isDisablePagingParameters()).isTrue();
 		assertThat(modelBean.isPaging()).isFalse();
-		assertThat(modelBean.getMessageProperty()).isEqualTo(
-				"theMessageProperty");
+		assertThat(modelBean.getMessageProperty()).isEqualTo("theMessageProperty");
 		assertThat(modelBean.getName()).isEqualTo("Sch.Bean2");
 		assertThat(modelBean.getFields()).hasSize(3);
 		assertThat(BeanWithAnnotationsDisablePaging.expectedFields).hasSize(3);
 
 		for (ModelFieldBean expectedField : BeanWithAnnotationsDisablePaging.expectedFields) {
-			ModelFieldBean field = modelBean.getFields().get(
-					expectedField.getName());
+			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 	}

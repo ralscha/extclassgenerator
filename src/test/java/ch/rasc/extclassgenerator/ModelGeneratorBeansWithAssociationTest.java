@@ -47,8 +47,7 @@ public class ModelGeneratorBeansWithAssociationTest {
 
 	@Test
 	public void testBookWithOneAuthor() {
-		GeneratorTestUtil.testWriteModel(BookWithOneAuthor.class,
-				"BookWithOneAuthor");
+		GeneratorTestUtil.testWriteModel(BookWithOneAuthor.class, "BookWithOneAuthor");
 	}
 
 	@Test
@@ -79,8 +78,7 @@ public class ModelGeneratorBeansWithAssociationTest {
 
 	@Test
 	public void testTwoHasOneClass() {
-		GeneratorTestUtil
-				.testWriteModel(TwoHasOneClass.class, "TwoHasOneClass");
+		GeneratorTestUtil.testWriteModel(TwoHasOneClass.class, "TwoHasOneClass");
 	}
 
 }

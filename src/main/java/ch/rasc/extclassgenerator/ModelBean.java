@@ -30,8 +30,7 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
 /**
  * Represents a model. This object can be used to create JS code with
  * {@link ModelGenerator#writeModel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, ModelBean, OutputFormat, boolean)}
- * or
- * {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
+ * or {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
 @JsonPropertyOrder(value = { "messageProperty", "totalProperty", "root",
 		"successProperty" })
@@ -74,8 +73,7 @@ public class ModelBean {
 
 	/**
 	 * "Classname" of the model. See <a
-	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model"
-	 * >Ext.data.Model</a>.
+	 * href="http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Model" >Ext.data.Model</a>.
 	 *
 	 * @param name new name for the model object
 	 */
@@ -153,8 +151,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Looks for the {@link ModelFieldBean} with the provided name and returns
-	 * it.
+	 * Looks for the {@link ModelFieldBean} with the provided name and returns it.
 	 *
 	 * @param fieldName name of a field
 	 * @return a {@link ModelFieldBean} or null if not found
@@ -164,8 +161,7 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of {@link ModelFieldBean} to the internal collection of
-	 * fields
+	 * Adds one instance of {@link ModelFieldBean} to the internal collection of fields
 	 *
 	 * @param bean instance of {@link ModelFieldBean}
 	 */
@@ -176,8 +172,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of one of the subclasses of {@link AbstractValidation}
-	 * to the internal collection of validations
+	 * Adds one instance of one of the subclasses of {@link AbstractValidation} to the
+	 * internal collection of validations
 	 *
 	 * @param bean instance of subclass of {@link AbstractValidation}
 	 */
@@ -188,8 +184,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * Adds one instance of {@link AbstractAssociation} to the internal
-	 * collection of associations
+	 * Adds one instance of {@link AbstractAssociation} to the internal collection of
+	 * associations
 	 *
 	 * @param bean instance of {@link AbstractAssociation}
 	 */
@@ -204,9 +200,9 @@ public class ModelBean {
 	}
 
 	/**
-	 * If true a reader config with root : 'records' will be added to the model
-	 * object. This configuration is needed it the STORE_READ method return an
-	 * instance of {@link ExtDirectStoreResult}
+	 * If true a reader config with root : 'records' will be added to the model object.
+	 * This configuration is needed it the STORE_READ method return an instance of
+	 * {@link ExtDirectStoreResult}
 	 *
 	 * <pre>
 	 * reader : {
@@ -225,9 +221,9 @@ public class ModelBean {
 	}
 
 	/**
-	 * If set to true the pageParam, startParam and limitParam option of the
-	 * proxy will be set to undefined. This prevents the proxy of sending the
-	 * page, start and limit parameter to the server.
+	 * If set to true the pageParam, startParam and limitParam option of the proxy will be
+	 * set to undefined. This prevents the proxy of sending the page, start and limit
+	 * parameter to the server.
 	 *
 	 * <pre>
 	 *   proxy: {
@@ -254,8 +250,7 @@ public class ModelBean {
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-api"
 	 * >Ext.data.proxy.Direct#api</a>.
 	 * <p>
-	 * If only the readMethod is specified generator will write property <a
-	 * href=
+	 * If only the readMethod is specified generator will write property <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Direct-cfg-directFn"
 	 * >directFn</a> instead.
 	 *
@@ -413,9 +408,8 @@ public class ModelBean {
 	}
 
 	/**
-	 * If set a reader config with root : 'rootProperty' (Ext JS 4) or
-	 * rootProperty : 'rootProperty' (Sencha Touch 2 and Ext JS 5) will be added
-	 * to the model object.
+	 * If set a reader config with root : 'rootProperty' (Ext JS 4) or rootProperty :
+	 * 'rootProperty' (Sencha Touch 2 and Ext JS 5) will be added to the model object.
 	 *
 	 * <pre>
 	 * reader : {

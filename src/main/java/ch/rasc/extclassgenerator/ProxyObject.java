@@ -84,8 +84,7 @@ public class ProxyObject {
 		}
 
 		if (StringUtils.hasText(model.getMessageProperty())) {
-			readerConfigObject.put("messageProperty",
-					model.getMessageProperty());
+			readerConfigObject.put("messageProperty", model.getMessageProperty());
 		}
 
 		if (StringUtils.hasText(model.getTotalProperty())) {
@@ -93,8 +92,7 @@ public class ProxyObject {
 		}
 
 		if (StringUtils.hasText(model.getSuccessProperty())) {
-			readerConfigObject.put("successProperty",
-					model.getSuccessProperty());
+			readerConfigObject.put("successProperty", model.getSuccessProperty());
 		}
 
 		if (!readerConfigObject.isEmpty()) {

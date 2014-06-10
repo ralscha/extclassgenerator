@@ -36,8 +36,7 @@ public class RangeValidation extends AbstractValidation {
 		super("range", field);
 
 		if (min == null && max == null) {
-			throw new IllegalArgumentException(
-					"At least min or max must be set");
+			throw new IllegalArgumentException("At least min or max must be set");
 		}
 
 		this.min = min;

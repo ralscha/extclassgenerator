@@ -47,8 +47,8 @@ public class ModelGeneratorTest {
 		ModelFieldBean nameField = new ModelFieldBean("name", ModelType.STRING);
 		model.addField(nameField);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}]});");
@@ -61,16 +61,14 @@ public class ModelGeneratorTest {
 
 		ModelGenerator.clearCaches();
 		nameField.setModelType(ModelType.INTEGER);
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"int\"}]});");
 
 		ModelGenerator.clearCaches();
 		idField.setName("nameOfId");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"nameOfId\",type:\"int\"},{name:\"name\",type:\"int\"}]});");
@@ -85,14 +83,13 @@ public class ModelGeneratorTest {
 		field.setUseNull(true);
 		model.addField(field);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]});");
 
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]});");
@@ -116,8 +113,8 @@ public class ModelGeneratorTest {
 
 		model.setFields(fields);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"active\",type:\"boolean\",defaultValue:true},{name:\"date\",type:\"date\",dateFormat:\"c\"}]});");
@@ -134,8 +131,8 @@ public class ModelGeneratorTest {
 		fields.add(new ModelFieldBean("name", ModelType.STRING));
 		model.addFields(fields);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}]}});");
@@ -151,14 +148,13 @@ public class ModelGeneratorTest {
 		field.setUseNull(true);
 		model.addField(field);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]}});");
 
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]}});");
@@ -182,8 +178,8 @@ public class ModelGeneratorTest {
 
 		model.setFields(fields);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"active\",type:\"boolean\",defaultValue:true},{name:\"date\",type:\"date\",dateFormat:\"c\"}]}});");
@@ -202,8 +198,8 @@ public class ModelGeneratorTest {
 		HasManyAssociation association = new HasManyAssociation("User");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\"}]});");
@@ -211,8 +207,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAutoLoad(false);
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",associationKey:\"test\",autoLoad:false}]});");
@@ -221,8 +216,7 @@ public class ModelGeneratorTest {
 		association.setAutoLoad(true);
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",primaryKey:\"id\",autoLoad:true}]});");
@@ -230,8 +224,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setName("users");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",autoLoad:true,name:\"users\"}]});");
@@ -240,8 +233,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setName(null);
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",foreignKey:\"user_id\",autoLoad:true}]});");
@@ -259,8 +251,8 @@ public class ModelGeneratorTest {
 		HasManyAssociation association = new HasManyAssociation("User");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\"}]}});");
@@ -268,8 +260,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAutoLoad(false);
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",associationKey:\"test\",autoLoad:false}]}});");
@@ -278,8 +269,7 @@ public class ModelGeneratorTest {
 		association.setAutoLoad(true);
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",primaryKey:\"id\",autoLoad:true}]}});");
@@ -287,8 +277,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setName("users");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",autoLoad:true,name:\"users\"}]}});");
@@ -297,8 +286,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setName(null);
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",foreignKey:\"user_id\",autoLoad:true}]}});");
@@ -317,16 +305,15 @@ public class ModelGeneratorTest {
 		model.setAssociations(Collections
 				.<AbstractAssociation> singletonList(association));
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\"}]});");
 
 		ModelGenerator.clearCaches();
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",associationKey:\"test\"}]});");
@@ -334,8 +321,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",primaryKey:\"id\"}]});");
@@ -343,8 +329,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setGetterName("getUser");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",getterName:\"getUser\"}]});");
@@ -353,8 +338,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setSetterName("setUser");
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",foreignKey:\"user_id\",setterName:\"setUser\",getterName:\"getUser\"}]});");
@@ -372,16 +356,15 @@ public class ModelGeneratorTest {
 		BelongsToAssociation association = new BelongsToAssociation("User");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\"}]}});");
 
 		ModelGenerator.clearCaches();
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",associationKey:\"test\"}]}});");
@@ -389,8 +372,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",primaryKey:\"id\"}]}});");
@@ -398,8 +380,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setGetterName("getUser");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",getterName:\"getUser\"}]}});");
@@ -408,8 +389,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setSetterName("setUser");
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"belongsTo\",model:\"User\",foreignKey:\"user_id\",setterName:\"setUser\",getterName:\"getUser\"}]}});");
@@ -427,16 +407,15 @@ public class ModelGeneratorTest {
 		HasOneAssociation association = new HasOneAssociation("User");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\"}]});");
 
 		ModelGenerator.clearCaches();
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",associationKey:\"test\"}]});");
@@ -444,8 +423,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",primaryKey:\"id\"}]});");
@@ -453,8 +431,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setGetterName("getUser");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",getterName:\"getUser\"}]});");
@@ -463,8 +440,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setSetterName("setUser");
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",foreignKey:\"user_id\",setterName:\"setUser\",getterName:\"getUser\"}]});");
@@ -482,16 +458,15 @@ public class ModelGeneratorTest {
 		HasOneAssociation association = new HasOneAssociation("User");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.TOUCH2, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\"}]}});");
 
 		ModelGenerator.clearCaches();
 		association.setAssociationKey("test");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",associationKey:\"test\"}]}});");
@@ -499,8 +474,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",primaryKey:\"id\"}]}});");
@@ -508,8 +482,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setPrimaryKey(null);
 		association.setGetterName("getUser");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",getterName:\"getUser\"}]}});");
@@ -518,8 +491,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setSetterName("setUser");
 		association.setForeignKey("user_id");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",foreignKey:\"user_id\",setterName:\"setUser\",getterName:\"getUser\"}]}});");
@@ -538,8 +510,8 @@ public class ModelGeneratorTest {
 		association.setInstanceName("userBelongsToInstance");
 		model.addAssociation(association);
 
-		String code = ModelGenerator.generateJavascript(model,
-				OutputFormat.EXTJS4, false);
+		String code = ModelGenerator
+				.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",instanceName:\"userBelongsToInstance\"}]});");
@@ -547,8 +519,7 @@ public class ModelGeneratorTest {
 		ModelGenerator.clearCaches();
 		association.setAssociationKey("test");
 		association.setInstanceName("userBelongsToInstance");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",associationKey:\"test\",instanceName:\"userBelongsToInstance\"}]});");
@@ -557,8 +528,7 @@ public class ModelGeneratorTest {
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
 		association.setInstanceName("userBelongsToInstance");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",primaryKey:\"id\",instanceName:\"userBelongsToInstance\"}]});");
@@ -567,8 +537,7 @@ public class ModelGeneratorTest {
 		association.setPrimaryKey(null);
 		association.setGetterName("getUser");
 		association.setInstanceName("userBelongsToInstance");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",instanceName:\"userBelongsToInstance\",getterName:\"getUser\"}]});");
@@ -578,8 +547,7 @@ public class ModelGeneratorTest {
 		association.setSetterName("setUser");
 		association.setForeignKey("user_id");
 		association.setInstanceName("userBelongsToInstance");
-		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
-				false);
+		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
 				.isEqualTo(
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasOne\",model:\"User\",foreignKey:\"user_id\",instanceName:\"userBelongsToInstance\",setterName:\"setUser\",getterName:\"getUser\"}]});");
