@@ -126,8 +126,12 @@ public abstract class ModelGenerator {
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, Class<?> clazz, OutputFormat format,
 			IncludeValidation includeValidation, boolean debug) throws IOException {
-		ModelBean model = createModel(clazz, includeValidation);
-		writeModel(request, response, model, format, debug);
+		OutputConfig outputConfig = new OutputConfig();
+		outputConfig.setIncludeValidation(includeValidation);
+		outputConfig.setOutputFormat(format);
+		outputConfig.setDebug(debug);
+		ModelBean model = createModel(clazz, outputConfig);
+		writeModel(request, response, model, outputConfig);
 	}
 
 	public static void writeModel(HttpServletRequest request,
@@ -321,6 +325,7 @@ public abstract class ModelGenerator {
 
 		if (modelAnnotation != null) {
 			model.setIdProperty(modelAnnotation.idProperty());
+			model.setVersionProperty(trimToNull(modelAnnotation.versionProperty()));
 			model.setPaging(modelAnnotation.paging());
 			model.setDisablePagingParameters(modelAnnotation.disablePagingParameters());
 
@@ -618,6 +623,8 @@ public abstract class ModelGenerator {
 		}
 
 		modelFieldBean.setConvert(trimToNull(modelFieldAnnotation.convert()));
+
+		modelFieldBean.setCalculate(trimToNull(modelFieldAnnotation.calculate()));
 	}
 
 	public static String generateJavascript(ModelBean model, OutputConfig config) {
@@ -675,6 +682,11 @@ public abstract class ModelGenerator {
 			configObject.put("idProperty", model.getIdProperty());
 		}
 
+		if (config.getOutputFormat() == OutputFormat.EXTJS5
+				&& StringUtils.hasText(model.getVersionProperty())) {
+			configObject.put("versionProperty", model.getVersionProperty());
+		}
+
 		configObject.put("fields", model.getFields().values());
 
 		if (!model.getAssociations().isEmpty()) {
@@ -705,13 +717,19 @@ public abstract class ModelGenerator {
 		}
 
 		String configObjectString;
+		Class<?> jsonView = JsonViews.Base.class;
+		if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+			jsonView = JsonViews.ExtJS5.class;
+		}
+
 		try {
 			if (config.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter()
-						.writeValueAsString(modelObject);
+						.withView(jsonView).writeValueAsString(modelObject);
 			}
 			else {
-				configObjectString = mapper.writeValueAsString(modelObject);
+				configObjectString = mapper.writerWithView(jsonView).writeValueAsString(
+						modelObject);
 			}
 
 		}

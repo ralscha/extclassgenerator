@@ -150,6 +150,7 @@ public class ModelGeneratorBeanWithValidationTest {
 		assertThat(modelBean.getUpdateMethod()).isNull();
 		assertThat(modelBean.getDestroyMethod()).isNull();
 		assertThat(modelBean.getIdProperty()).isNull();
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
 		assertThat(modelBean.getName()).isEqualTo(
 				"ch.rasc.extclassgenerator.bean.BeanWithValidation");

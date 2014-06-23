@@ -13,20 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.rasc.extclassgenerator.bean;
+package ch.rasc.extclassgenerator;
 
-import ch.rasc.extclassgenerator.Model;
-import ch.rasc.extclassgenerator.ModelAssociation;
-import ch.rasc.extclassgenerator.ModelAssociationType;
+// View definitions:
+class JsonViews {
+	static class Base {
+		/* nothing here */
+	}
 
-@Model(idProperty = "eId", versionProperty = "version", value = "MyApp.Employee")
-public class EmployeeWithInstanceName {
-	public int eId;
-
-	public long version;
-
-	public int address_id;
-
-	@ModelAssociation(value = ModelAssociationType.HAS_ONE, instanceName = "addressBelongsToInstance")
-	public Address address;
+	static class ExtJS5 extends Base {
+		/* nothing here */
+	}
 }

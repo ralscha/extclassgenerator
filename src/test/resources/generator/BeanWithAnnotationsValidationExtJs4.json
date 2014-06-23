@@ -87,6 +87,9 @@ Ext.define("Sch.Bean",
     persist : false,
     convert : function(v, record) { return (record.raw.bigValue > 1000000);}
   }, {
+    name : "calculatedValue",
+    type : "string"
+  }, {
     name : "someIds",
     type : "auto"
   }, {

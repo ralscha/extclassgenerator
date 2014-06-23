@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Represents one field in a {@link ModelBean}
@@ -49,6 +50,10 @@ public class ModelFieldBean {
 
 	@JsonRawValue
 	private String convert;
+
+	@JsonRawValue
+	@JsonView(JsonViews.ExtJS5.class)
+	private String calculate;
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
@@ -213,7 +218,7 @@ public class ModelFieldBean {
 	}
 
 	/**
-	 * function which coerces string values in raw data into the field's type <br>
+	 * Function which coerces string values in raw data into the field's type <br>
 	 * Typical use for a virtual field <br>
 	 * http://localhost/ext4.1/docs/index.html#!/api/Ext.data.Field-cfg-convert Property
 	 * '<a href= "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.Field-cfg-convert" >
@@ -224,6 +229,24 @@ public class ModelFieldBean {
 	 */
 	public void setConvert(String convert) {
 		this.convert = convert;
+	}
+
+	public String getCalculate() {
+		return calculate;
+	}
+
+	/**
+	 * This config defines a simple field calculation function. A calculate method only
+	 * has access to the record data and should return the value of the calculated field.
+	 * When provided in this way, the depends config is automatically determined by
+	 * parsing the calculate function.
+	 * 
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-calculate"
+	 * >Ext.data.Field.calculate</a>
+	 */
+	public void setCalculate(String calculate) {
+		this.calculate = calculate;
 	}
 
 }

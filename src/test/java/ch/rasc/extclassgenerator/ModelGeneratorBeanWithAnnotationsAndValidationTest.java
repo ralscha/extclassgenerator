@@ -49,17 +49,21 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 
 	@Test
 	public void testCreateModel() {
-		ModelBean modelBean = ModelGenerator.createModel(BeanWithAnnotations.class,
-				IncludeValidation.BUILTIN);
+		OutputConfig oc = new OutputConfig();
+		oc.setIncludeValidation(IncludeValidation.BUILTIN);
+		oc.setOutputFormat(OutputFormat.EXTJS5);
+		ModelBean modelBean = ModelGenerator.createModel(BeanWithAnnotations.class, oc);
+
 		assertThat(modelBean.getReadMethod()).isEqualTo("read");
 		assertThat(modelBean.getCreateMethod()).isEqualTo("create");
 		assertThat(modelBean.getUpdateMethod()).isEqualTo("update");
 		assertThat(modelBean.getDestroyMethod()).isEqualTo("destroy");
 		assertThat(modelBean.getIdProperty()).isEqualTo("aInt");
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isTrue();
 		assertThat(modelBean.getName()).isEqualTo("Sch.Bean");
-		assertThat(modelBean.getFields()).hasSize(26);
-		assertThat(BeanWithAnnotations.expectedFields).hasSize(26);
+		assertThat(modelBean.getFields()).hasSize(27);
+		assertThat(BeanWithAnnotations.expectedFields).hasSize(27);
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations.expectedFields) {
 			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());

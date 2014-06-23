@@ -3,8 +3,12 @@ Ext.define("MyApp.Employee",
   extend : "Ext.data.Model",
   uses : [ "ch.rasc.extclassgenerator.bean.Address" ],
   idProperty : "eId",
+  versionProperty : "version",
   fields : [ {
     name : "eId",
+    type : "int"
+  }, {
+    name : "version",
     type : "int"
   }, {
     name : "address_id",

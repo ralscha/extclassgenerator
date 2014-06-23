@@ -49,6 +49,7 @@ public class ModelGeneratorPartialApiTest {
 		assertThat(modelBean.getUpdateMethod()).isNull();
 		assertThat(modelBean.getDestroyMethod()).isEqualTo("destroy");
 		assertThat(modelBean.getIdProperty()).isEqualTo("id");
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
 		assertThat(modelBean.getName()).isEqualTo("App.PartialApi");
 		assertThat(modelBean.getFields()).hasSize(2);

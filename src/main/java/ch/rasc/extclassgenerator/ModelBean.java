@@ -22,10 +22,10 @@ import java.util.Map;
 
 import org.springframework.util.Assert;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import ch.rasc.extclassgenerator.association.AbstractAssociation;
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * Represents a model. This object can be used to create JS code with
@@ -38,6 +38,8 @@ public class ModelBean {
 	private String name;
 
 	private String idProperty;
+
+	private String versionProperty;
 
 	private Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
 
@@ -94,6 +96,26 @@ public class ModelBean {
 	 */
 	public void setIdProperty(String idProperty) {
 		this.idProperty = idProperty;
+	}
+
+	public String getVersionProperty() {
+		return versionProperty;
+	}
+
+	/**
+	 * If specified, this is the name of the property that contains the entity "version".
+	 * The version property is used to manage a long-running transaction and allows the
+	 * detection of simultaneous modification.
+	 * 
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.Model-cfg-versionProperty"
+	 * >Ext.data.Model#versionProperty</a>
+	 * 
+	 * <p>
+	 * Defaults to null
+	 */
+	public void setVersionProperty(String versionProperty) {
+		this.versionProperty = versionProperty;
 	}
 
 	public Map<String, ModelFieldBean> getFields() {

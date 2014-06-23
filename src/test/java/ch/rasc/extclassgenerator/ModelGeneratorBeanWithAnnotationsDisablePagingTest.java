@@ -52,6 +52,7 @@ public class ModelGeneratorBeanWithAnnotationsDisablePagingTest {
 		assertThat(modelBean.getUpdateMethod()).isNull();
 		assertThat(modelBean.getDestroyMethod()).isNull();
 		assertThat(modelBean.getIdProperty()).isEqualTo("id");
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isDisablePagingParameters()).isTrue();
 		assertThat(modelBean.isPaging()).isFalse();
 		assertThat(modelBean.getMessageProperty()).isEqualTo("theMessageProperty");

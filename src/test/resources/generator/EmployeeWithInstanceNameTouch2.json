@@ -8,6 +8,9 @@ Ext.define("MyApp.Employee",
       name : "eId",
       type : "int"
     }, {
+      name : "version",
+      type : "int"
+    }, {
       name : "address_id",
       type : "int"
     } ],

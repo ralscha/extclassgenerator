@@ -51,6 +51,7 @@ public class ModelGeneratorBeanWithAnnotations2Test {
 		assertThat(modelBean.getUpdateMethod()).isNull();
 		assertThat(modelBean.getDestroyMethod()).isNull();
 		assertThat(modelBean.getIdProperty()).isEqualTo("id");
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isDisablePagingParameters()).isFalse();
 		assertThat(modelBean.isPaging()).isFalse();
 		assertThat(modelBean.getMessageProperty()).isEqualTo("theMessageProperty");

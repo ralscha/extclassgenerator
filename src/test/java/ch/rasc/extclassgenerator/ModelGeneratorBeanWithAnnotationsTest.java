@@ -51,10 +51,11 @@ public class ModelGeneratorBeanWithAnnotationsTest {
 		assertThat(modelBean.getUpdateMethod()).isEqualTo("update");
 		assertThat(modelBean.getDestroyMethod()).isEqualTo("destroy");
 		assertThat(modelBean.getIdProperty()).isEqualTo("aInt");
+		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isTrue();
 		assertThat(modelBean.getName()).isEqualTo("Sch.Bean");
-		assertThat(modelBean.getFields()).hasSize(26);
-		assertThat(BeanWithAnnotations.expectedFields).hasSize(26);
+		assertThat(modelBean.getFields()).hasSize(27);
+		assertThat(BeanWithAnnotations.expectedFields).hasSize(27);
 		assertThat(modelBean.getValidations()).isEmpty();
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations.expectedFields) {

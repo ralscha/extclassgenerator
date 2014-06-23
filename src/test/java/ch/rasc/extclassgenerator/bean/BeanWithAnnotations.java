@@ -116,6 +116,9 @@ public class BeanWithAnnotations {
 	@ModelField(mapping = "bigValue", persist = false, convert = "function(v, record) { return (record.raw.bigValue > 1000000);}")
 	private boolean aBooleanVirtual;
 
+	@ModelField(calculate = "function(data) { return 'CALC:' + data.aString; }")
+	private String calculatedValue;
+
 	@ModelField(type = ModelType.AUTO)
 	private List<Integer> someIds;
 
@@ -415,6 +418,10 @@ public class BeanWithAnnotations {
 		field.setMapping("bigValue");
 		field.setPersist(false);
 		field.setConvert("function(v, record) { return (record.raw.bigValue > 1000000);}");
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("calculatedValue", ModelType.STRING);
+		field.setCalculate("function(data) { return 'CALC:' + data.aString; }");
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("someIds", ModelType.AUTO);
