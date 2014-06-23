@@ -47,5 +47,11 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation",
     type : "inclusion",
     field : "includedV1",
     list : ["fish","fruit"]
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

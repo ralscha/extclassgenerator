@@ -17,5 +17,9 @@ Ext.define("MyApp.Employee",
     foreignKey : "address_id",
     setterName : "setAddress",
     getterName : "getAddress"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    idParam : "eId"
+  }
 });

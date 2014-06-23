@@ -37,5 +37,12 @@ Ext.define("MyApp.Book",
     primaryKey : "isbn",
     autoLoad : true,
     name : "authors"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    idParam : "isbn",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

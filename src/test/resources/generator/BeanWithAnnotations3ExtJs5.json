@@ -16,6 +16,9 @@ Ext.define("Sch.Bean3",
       messageProperty : "theMessageProperty",
       totalProperty : "theTotalProperty",
       successProperty : "theSuccessProperty"
+    },
+    writer : {
+      writeAllFields : true
     }
   }
 });

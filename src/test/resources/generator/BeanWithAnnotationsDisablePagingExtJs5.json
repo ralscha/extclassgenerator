@@ -20,6 +20,9 @@ Ext.define("Sch.Bean2",
     directFn : read,
     reader : {
       messageProperty : "theMessageProperty"
+    },
+    writer : {
+      writeAllFields : true
     }
   }
 });

@@ -46,7 +46,7 @@ public class ProxyObject {
 
 	private Map<String, String> reader;
 
-	private String writer;
+	private Object writer;
 
 	protected ProxyObject(ModelBean model, OutputConfig config) {
 		if (StringUtils.hasText(model.getIdProperty())
@@ -101,6 +101,16 @@ public class ProxyObject {
 		if (StringUtils.hasText(model.getWriter())) {
 			this.writer = model.getWriter();
 		}
+		else if (model.getWriteAllFields() != null) {
+			if ((config.getOutputFormat() == OutputFormat.EXTJS5 && model
+					.getWriteAllFields())
+					|| (!model.getWriteAllFields() && (config.getOutputFormat() == OutputFormat.EXTJS4 || config
+							.getOutputFormat() == OutputFormat.TOUCH2))) {
+				Map<String, Object> writerConfigObject = new LinkedHashMap<String, Object>();
+				writerConfigObject.put("writeAllFields", model.getWriteAllFields());
+				this.writer = writerConfigObject;
+			}
+		}
 
 		boolean hasApiMethods = false;
 		ApiObject apiObject = new ApiObject();
@@ -132,7 +142,8 @@ public class ProxyObject {
 		}
 	}
 
-	public boolean hasMethods() {
-		return api != null || directFn != null;
+	public boolean hasContent() {
+		return api != null || directFn != null || reader != null || writer != null
+				|| idParam != null;
 	}
 }

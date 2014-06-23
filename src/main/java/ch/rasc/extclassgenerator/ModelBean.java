@@ -69,6 +69,8 @@ public class ModelBean {
 
 	private String writer;
 
+	private Boolean writeAllFields;
+
 	public String getName() {
 		return name;
 	}
@@ -448,6 +450,35 @@ public class ModelBean {
 	 */
 	public void setRootProperty(String rootProperty) {
 		this.rootProperty = rootProperty;
+	}
+
+	public Boolean getWriteAllFields() {
+		return writeAllFields;
+	}
+
+	/**
+	 * If specified the generator adds a writer config object to the proxy with
+	 * writeAllFields. If {@link #writer} and {@link #writeAllFields} are specified the
+	 * {@link #writer} option has precedence.
+	 *
+	 * <pre>
+	 *   proxy: {
+	 *     type: 'direct',
+	 *     writer: {
+	 *       type: 'json',
+	 *       writeAllFields: true
+	 *     }
+	 *   }
+	 * </pre>
+	 * 
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.writer.Writer-cfg-writeAllFields"
+	 * >Ext.data.writer.WriterView#writeAllFields</a>
+	 * <p>
+	 * Defaults to true
+	 */
+	public void setWriteAllFields(Boolean writeAllFields) {
+		this.writeAllFields = writeAllFields;
 	}
 
 }

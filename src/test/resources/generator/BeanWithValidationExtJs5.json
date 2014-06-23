@@ -80,5 +80,11 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithValidation",
   }, {
     type : "creditCardNumber",
     field : "creditCardNumber"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

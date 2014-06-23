@@ -16,5 +16,11 @@ Ext.define("Sch.BeanWithCustomType",
   }, {
     name : "creditcardnumber",
     type : "creditcardnumber"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

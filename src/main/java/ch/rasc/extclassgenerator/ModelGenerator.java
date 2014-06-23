@@ -338,6 +338,7 @@ public abstract class ModelGenerator {
 			model.setSuccessProperty(trimToNull(modelAnnotation.successProperty()));
 			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
+			model.setWriteAllFields(modelAnnotation.writeAllFields());
 		}
 
 		final Set<String> hasReadMethod = new HashSet<String>();
@@ -702,7 +703,7 @@ public abstract class ModelGenerator {
 		}
 
 		ProxyObject proxyObject = new ProxyObject(model, config);
-		if (proxyObject.hasMethods()) {
+		if (proxyObject.hasContent()) {
 			configObject.put("proxy", proxyObject);
 		}
 

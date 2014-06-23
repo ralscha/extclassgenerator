@@ -19,5 +19,11 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
     field : "email",
     min : 0,
     max : 128
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

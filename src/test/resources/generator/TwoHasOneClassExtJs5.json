@@ -17,5 +17,11 @@ Ext.define("App.TwoHasOneClass",
     foreignKey : "mySecondAssociation_id",
     setterName : "setMySecondAssociation",
     getterName : "getMySecondAssociation"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

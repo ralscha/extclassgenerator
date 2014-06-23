@@ -115,6 +115,9 @@ Ext.define("Sch.Bean",
     },
     reader : {
       rootProperty : "records"
+    },
+    writer : {
+      writeAllFields : true
     }
   }
 });

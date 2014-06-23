@@ -29,5 +29,11 @@ Ext.define("MyApp.Author",
     primaryKey : "isbn",
     setterName : "setBook",
     getterName : "getBook"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    writer : {
+      writeAllFields : true
+    }
+  }
 });

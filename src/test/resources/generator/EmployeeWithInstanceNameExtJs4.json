@@ -21,5 +21,9 @@ Ext.define("MyApp.Employee",
     instanceName : "addressBelongsToInstance",
     setterName : "setAddress",
     getterName : "getAddress"
-  } ]
+  } ],
+  proxy : {
+    type : "direct",
+    idParam : "eId"
+  }
 });

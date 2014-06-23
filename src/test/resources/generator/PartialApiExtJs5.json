@@ -13,6 +13,9 @@ Ext.define('App.PartialApi',
     api : {
       read : read,
       destroy : destroy
+    },
+    writer : {
+      writeAllFields : true
     }
   }
 });
