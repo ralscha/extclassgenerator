@@ -48,6 +48,10 @@ public class ModelFieldBean {
 	// only a false value will be generated
 	private Boolean persist = null;
 
+	// only a true value will be generated
+	@JsonView(JsonViews.ExtJS5.class)
+	private Boolean critical = null;
+
 	@JsonRawValue
 	private String convert;
 
@@ -211,6 +215,24 @@ public class ModelFieldBean {
 	 */
 	public void setPersist(Boolean persist) {
 		this.persist = persist;
+	}
+
+	public Boolean getCritical() {
+		return critical;
+	}
+
+	/**
+	 * A critical field is a field that must always be sent to the server even if it has
+	 * not changed.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-critical"
+	 * >Ext.data.field.FieldView#critical</a>
+	 * <p>
+	 * Defaults to false
+	 */
+	public void setCritical(Boolean critical) {
+		this.critical = critical;
 	}
 
 	public String getConvert() {

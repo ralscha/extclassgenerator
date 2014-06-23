@@ -111,6 +111,12 @@ public class BeanWithAnnotations {
 	@ModelField(persist = true)
 	private BigInteger bigValue;
 
+	@ModelField(critical = false)
+	private String aNonCriticalValue;
+
+	@ModelField(critical = true)
+	private String aCriticalValue;
+
 	// or @ModelField(mapping="bigValue", persist=false,
 	// convert="new Function('v', 'record', return (record.raw.bigValue > 1000000);)")
 	@ModelField(mapping = "bigValue", persist = false, convert = "function(v, record) { return (record.raw.bigValue > 1000000);}")
@@ -412,6 +418,13 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("bigValue", ModelType.INTEGER);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("aNonCriticalValue", ModelType.STRING);
+		expectedFields.add(field);
+
+		field = new ModelFieldBean("aCriticalValue", ModelType.STRING);
+		field.setCritical(true);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBooleanVirtual", ModelType.BOOLEAN);

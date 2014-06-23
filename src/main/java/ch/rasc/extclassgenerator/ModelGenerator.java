@@ -619,7 +619,11 @@ public abstract class ModelGenerator {
 		modelFieldBean.setMapping(trimToNull(modelFieldAnnotation.mapping()));
 
 		if (!modelFieldAnnotation.persist()) {
-			modelFieldBean.setPersist(modelFieldAnnotation.persist());
+			modelFieldBean.setPersist(false);
+		}
+
+		if (modelFieldAnnotation.critical()) {
+			modelFieldBean.setCritical(true);
 		}
 
 		modelFieldBean.setConvert(trimToNull(modelFieldAnnotation.convert()));

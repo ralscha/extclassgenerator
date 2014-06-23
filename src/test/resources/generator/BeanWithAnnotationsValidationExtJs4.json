@@ -81,6 +81,12 @@ Ext.define("Sch.Bean",
     name : "bigValue",
     type : "int"
   }, {
+    name : "aNonCriticalValue",
+    type : "string"
+  }, {
+    name : "aCriticalValue",
+    type : "string"
+  }, {
     name : "aBooleanVirtual",
     type : "boolean",
     mapping : "bigValue",
