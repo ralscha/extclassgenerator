@@ -50,7 +50,7 @@
 
 	<properties>
 		<spring.version>4.0.5.RELEASE</spring.version>
-		<jackson.version>2.4.0</jackson.version>
+		<jackson.version>2.4.1.1</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.target>1.6</maven.compiler.target>
