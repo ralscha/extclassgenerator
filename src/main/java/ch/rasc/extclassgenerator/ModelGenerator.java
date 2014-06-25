@@ -692,13 +692,21 @@ public abstract class ModelGenerator {
 			configObject.put("versionProperty", model.getVersionProperty());
 		}
 
-		configObject.put("fields", model.getFields().values());
+		final Map<String, ModelFieldBean> fields = model.getFields();
+
+		if (!model.getValidations().isEmpty()
+				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
+			addValidatorsToField(fields, model.getValidations());
+		}
+
+		configObject.put("fields", fields.values());
 
 		if (!model.getAssociations().isEmpty()) {
 			configObject.put("associations", model.getAssociations());
 		}
 
-		if (!model.getValidations().isEmpty()) {
+		if (!model.getValidations().isEmpty()
+				&& !(config.getOutputFormat() == OutputFormat.EXTJS5)) {
 			configObject.put("validations", model.getValidations());
 		}
 
@@ -722,7 +730,7 @@ public abstract class ModelGenerator {
 		}
 
 		String configObjectString;
-		Class<?> jsonView = JsonViews.Base.class;
+		Class<?> jsonView = JsonViews.ExtJS4andTouch2.class;
 		if (config.getOutputFormat() == OutputFormat.EXTJS5) {
 			jsonView = JsonViews.ExtJS5.class;
 		}
@@ -761,6 +769,34 @@ public abstract class ModelGenerator {
 			jsCache.put(new JsCacheKey(model, config), new SoftReference<String>(result));
 		}
 		return result;
+	}
+
+	private static void addValidatorsToField(Map<String, ModelFieldBean> fields,
+			List<AbstractValidation> validations) {
+
+		for (ModelFieldBean field : fields.values()) {
+			for (AbstractValidation validation : validations) {
+				if (field.getName().equals(validation.getField())) {
+					List<AbstractValidation> validators = field.getValidators();
+					if (validators == null) {
+						validators = new ArrayList<AbstractValidation>();
+						field.setValidators(validators);
+					}
+
+					boolean alreadyExists = false;
+					for (AbstractValidation validator : validators) {
+						if (validation.getType().equals(validator.getType())) {
+							alreadyExists = true;
+							break;
+						}
+					}
+
+					if (!alreadyExists) {
+						validators.add(validation);
+					}
+				}
+			}
+		}
 	}
 
 	private static String trimToNull(String str) {

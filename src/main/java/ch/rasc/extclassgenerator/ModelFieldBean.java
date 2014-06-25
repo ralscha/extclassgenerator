@@ -15,6 +15,10 @@
  */
 package ch.rasc.extclassgenerator;
 
+import java.util.List;
+
+import ch.rasc.extclassgenerator.validation.AbstractValidation;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -58,6 +62,9 @@ public class ModelFieldBean {
 	@JsonRawValue
 	@JsonView(JsonViews.ExtJS5.class)
 	private String calculate;
+
+	@JsonView(JsonViews.ExtJS5.class)
+	private List<AbstractValidation> validators;
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
@@ -269,6 +276,14 @@ public class ModelFieldBean {
 	 */
 	public void setCalculate(String calculate) {
 		this.calculate = calculate;
+	}
+
+	public List<AbstractValidation> getValidators() {
+		return validators;
+	}
+
+	public void setValidators(List<AbstractValidation> validators) {
+		this.validators = validators;
 	}
 
 }

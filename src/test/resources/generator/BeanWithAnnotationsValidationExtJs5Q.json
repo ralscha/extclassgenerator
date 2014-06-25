@@ -34,14 +34,20 @@ Ext.define("Sch.Bean",
   }, {
     name : "aBigInteger",
     type : "int",
-    defaultValue : 1
+    defaultValue : 1,
+    validators : [ {
+      type : "presence"
+    } ]
   }, {
     name : "aFloat",
     type : "float",
     defaultValue : 1.1
   }, {
     name : "aDouble",
-    type : "float"
+    type : "float",
+    validators : [ {
+      type : "presence"
+    } ]
   }, {
     name : "aFloatObject",
     type : "float"
@@ -51,7 +57,17 @@ Ext.define("Sch.Bean",
   }, {
     name : "aString",
     type : "string",
-    useNull : true
+    useNull : true,
+    validators : [ {
+      type : "email"
+    }, {
+      type : "length",
+      min : 0,
+      max : 255
+    }, {
+      type : "format",
+      matcher : /\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]/
+    } ]
   }, {
     name : "aBoolean",
     type : "boolean",
@@ -103,25 +119,6 @@ Ext.define("Sch.Bean",
   }, {
     name : "moreIds",
     type : "auto"
-  } ],
-  validations : [ {
-    type : "presence",
-    field : "aBigInteger"
-  }, {
-    type : "presence",
-    field : "aDouble"
-  }, {
-    type : "email",
-    field : "aString"
-  }, {
-    type : "length",
-    field : "aString",
-    min : 0,
-    max : 255
-  }, {
-    type : "format",
-    field : "aString",
-    matcher : /\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]/
   } ],
   proxy : {
     type : "direct",

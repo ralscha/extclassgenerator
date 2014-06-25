@@ -16,12 +16,12 @@
 package ch.rasc.extclassgenerator;
 
 // View definitions:
-class JsonViews {
-	static class Base {
+public class JsonViews {
+	public static class ExtJS4andTouch2 {
 		/* nothing here */
 	}
 
-	static class ExtJS5 extends Base {
+	public static class ExtJS5 {
 		/* nothing here */
 	}
 }

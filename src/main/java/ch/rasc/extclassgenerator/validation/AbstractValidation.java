@@ -26,11 +26,14 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
 
 import ch.rasc.extclassgenerator.IncludeValidation;
+import ch.rasc.extclassgenerator.JsonViews;
 import ch.rasc.extclassgenerator.ModelBean;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelValidation;
 import ch.rasc.extclassgenerator.ModelValidationParameter;
 import ch.rasc.extclassgenerator.ModelValidationType;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Base class for the validation objects
@@ -38,6 +41,7 @@ import ch.rasc.extclassgenerator.ModelValidationType;
 public abstract class AbstractValidation {
 	private final String type;
 
+	@JsonView(JsonViews.ExtJS4andTouch2.class)
 	private final String field;
 
 	public AbstractValidation(String type, String field) {
