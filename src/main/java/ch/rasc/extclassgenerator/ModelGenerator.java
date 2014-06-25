@@ -35,6 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletOutputStream;
@@ -682,6 +683,17 @@ public abstract class ModelGenerator {
 
 		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
 
+		final Map<String, ModelFieldBean> fields = model.getFields();
+
+		if (!model.getValidations().isEmpty()
+				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
+			Set<String> requires = addValidatorsToField(fields, model.getValidations());
+
+			if (!requires.isEmpty()) {
+				configObject.put("requires", requires);
+			}
+		}
+
 		if (StringUtils.hasText(model.getIdProperty())
 				&& !model.getIdProperty().equals("id")) {
 			configObject.put("idProperty", model.getIdProperty());
@@ -690,13 +702,6 @@ public abstract class ModelGenerator {
 		if (config.getOutputFormat() == OutputFormat.EXTJS5
 				&& StringUtils.hasText(model.getVersionProperty())) {
 			configObject.put("versionProperty", model.getVersionProperty());
-		}
-
-		final Map<String, ModelFieldBean> fields = model.getFields();
-
-		if (!model.getValidations().isEmpty()
-				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
-			addValidatorsToField(fields, model.getValidations());
 		}
 
 		configObject.put("fields", fields.values());
@@ -771,8 +776,10 @@ public abstract class ModelGenerator {
 		return result;
 	}
 
-	private static void addValidatorsToField(Map<String, ModelFieldBean> fields,
+	private static Set<String> addValidatorsToField(Map<String, ModelFieldBean> fields,
 			List<AbstractValidation> validations) {
+
+		Set<String> requires = new TreeSet<String>();
 
 		for (ModelFieldBean field : fields.values()) {
 			for (AbstractValidation validation : validations) {
@@ -781,6 +788,11 @@ public abstract class ModelGenerator {
 					if (validators == null) {
 						validators = new ArrayList<AbstractValidation>();
 						field.setValidators(validators);
+					}
+
+					String validatorClass = getValidatorClass(validation.getType());
+					if (validatorClass != null) {
+						requires.add(validatorClass);
 					}
 
 					boolean alreadyExists = false;
@@ -797,6 +809,33 @@ public abstract class ModelGenerator {
 				}
 			}
 		}
+
+		return requires;
+	}
+
+	private static String getValidatorClass(String type) {
+		if (type.equals("email")) {
+			return "Ext.data.validator.Email";
+		}
+		else if (type.equals("exclusion")) {
+			return "Ext.data.validator.Exclusion";
+		}
+		else if (type.equals("format")) {
+			return "Ext.data.validator.Format";
+		}
+		else if (type.equals("inclusion")) {
+			return "Ext.data.validator.Inclusion";
+		}
+		else if (type.equals("length")) {
+			return "Ext.data.validator.Length";
+		}
+		else if (type.equals("presence")) {
+			return "Ext.data.validator.Presence";
+		}
+		else if (type.equals("range")) {
+			return "Ext.data.validator.Range";
+		}
+		return null;
 	}
 
 	private static String trimToNull(String str) {

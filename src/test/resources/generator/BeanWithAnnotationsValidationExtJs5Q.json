@@ -1,6 +1,7 @@
 Ext.define("Sch.Bean",
 {
   extend : "Ext.data.Model",
+  requires : [ "Ext.data.validator.Email", "Ext.data.validator.Format", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
   idProperty : "aInt",
   fields : [ {
     name : "by",

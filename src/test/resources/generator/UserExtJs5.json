@@ -1,6 +1,7 @@
 Ext.define("ch.rasc.extclassgenerator.bean.User",
 {
   extend : "Ext.data.Model",
+  requires : [ "Ext.data.validator.Email", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
   fields : [ {
     name : "email",
     type : "string",
