@@ -2,6 +2,7 @@ Ext.define("MyApp.Author",
 {
   extend : "Ext.data.Model",
   uses : [ "MyApp.Book" ],
+  requires : [ "Ext.data.proxy.Direct" ],
   fields : [ {
     name : "id",
     type : "string"

@@ -1,6 +1,7 @@
 Ext.define("Sch.Bean",
 {
   extend : "Ext.data.Model",
+  requires : [ "Ext.data.proxy.Direct" ],
   idProperty : "aInt",
   fields : [ {
     name : "by",

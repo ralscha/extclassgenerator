@@ -1,6 +1,7 @@
 Ext.define("ch.rasc.extclassgenerator.bean.BeanWithGenericValidation",
 {
   extend : "Ext.data.Model",
+  requires : [ "Ext.data.proxy.Direct" ],
   fields : [ {
     name : "singleton",
     type : "string"

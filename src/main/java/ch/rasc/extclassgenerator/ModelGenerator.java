@@ -682,16 +682,25 @@ public abstract class ModelGenerator {
 		}
 
 		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
+		ProxyObject proxyObject = new ProxyObject(model, config);
 
 		final Map<String, ModelFieldBean> fields = model.getFields();
+		Set<String> requires = null;
 
 		if (!model.getValidations().isEmpty()
 				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
-			Set<String> requires = addValidatorsToField(fields, model.getValidations());
+			requires = addValidatorsToField(fields, model.getValidations());
+		}
 
-			if (!requires.isEmpty()) {
-				configObject.put("requires", requires);
+		if (proxyObject.hasContent() && config.getOutputFormat() == OutputFormat.EXTJS5) {
+			if (requires == null) {
+				requires = new HashSet<String>();
 			}
+			requires.add("Ext.data.proxy.Direct");
+		}
+
+		if (requires != null && !requires.isEmpty()) {
+			configObject.put("requires", requires);
 		}
 
 		if (StringUtils.hasText(model.getIdProperty())
@@ -715,7 +724,6 @@ public abstract class ModelGenerator {
 			configObject.put("validations", model.getValidations());
 		}
 
-		ProxyObject proxyObject = new ProxyObject(model, config);
 		if (proxyObject.hasContent()) {
 			configObject.put("proxy", proxyObject);
 		}
