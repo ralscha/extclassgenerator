@@ -66,6 +66,9 @@ public class ModelFieldBean {
 	@JsonView(JsonViews.ExtJS5.class)
 	private List<AbstractValidation> validators;
 
+	@JsonView(JsonViews.ExtJS5.class)
+	private List<String> depends;
+
 	/**
 	 * Creates a new ModelFieldBean with name and type
 	 *
@@ -284,6 +287,26 @@ public class ModelFieldBean {
 
 	public void setValidators(List<AbstractValidation> validators) {
 		this.validators = validators;
+	}
+
+	public List<String> getDepends() {
+		return depends;
+	}
+
+	/**
+	 * The field name or names within the Model on which the value of this field depends,
+	 * and from which a new value may be calculated. These values are the values used by
+	 * the {@link #convert()} method. If you do not have a {@link #convert()} method then
+	 * this config should not be specified. Before using this config you should consider
+	 * if using a {@link #calculate()} method instead of a {@link #convert()} method would
+	 * be simpler.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-depends"
+	 * >Ext.data.field.FieldView#depends</a>
+	 */
+	public void setDepends(List<String> depends) {
+		this.depends = depends;
 	}
 
 }

@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -631,6 +632,14 @@ public abstract class ModelGenerator {
 		modelFieldBean.setConvert(trimToNull(modelFieldAnnotation.convert()));
 
 		modelFieldBean.setCalculate(trimToNull(modelFieldAnnotation.calculate()));
+
+		List<String> depends = Arrays.asList(modelFieldAnnotation.depends());
+		if (!depends.isEmpty()) {
+			modelFieldBean.setDepends(depends);
+		}
+		else {
+			modelFieldBean.setDepends(null);
+		}
 	}
 
 	public static String generateJavascript(ModelBean model, OutputConfig config) {

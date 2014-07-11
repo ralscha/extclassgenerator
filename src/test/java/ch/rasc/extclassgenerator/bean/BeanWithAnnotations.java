@@ -39,7 +39,8 @@ import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
 
-@Model(value = "Sch.Bean", idProperty = "aInt", paging = true, readMethod = "read", createMethod = "create", updateMethod = "update", destroyMethod = "destroy")
+@Model(value = "Sch.Bean", idProperty = "aInt", paging = true, readMethod = "read",
+		createMethod = "create", updateMethod = "update", destroyMethod = "destroy")
 public class BeanWithAnnotations {
 
 	@ModelField("by")
@@ -119,7 +120,9 @@ public class BeanWithAnnotations {
 
 	// or @ModelField(mapping="bigValue", persist=false,
 	// convert="new Function('v', 'record', return (record.raw.bigValue > 1000000);)")
-	@ModelField(mapping = "bigValue", persist = false, convert = "function(v, record) { return (record.raw.bigValue > 1000000);}")
+	@ModelField(mapping = "bigValue", persist = false, depends = { "lastName",
+			"firstName" },
+			convert = "function(v, record) { return (record.raw.bigValue > 1000000);}")
 	private boolean aBooleanVirtual;
 
 	@ModelField(calculate = "function(data) { return 'CALC:' + data.aString; }")
@@ -431,6 +434,10 @@ public class BeanWithAnnotations {
 		field.setMapping("bigValue");
 		field.setPersist(false);
 		field.setConvert("function(v, record) { return (record.raw.bigValue > 1000000);}");
+		List<String> depends = new ArrayList<>();
+		depends.add("lastName");
+		depends.add("firstName");
+		field.setDepends(depends);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("calculatedValue", ModelType.STRING);
