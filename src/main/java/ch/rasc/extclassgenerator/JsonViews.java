@@ -15,9 +15,13 @@
  */
 package ch.rasc.extclassgenerator;
 
-// View definitions:
+// Json view definitions:
 public class JsonViews {
-	public static class ExtJS4andTouch2 {
+	public static class ExtJS4 {
+		/* nothing here */
+	}
+
+	public static class Touch2 {
 		/* nothing here */
 	}
 

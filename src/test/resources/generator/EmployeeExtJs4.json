@@ -2,6 +2,7 @@ Ext.define("MyApp.Employee",
 {
   extend : "Ext.data.Model",
   uses : [ "ch.rasc.extclassgenerator.bean.Address" ],
+  idgen : "negative",
   idProperty : "eId",
   fields : [ {
     name : "eId",

@@ -25,15 +25,11 @@ import org.springframework.util.Assert;
 import ch.rasc.extclassgenerator.association.AbstractAssociation;
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 /**
  * Represents a model. This object can be used to create JS code with
  * {@link ModelGenerator#writeModel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, ModelBean, OutputFormat, boolean)}
  * or {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
-@JsonPropertyOrder(value = { "messageProperty", "totalProperty", "root",
-		"successProperty" })
 public class ModelBean {
 	private String name;
 
@@ -70,6 +66,8 @@ public class ModelBean {
 	private String writer;
 
 	private Boolean writeAllFields;
+
+	private String identifier;
 
 	public String getName() {
 		return name;
@@ -479,6 +477,21 @@ public class ModelBean {
 	 */
 	public void setWriteAllFields(Boolean writeAllFields) {
 		this.writeAllFields = writeAllFields;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	/**
+	 * The id generator to use for this model.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.Model-cfg-identifier"
+	 * >Ext.data.Model#identifier</a>
+	 */
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 }

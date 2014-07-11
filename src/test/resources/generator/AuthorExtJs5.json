@@ -2,7 +2,8 @@ Ext.define("MyApp.Author",
 {
   extend : "Ext.data.Model",
   uses : [ "MyApp.Book" ],
-  requires : [ "Ext.data.proxy.Direct" ],
+  requires : [ "Ext.data.proxy.Direct", "Ext.data.identifier.Sequential" ],
+  identifier : "sequential",
   fields : [ {
     name : "id",
     type : "string"

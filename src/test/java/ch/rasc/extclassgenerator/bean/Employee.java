@@ -19,7 +19,7 @@ import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
 
-@Model(idProperty = "eId", value = "MyApp.Employee")
+@Model(idProperty = "eId", value = "MyApp.Employee", identifier = "negative")
 public class Employee {
 	public int eId;
 

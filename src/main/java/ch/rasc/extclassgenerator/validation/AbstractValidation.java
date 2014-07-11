@@ -41,7 +41,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 public abstract class AbstractValidation {
 	private final String type;
 
-	@JsonView(JsonViews.ExtJS4andTouch2.class)
+	@JsonView({ JsonViews.ExtJS4.class, JsonViews.Touch2.class })
 	private final String field;
 
 	public AbstractValidation(String type, String field) {

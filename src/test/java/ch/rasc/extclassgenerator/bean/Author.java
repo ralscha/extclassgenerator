@@ -20,7 +20,7 @@ import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
 import ch.rasc.extclassgenerator.ModelField;
 
-@Model(value = "MyApp.Author", idProperty = "id")
+@Model(value = "MyApp.Author", idProperty = "id", identifier = "sequential")
 public class Author {
 
 	public String id;

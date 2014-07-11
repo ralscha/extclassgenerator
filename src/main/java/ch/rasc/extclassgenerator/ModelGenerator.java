@@ -341,6 +341,7 @@ public abstract class ModelGenerator {
 			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
 			model.setWriteAllFields(modelAnnotation.writeAllFields());
+			model.setIdentifier(trimToNull(modelAnnotation.identifier()));
 		}
 
 		final Set<String> hasReadMethod = new HashSet<String>();
@@ -694,7 +695,8 @@ public abstract class ModelGenerator {
 		ProxyObject proxyObject = new ProxyObject(model, config);
 
 		final Map<String, ModelFieldBean> fields = model.getFields();
-		Set<String> requires = null;
+		Set<String> requires = new HashSet<String>();
+		;
 
 		if (!model.getValidations().isEmpty()
 				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
@@ -702,14 +704,34 @@ public abstract class ModelGenerator {
 		}
 
 		if (proxyObject.hasContent() && config.getOutputFormat() == OutputFormat.EXTJS5) {
-			if (requires == null) {
-				requires = new HashSet<String>();
-			}
 			requires.add("Ext.data.proxy.Direct");
+		}
+
+		if (StringUtils.hasText(model.getIdentifier())
+				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
+			if ("sequential".equals(model.getIdentifier())) {
+				requires.add("Ext.data.identifier.Sequential");
+			}
+			else if ("uuid".equals(model.getIdentifier())) {
+				requires.add("Ext.data.identifier.Uuid");
+			}
+			else if ("negative".equals(model.getIdentifier())) {
+				requires.add("Ext.data.identifier.Negative");
+			}
 		}
 
 		if (requires != null && !requires.isEmpty()) {
 			configObject.put("requires", requires);
+		}
+
+		if (StringUtils.hasText(model.getIdentifier())) {
+			if (config.getOutputFormat() == OutputFormat.EXTJS5
+					|| config.getOutputFormat() == OutputFormat.TOUCH2) {
+				configObject.put("identifier", model.getIdentifier());
+			}
+			else {
+				configObject.put("idgen", model.getIdentifier());
+			}
 		}
 
 		if (StringUtils.hasText(model.getIdProperty())
@@ -752,8 +774,11 @@ public abstract class ModelGenerator {
 		}
 
 		String configObjectString;
-		Class<?> jsonView = JsonViews.ExtJS4andTouch2.class;
-		if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+		Class<?> jsonView = JsonViews.ExtJS4.class;
+		if (config.getOutputFormat() == OutputFormat.TOUCH2) {
+			jsonView = JsonViews.Touch2.class;
+		}
+		else if (config.getOutputFormat() == OutputFormat.EXTJS5) {
 			jsonView = JsonViews.ExtJS5.class;
 		}
 

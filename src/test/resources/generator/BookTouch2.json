@@ -3,6 +3,7 @@ Ext.define("MyApp.Book",
   extend : "Ext.data.Model",
   uses : [ "MyApp.Author" ],
   config : {
+    identifier : "uuid",
     idProperty : "isbn",
     fields : [ {
       name : "additionalProperty1",

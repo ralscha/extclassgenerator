@@ -26,7 +26,7 @@ import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFields;
 import ch.rasc.extclassgenerator.ModelType;
 
-@Model(value = "MyApp.Book", idProperty = "isbn")
+@Model(value = "MyApp.Book", idProperty = "isbn", identifier = "uuid")
 @ModelFields({ @ModelField(value = "additionalProperty1", type = ModelType.INTEGER),
 		@ModelField(value = "additionalProperty2", type = ModelType.STRING) })
 public class Book {

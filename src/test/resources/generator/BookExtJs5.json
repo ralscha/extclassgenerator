@@ -2,7 +2,8 @@ Ext.define("MyApp.Book",
 {
   extend : "Ext.data.Model",
   uses : [ "MyApp.Author" ],
-  requires : [ "Ext.data.proxy.Direct" ],
+  requires : [ "Ext.data.proxy.Direct", "Ext.data.identifier.Uuid" ],
+  identifier : "uuid",
   idProperty : "isbn",
   fields : [ {
     name : "additionalProperty1",
