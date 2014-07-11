@@ -342,6 +342,15 @@ public abstract class ModelGenerator {
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
 			model.setWriteAllFields(modelAnnotation.writeAllFields());
 			model.setIdentifier(trimToNull(modelAnnotation.identifier()));
+			String clientIdProperty = trimToNull(modelAnnotation.clientIdProperty());
+			if (StringUtils.hasText(clientIdProperty)) {
+				model.setClientIdProperty(clientIdProperty);
+				model.setClientIdPropertyAddToWriter(true);
+			}
+			else {
+				model.setClientIdProperty(null);
+				model.setClientIdPropertyAddToWriter(false);
+			}
 		}
 
 		final Set<String> hasReadMethod = new HashSet<String>();
@@ -694,9 +703,8 @@ public abstract class ModelGenerator {
 		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
 		ProxyObject proxyObject = new ProxyObject(model, config);
 
-		final Map<String, ModelFieldBean> fields = model.getFields();
+		Map<String, ModelFieldBean> fields = model.getFields();
 		Set<String> requires = new HashSet<String>();
-		;
 
 		if (!model.getValidations().isEmpty()
 				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
@@ -742,6 +750,19 @@ public abstract class ModelGenerator {
 		if (config.getOutputFormat() == OutputFormat.EXTJS5
 				&& StringUtils.hasText(model.getVersionProperty())) {
 			configObject.put("versionProperty", model.getVersionProperty());
+		}
+
+		if (StringUtils.hasText(model.getClientIdProperty())) {
+
+			if (config.getOutputFormat() == OutputFormat.EXTJS5
+					|| config.getOutputFormat() == OutputFormat.EXTJS4) {
+				configObject.put("clientIdProperty", model.getClientIdProperty());
+			}
+			else if (config.getOutputFormat() == OutputFormat.TOUCH2) {
+				if (!"clientId".equals(model.getClientIdProperty())) {
+					configObject.put("clientIdProperty", model.getClientIdProperty());
+				}
+			}
 		}
 
 		configObject.put("fields", fields.values());

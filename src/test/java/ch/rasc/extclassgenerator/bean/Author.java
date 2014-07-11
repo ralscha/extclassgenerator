@@ -20,10 +20,13 @@ import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
 import ch.rasc.extclassgenerator.ModelField;
 
-@Model(value = "MyApp.Author", idProperty = "id", identifier = "sequential")
+@Model(value = "MyApp.Author", idProperty = "id", identifier = "sequential",
+		clientIdProperty = "theClientId")
 public class Author {
 
 	public String id;
+
+	public String theClientId;
 
 	@ModelField(defaultValue = "Mr.")
 	public String title;

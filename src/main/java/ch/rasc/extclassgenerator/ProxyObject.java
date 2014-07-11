@@ -98,6 +98,8 @@ public class ProxyObject {
 			this.reader = readerConfigObject;
 		}
 
+		Map<String, Object> writerConfigObject = new LinkedHashMap<String, Object>();
+
 		if (StringUtils.hasText(model.getWriter())) {
 			this.writer = model.getWriter();
 		}
@@ -106,10 +108,20 @@ public class ProxyObject {
 					.getWriteAllFields())
 					|| (!model.getWriteAllFields() && (config.getOutputFormat() == OutputFormat.EXTJS4 || config
 							.getOutputFormat() == OutputFormat.TOUCH2))) {
-				Map<String, Object> writerConfigObject = new LinkedHashMap<String, Object>();
+
 				writerConfigObject.put("writeAllFields", model.getWriteAllFields());
-				this.writer = writerConfigObject;
+
 			}
+		}
+
+		if (config.getOutputFormat() == OutputFormat.EXTJS5
+				&& model.isClientIdPropertyAddToWriter()
+				&& StringUtils.hasText(model.getClientIdProperty())) {
+			writerConfigObject.put("clientIdProperty", model.getClientIdProperty());
+		}
+
+		if (!writerConfigObject.isEmpty()) {
+			this.writer = writerConfigObject;
 		}
 
 		boolean hasApiMethods = false;

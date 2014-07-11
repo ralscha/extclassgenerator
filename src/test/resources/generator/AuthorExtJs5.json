@@ -4,8 +4,12 @@ Ext.define("MyApp.Author",
   uses : [ "MyApp.Book" ],
   requires : [ "Ext.data.proxy.Direct", "Ext.data.identifier.Sequential" ],
   identifier : "sequential",
+  clientIdProperty : "theClientId",
   fields : [ {
     name : "id",
+    type : "string"
+  }, {
+    name : "theClientId",
     type : "string"
   }, {
     name : "title",
@@ -35,7 +39,8 @@ Ext.define("MyApp.Author",
   proxy : {
     type : "direct",
     writer : {
-      writeAllFields : true
+      writeAllFields : true,
+      clientIdProperty : "theClientId"
     }
   }
 });

@@ -3,8 +3,12 @@ Ext.define("MyApp.Author",
   extend : "Ext.data.Model",
   uses : [ "MyApp.Book" ],
   idgen : "sequential",
+  clientIdProperty : "theClientId",
   fields : [ {
     name : "id",
+    type : "string"
+  }, {
+    name : "theClientId",
     type : "string"
   }, {
     name : "title",

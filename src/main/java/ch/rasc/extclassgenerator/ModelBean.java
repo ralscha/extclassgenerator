@@ -37,6 +37,10 @@ public class ModelBean {
 
 	private String versionProperty;
 
+	private String clientIdProperty;
+
+	private boolean clientIdPropertyAddToWriter;
+
 	private Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
 
 	private List<AbstractValidation> validations = new ArrayList<AbstractValidation>();
@@ -492,6 +496,35 @@ public class ModelBean {
 	 */
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
+	}
+
+	public String getClientIdProperty() {
+		return clientIdProperty;
+	}
+
+	/**
+	 * The name of the property a server will use to send back a client-generated id in a
+	 * create or update operation.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.Model-cfg-clientIdProperty"
+	 * >Ext.data.Model#clientIdProperty</a>
+	 */
+	public void setClientIdProperty(String clientIdProperty) {
+		this.clientIdProperty = clientIdProperty;
+	}
+
+	public boolean isClientIdPropertyAddToWriter() {
+		return clientIdPropertyAddToWriter;
+	}
+
+	/**
+	 * If true configures the clientIdProperty on the proxy's writer config. Uses the
+	 * value of {@link #clientIdProperty}. If {@link #clientIdProperty} is not set nothing
+	 * happens.
+	 */
+	public void setClientIdPropertyAddToWriter(boolean clientIdPropertyAddToWriter) {
+		this.clientIdPropertyAddToWriter = clientIdPropertyAddToWriter;
 	}
 
 }
