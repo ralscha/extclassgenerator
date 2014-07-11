@@ -22,7 +22,9 @@ import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
 
-@Model(value = "Sch.Bean3", idProperty = "id", readMethod = "read", messageProperty = "theMessageProperty", rootProperty = "theRootProperty", successProperty = "theSuccessProperty", totalProperty = "theTotalProperty")
+@Model(value = "Sch.Bean3", idProperty = "id", readMethod = "read",
+		messageProperty = "theMessageProperty", rootProperty = "theRootProperty",
+		successProperty = "theSuccessProperty", totalProperty = "theTotalProperty")
 public class BeanWithAnnotations3 {
 
 	private String id;

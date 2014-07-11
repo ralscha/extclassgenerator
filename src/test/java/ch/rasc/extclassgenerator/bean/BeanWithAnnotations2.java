@@ -29,7 +29,8 @@ import ch.rasc.extclassgenerator.ModelType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Model(value = "Sch.Bean2", idProperty = "id", paging = false, readMethod = "read", messageProperty = "theMessageProperty")
+@Model(value = "Sch.Bean2", idProperty = "id", paging = false, readMethod = "read",
+		messageProperty = "theMessageProperty")
 public class BeanWithAnnotations2 extends Base {
 
 	@Pattern(regexp = "[a-zA-Z]*")

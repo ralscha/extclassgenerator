@@ -40,7 +40,8 @@ import ch.rasc.extclassgenerator.ModelValidation;
 import ch.rasc.extclassgenerator.ModelValidationType;
 import ch.rasc.extclassgenerator.ModelValidations;
 
-@ModelValidations({ @ModelValidation(propertyName = "email", value = ModelValidationType.PRESENCE) })
+@ModelValidations({ @ModelValidation(propertyName = "email",
+		value = ModelValidationType.PRESENCE) })
 public class BeanWithValidation {
 
 	@Email

@@ -23,6 +23,8 @@ public class Address {
 
 	public int e_id;
 
-	@ModelAssociation(value = ModelAssociationType.HAS_ONE, autoLoad = true, foreignKey = "e_id", model = Employee.class, getterName = "getE", setterName = "setE", name = "emp")
+	@ModelAssociation(value = ModelAssociationType.HAS_ONE, autoLoad = true,
+			foreignKey = "e_id", model = Employee.class, getterName = "getE",
+			setterName = "setE", name = "emp")
 	public Employee employee;
 }

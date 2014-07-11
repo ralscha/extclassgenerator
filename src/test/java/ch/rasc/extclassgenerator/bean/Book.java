@@ -44,7 +44,8 @@ public class Book {
 
 	public boolean read;
 
-	@ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Author.class, autoLoad = true)
+	@ModelAssociation(value = ModelAssociationType.HAS_MANY, model = Author.class,
+			autoLoad = true)
 	public List<Author> authors;
 
 }

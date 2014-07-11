@@ -27,6 +27,7 @@ public class EmployeeWithInstanceName {
 
 	public int address_id;
 
-	@ModelAssociation(value = ModelAssociationType.HAS_ONE, instanceName = "addressBelongsToInstance")
+	@ModelAssociation(value = ModelAssociationType.HAS_ONE,
+			instanceName = "addressBelongsToInstance")
 	public Address address;
 }
