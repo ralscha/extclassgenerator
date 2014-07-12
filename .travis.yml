@@ -1,10 +1,6 @@
 language: java
-
 jdk:
   - oraclejdk8
-  - oraclejdk7
-  - openjdk6  
-  
 env:
   global:
   - SONATYPE_USERNAME=ralscha23
