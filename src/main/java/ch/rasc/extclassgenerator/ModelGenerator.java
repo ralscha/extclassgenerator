@@ -630,7 +630,7 @@ public abstract class ModelGenerator {
 				else if (type == ModelType.INTEGER) {
 					modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
 				}
-				else if (type == ModelType.FLOAT) {
+				else if (type == ModelType.FLOAT || type == ModelType.NUMBER) {
 					modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
 				}
 				else {
@@ -639,20 +639,24 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		if (modelFieldAnnotation.useNull()
+		if ((modelFieldAnnotation.useNull() || modelFieldAnnotation.allowNull())
 				&& (type == ModelType.INTEGER || type == ModelType.FLOAT
-						|| type == ModelType.STRING || type == ModelType.BOOLEAN)) {
-			modelFieldBean.setUseNull(true);
+						|| type == ModelType.NUMBER || type == ModelType.STRING || type == ModelType.BOOLEAN)) {
+			modelFieldBean.setAllowNull(Boolean.TRUE);
+		}
+
+		if (!modelFieldAnnotation.allowBlank()) {
+			modelFieldBean.setAllowBlank(Boolean.FALSE);
 		}
 
 		modelFieldBean.setMapping(trimToNull(modelFieldAnnotation.mapping()));
 
 		if (!modelFieldAnnotation.persist()) {
-			modelFieldBean.setPersist(false);
+			modelFieldBean.setPersist(Boolean.FALSE);
 		}
 
 		if (modelFieldAnnotation.critical()) {
-			modelFieldBean.setCritical(true);
+			modelFieldBean.setCritical(Boolean.TRUE);
 		}
 
 		modelFieldBean.setConvert(trimToNull(modelFieldAnnotation.convert()));

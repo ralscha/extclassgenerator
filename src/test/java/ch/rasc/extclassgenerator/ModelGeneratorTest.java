@@ -152,12 +152,12 @@ public class ModelGeneratorTest {
 				.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]}});");
+						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}]}});");
 
 		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
 				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",useNull:true}]}});");
+						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}]}});");
 	}
 
 	@Test

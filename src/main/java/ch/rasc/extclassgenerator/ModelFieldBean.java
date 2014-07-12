@@ -45,7 +45,11 @@ public class ModelFieldBean {
 
 	private String dateFormat;
 
+	@JsonView(JsonViews.ExtJS4.class)
 	private Boolean useNull;
+
+	@JsonView({ JsonViews.ExtJS5.class, JsonViews.Touch2.class })
+	private Boolean allowNull;
 
 	private String mapping;
 
@@ -71,6 +75,9 @@ public class ModelFieldBean {
 
 	@JsonView(JsonViews.ExtJS5.class)
 	private Object reference;
+
+	@JsonView(JsonViews.ExtJS5.class)
+	private Boolean allowBlank;
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
@@ -193,12 +200,13 @@ public class ModelFieldBean {
 	 * in JS.<br>
 	 * <p>
 	 * Only used if type of field is {@link ModelType#INTEGER}, {@link ModelType#FLOAT},
-	 * {@link ModelType#STRING} or {@link ModelType#BOOLEAN}.
+	 * {@link ModelType#NUMBER}, {@link ModelType#STRING} or {@link ModelType#BOOLEAN}.
 	 *
 	 * @param useNull new value for useNull
 	 */
 	public void setUseNull(Boolean useNull) {
 		this.useNull = useNull;
+		this.allowNull = useNull;
 	}
 
 	public String getMapping() {
@@ -333,6 +341,51 @@ public class ModelFieldBean {
 	 */
 	public void setReference(Object reference) {
 		this.reference = reference;
+	}
+
+	public Boolean getAllowNull() {
+		return allowNull;
+	}
+
+	/**
+	 * Use when converting received data into a <code>integer</code>,
+	 * <code>float/number</code>, <code>boolean</code> or <code>string</code> type. If the
+	 * value cannot be parsed, null will be used if allowNull is true, otherwise a default
+	 * value for that type will be used (0 for integer and float/number, "" for string and
+	 * false for boolean)
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowNull"
+	 * >Ext.data.Field#allowNull</a>
+	 * <p>
+	 * Defaults to false
+	 * <p>
+	 * Only used if type of field is {@link ModelType#INTEGER}, {@link ModelType#FLOAT},
+	 * {@link ModelType#NUMBER}, {@link ModelType#STRING} or {@link ModelType#BOOLEAN}.
+	 * <p>
+	 * <strong>This is another name for {@link #setUseNull(Boolean)}. Both properties
+	 * behave exactly the same. Use only one.</strong>
+	 */
+	public void setAllowNull(Boolean allowNull) {
+		this.allowNull = allowNull;
+		this.useNull = allowNull;
+	}
+
+	public Boolean getAllowBlank() {
+		return allowBlank;
+	}
+
+	/**
+	 * Used for validating a model.
+	 * <p>
+	 * Set <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowBlank"
+	 * >Ext.data.Field#allowBlank</a>
+	 * <p>
+	 * Defaults to true
+	 */
+	public void setAllowBlank(Boolean allowBlank) {
+		this.allowBlank = allowBlank;
 	}
 
 }

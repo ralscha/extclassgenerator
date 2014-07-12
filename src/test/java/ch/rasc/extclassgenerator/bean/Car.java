@@ -32,7 +32,7 @@ public class Car {
 	public String name;
 
 	@ModelField(type = ModelType.AUTO,
-			reference = @ReferenceConfig(type = "Manufacturer"))
+			reference = @ReferenceConfig(type = "Manufacturer"), allowBlank = false)
 	public Long manufacturerId;
 
 	@ModelField(type = ModelType.AUTO, reference = @ReferenceConfig(type = "Driver",

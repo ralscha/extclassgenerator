@@ -28,7 +28,7 @@ Ext.define("Sch.Bean",
   }, {
     name : "aLongObject",
     type : "int",
-    useNull : true
+    allowNull : true
   }, {
     name : "aBigDecimal",
     type : "float"
@@ -52,7 +52,7 @@ Ext.define("Sch.Bean",
   }, {
     name : "aString",
     type : "string",
-    useNull : true
+    allowNull : true
   }, {
     name : "aBoolean",
     type : "boolean",

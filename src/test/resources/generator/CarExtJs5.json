@@ -9,7 +9,8 @@ Ext.define("MyApp.model.Car",
     name : "name"
   }, {
     name : "manufacturerId",
-    reference : "Manufacturer"
+    reference : "Manufacturer",
+    allowBlank : false
   }, {
     name : "driverId",
     reference : {
