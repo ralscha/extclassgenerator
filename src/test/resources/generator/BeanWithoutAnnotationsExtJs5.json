@@ -3,34 +3,34 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations",
   extend : "Ext.data.Model",
   fields : [ {
     name : "aByte",
-    type : "int"
+    type : "integer"
   }, {
     name : "aShort",
-    type : "int"
+    type : "integer"
   }, {
     name : "aInt",
-    type : "int"
+    type : "integer"
   }, {
     name : "aLong",
-    type : "int"
+    type : "integer"
   }, {
     name : "aByteObject",
-    type : "int"
+    type : "integer"
   }, {
     name : "aShortObject",
-    type : "int"
+    type : "integer"
   }, {
     name : "aIntObject",
-    type : "int"
+    type : "integer"
   }, {
     name : "aLongObject",
-    type : "int"
+    type : "integer"
   }, {
     name : "aBigDecimal",
-    type : "float"
+    type : "number"
   }, {
     name : "aBigInteger",
-    type : "int"
+    type : "integer"
   }, {
     name : "aCalendar",
     type : "date"
@@ -39,16 +39,16 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations",
     type : "date"
   }, {
     name : "aFloat",
-    type : "float"
+    type : "number"
   }, {
     name : "aDouble",
-    type : "float"
+    type : "number"
   }, {
     name : "aFloatObject",
-    type : "float"
+    type : "number"
   }, {
     name : "aDoubleObject",
-    type : "float"
+    type : "number"
   }, {
     name : "aString",
     type : "string"

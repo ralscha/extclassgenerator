@@ -7,13 +7,13 @@ Ext.define("MyApp.Employee",
   versionProperty : "version",
   fields : [ {
     name : "eId",
-    type : "int"
+    type : "integer"
   }, {
     name : "version",
-    type : "int"
+    type : "integer"
   }, {
     name : "address_id",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "hasOne",

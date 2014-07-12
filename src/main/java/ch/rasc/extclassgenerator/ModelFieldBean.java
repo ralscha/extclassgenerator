@@ -388,4 +388,15 @@ public class ModelFieldBean {
 		this.allowBlank = allowBlank;
 	}
 
+	void updateTypes(OutputConfig outputConfig) {
+		if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
+			if ("int".equals(type)) {
+				type = "integer";
+			}
+			else if ("float".equals(type)) {
+				type = "number";
+			}
+		}
+	}
+
 }

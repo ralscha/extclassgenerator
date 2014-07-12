@@ -7,10 +7,10 @@ Ext.define("MyApp.Employee",
   idProperty : "eId",
   fields : [ {
     name : "eId",
-    type : "int"
+    type : "integer"
   }, {
     name : "address_id",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "hasOne",

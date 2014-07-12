@@ -9,7 +9,7 @@ Ext.define("MyApp.Book",
   clientIdProperty : "clientId2",
   fields : [ {
     name : "additionalProperty1",
-    type : "int"
+    type : "integer"
   }, {
     name : "additionalProperty2",
     type : "string"
@@ -37,7 +37,7 @@ Ext.define("MyApp.Book",
     dateFormat : "d-m-Y"
   }, {
     name : "numberOfPages",
-    type : "int"
+    type : "integer"
   }, {
     name : "read",
     type : "boolean"

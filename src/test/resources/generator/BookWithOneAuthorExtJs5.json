@@ -4,10 +4,10 @@ Ext.define("ch.rasc.extclassgenerator.bean.BookWithOneAuthor",
   uses : [ "MyApp.Author" ],
   fields : [ {
     name : "id",
-    type : "int"
+    type : "integer"
   }, {
     name : "author_id",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "hasOne",

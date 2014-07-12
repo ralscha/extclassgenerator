@@ -10,13 +10,13 @@ Ext.define("ch.rasc.extclassgenerator.bean.BeanWithValidation",
     type : "string"
   }, {
     name : "minMax1",
-    type : "float"
+    type : "number"
   }, {
     name : "minMax2",
-    type : "int"
+    type : "integer"
   }, {
     name : "minMax3",
-    type : "int"
+    type : "integer"
   }, {
     name : "digits",
     type : "string"

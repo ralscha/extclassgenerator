@@ -4,7 +4,7 @@ Ext.define('App.PartialApi',
   requires : [ 'Ext.data.proxy.Direct' ],
   fields : [ {
     name : 'id',
-    type : 'int'
+    type : 'integer'
   }, {
     name : 'name',
     type : 'string'

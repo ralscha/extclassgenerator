@@ -4,10 +4,10 @@ Ext.define("ch.rasc.extclassgenerator.bean.Address",
   uses : [ "MyApp.Employee" ],
   fields : [ {
     name : "id",
-    type : "int"
+    type : "integer"
   }, {
     name : "e_id",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "hasOne",

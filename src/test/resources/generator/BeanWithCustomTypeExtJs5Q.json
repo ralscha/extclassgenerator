@@ -7,7 +7,7 @@ Ext.define("Sch.BeanWithCustomType",
     type : "string"
   }, {
     name : "age",
-    type : "int"
+    type : "integer"
   }, {
     name : "city",
     type : "city"

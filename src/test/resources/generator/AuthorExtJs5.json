@@ -29,7 +29,7 @@ Ext.define("MyApp.Author",
     convert : null
   }, {
     name : "book_id",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "belongsTo",

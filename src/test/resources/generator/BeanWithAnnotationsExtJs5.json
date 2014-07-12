@@ -5,50 +5,50 @@ Ext.define("Sch.Bean",
   idProperty : "aInt",
   fields : [ {
     name : "by",
-    type : "int"
+    type : "integer"
   }, {
     name : "aShort",
-    type : "int"
+    type : "integer"
   }, {
     name : "aInt",
-    type : "int"
+    type : "integer"
   }, {
     name : "lo",
-    type : "int",
+    type : "integer",
     defaultValue : -1
   }, {
     name : "aByteObject",
     type : "string"
   }, {
     name : "aShortObject",
-    type : "float"
+    type : "number"
   }, {
     name : "aIntObject",
-    type : "int"
+    type : "integer"
   }, {
     name : "aLongObject",
-    type : "int",
+    type : "integer",
     allowNull : true
   }, {
     name : "aBigDecimal",
-    type : "float"
+    type : "number"
   }, {
     name : "aBigInteger",
-    type : "int",
+    type : "integer",
     defaultValue : 1
   }, {
     name : "aFloat",
-    type : "float",
+    type : "number",
     defaultValue : 1.1
   }, {
     name : "aDouble",
-    type : "float"
+    type : "number"
   }, {
     name : "aFloatObject",
-    type : "float"
+    type : "number"
   }, {
     name : "aDoubleObject",
-    type : "float"
+    type : "number"
   }, {
     name : "aString",
     type : "string",
@@ -80,7 +80,7 @@ Ext.define("Sch.Bean",
     type : "date"
   }, {
     name : "bigValue",
-    type : "int"
+    type : "integer"
   }, {
     name : "aNonCriticalValue",
     type : "string"

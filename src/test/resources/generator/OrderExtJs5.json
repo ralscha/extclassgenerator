@@ -4,7 +4,7 @@ Ext.define("ch.rasc.extclassgenerator.bean.Order",
   uses : [ "ch.rasc.extclassgenerator.bean.Pos" ],
   fields : [ {
     name : "entityId",
-    type : "int"
+    type : "integer"
   } ],
   associations : [ {
     type : "hasMany",

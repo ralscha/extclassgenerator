@@ -18,11 +18,11 @@ package ch.rasc.extclassgenerator;
 final class ModelCacheKey {
 	private final String className;
 
-	private final IncludeValidation includeValidation;
+	private final OutputConfig outputConfig;
 
-	public ModelCacheKey(String className, IncludeValidation includeValidation) {
+	public ModelCacheKey(String className, OutputConfig outputConfig) {
 		this.className = className;
-		this.includeValidation = includeValidation;
+		this.outputConfig = outputConfig;
 	}
 
 	@Override
@@ -30,8 +30,7 @@ final class ModelCacheKey {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (className == null ? 0 : className.hashCode());
-		result = prime * result
-				+ (includeValidation == null ? 0 : includeValidation.hashCode());
+		result = prime * result + (outputConfig == null ? 0 : outputConfig.hashCode());
 		return result;
 	}
 
@@ -55,7 +54,12 @@ final class ModelCacheKey {
 		else if (!className.equals(other.className)) {
 			return false;
 		}
-		if (includeValidation != other.includeValidation) {
+		if (outputConfig == null) {
+			if (other.outputConfig != null) {
+				return false;
+			}
+		}
+		else if (!outputConfig.equals(other.outputConfig)) {
 			return false;
 		}
 		return true;

@@ -35,9 +35,18 @@ public class ModelCacheKeyTest {
 	public void testPutAndGet() {
 		ModelCacheKey key1 = new ModelCacheKey(null, null);
 		ModelCacheKey key2 = new ModelCacheKey("name", null);
-		ModelCacheKey key3 = new ModelCacheKey(null, IncludeValidation.ALL);
-		ModelCacheKey key4 = new ModelCacheKey("name", IncludeValidation.BUILTIN);
-		ModelCacheKey key5 = new ModelCacheKey("name", IncludeValidation.NONE);
+
+		OutputConfig outputConfig1 = new OutputConfig();
+		outputConfig1.setIncludeValidation(IncludeValidation.ALL);
+		ModelCacheKey key3 = new ModelCacheKey(null, outputConfig1);
+
+		OutputConfig outputConfig2 = new OutputConfig();
+		outputConfig2.setIncludeValidation(IncludeValidation.BUILTIN);
+		ModelCacheKey key4 = new ModelCacheKey("name", outputConfig2);
+
+		OutputConfig outputConfig3 = new OutputConfig();
+		outputConfig3.setIncludeValidation(IncludeValidation.NONE);
+		ModelCacheKey key5 = new ModelCacheKey("name", outputConfig3);
 
 		Map<ModelCacheKey, String> map = new ConcurrentHashMap<>();
 		map.put(key1, "one");

@@ -228,8 +228,13 @@ public abstract class ModelGenerator {
 	 */
 	public static String generateJavascript(Class<?> clazz, OutputFormat format,
 			boolean debug) {
-		ModelBean model = createModel(clazz, IncludeValidation.NONE);
-		return generateJavascript(model, format, debug);
+		OutputConfig outputConfig = new OutputConfig();
+		outputConfig.setIncludeValidation(IncludeValidation.NONE);
+		outputConfig.setOutputFormat(format);
+		outputConfig.setDebug(debug);
+
+		ModelBean model = createModel(clazz, outputConfig);
+		return generateJavascript(model, outputConfig);
 	}
 
 	public static String generateJavascript(Class<?> clazz, OutputConfig outputConfig) {
@@ -250,8 +255,13 @@ public abstract class ModelGenerator {
 	 */
 	public static String generateJavascript(Class<?> clazz, OutputFormat format,
 			IncludeValidation includeValidation, boolean debug) {
-		ModelBean model = createModel(clazz, includeValidation);
-		return generateJavascript(model, format, debug);
+		OutputConfig outputConfig = new OutputConfig();
+		outputConfig.setIncludeValidation(includeValidation);
+		outputConfig.setOutputFormat(format);
+		outputConfig.setDebug(debug);
+
+		ModelBean model = createModel(clazz, outputConfig);
+		return generateJavascript(model, outputConfig);
 	}
 
 	/**
@@ -307,8 +317,7 @@ public abstract class ModelGenerator {
 		Assert.notNull(outputConfig.getIncludeValidation(),
 				"includeValidation must not be null");
 
-		ModelCacheKey key = new ModelCacheKey(clazz.getName(),
-				outputConfig.getIncludeValidation());
+		ModelCacheKey key = new ModelCacheKey(clazz.getName(), outputConfig);
 		SoftReference<ModelBean> modelReference = modelCache.get(key);
 		if (modelReference != null && modelReference.get() != null) {
 			return modelReference.get();
@@ -534,7 +543,6 @@ public abstract class ModelGenerator {
 			}
 
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
-
 			model.addField(modelFieldBean);
 		}
 		else {
@@ -793,6 +801,10 @@ public abstract class ModelGenerator {
 					configObject.put("clientIdProperty", model.getClientIdProperty());
 				}
 			}
+		}
+
+		for (ModelFieldBean field : fields.values()) {
+			field.updateTypes(config);
 		}
 
 		configObject.put("fields", fields.values());
