@@ -33,6 +33,8 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
 public class ModelBean {
 	private String name;
 
+	private String extend = "Ext.data.Model";
+
 	private String idProperty;
 
 	private String versionProperty;
@@ -85,6 +87,19 @@ public class ModelBean {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getExtend() {
+		return extend;
+	}
+
+	/**
+	 * "Superclass" of this model.
+	 * <p>
+	 * Defaults to "Ext.data.Model"
+	 */
+	public void setExtend(String extend) {
+		this.extend = extend;
 	}
 
 	public String getIdProperty() {

@@ -23,7 +23,7 @@ import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelId;
 import ch.rasc.extclassgenerator.ModelVersion;
 
-@Model(value = "MyApp.Author", identifier = "sequential")
+@Model(extend = "MyApp.model.Base", value = "MyApp.Author", identifier = "sequential")
 public class Author {
 
 	@ModelId

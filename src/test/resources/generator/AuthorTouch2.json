@@ -1,6 +1,6 @@
 Ext.define("MyApp.Author",
 {
-  extend : "Ext.data.Model",
+  extend : "MyApp.model.Base",
   uses : [ "MyApp.Book" ],
   config : {
     identifier : "sequential",

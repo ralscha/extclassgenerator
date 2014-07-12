@@ -326,11 +326,11 @@ public abstract class ModelGenerator {
 		}
 
 		if (modelAnnotation != null) {
+			model.setExtend(modelAnnotation.extend());
 			model.setIdProperty(modelAnnotation.idProperty());
 			model.setVersionProperty(trimToNull(modelAnnotation.versionProperty()));
 			model.setPaging(modelAnnotation.paging());
 			model.setDisablePagingParameters(modelAnnotation.disablePagingParameters());
-
 			model.setCreateMethod(trimToNull(modelAnnotation.createMethod()));
 			model.setReadMethod(trimToNull(modelAnnotation.readMethod()));
 			model.setUpdateMethod(trimToNull(modelAnnotation.updateMethod()));
@@ -701,7 +701,7 @@ public abstract class ModelGenerator {
 		}
 
 		Map<String, Object> modelObject = new LinkedHashMap<String, Object>();
-		modelObject.put("extend", "Ext.data.Model");
+		modelObject.put("extend", model.getExtend());
 
 		if (!model.getAssociations().isEmpty()) {
 			Set<String> usesClasses = new HashSet<String>();
