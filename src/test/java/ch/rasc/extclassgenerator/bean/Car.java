@@ -36,9 +36,15 @@ public class Car {
 	public Long manufacturerId;
 
 	@ModelField(type = ModelType.AUTO, reference = @ReferenceConfig(type = "Driver",
-			role = "theDriver", association = "CarByDriver", inverse = "cars"))
+			role = "theDriver", association = "CarByDriver", inverse = "cars"),
+			allowBlank = true)
 	public Long driverId;
 
-	@ModelField(type = ModelType.AUTO, reference = @ReferenceConfig(parent = "Owner"))
+	@ModelField(type = ModelType.AUTO, reference = @ReferenceConfig(parent = "Owner"),
+			unique = false)
 	public Long ownerId;
+
+	@ModelField(type = ModelType.AUTO, reference = @ReferenceConfig(type = "OneToOne"),
+			unique = true)
+	public Long oneToOneId;
 }

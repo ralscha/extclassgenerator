@@ -656,6 +656,10 @@ public abstract class ModelGenerator {
 		if (!modelFieldAnnotation.allowBlank()) {
 			modelFieldBean.setAllowBlank(Boolean.FALSE);
 		}
+		
+		if (modelFieldAnnotation.unique()) {
+			modelFieldBean.setUnique(Boolean.TRUE);
+		}
 
 		modelFieldBean.setMapping(trimToNull(modelFieldAnnotation.mapping()));
 

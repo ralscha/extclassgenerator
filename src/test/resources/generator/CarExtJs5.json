@@ -24,6 +24,10 @@ Ext.define("MyApp.model.Car",
     reference : {
       parent : "Owner"
     }
+  }, {
+    name : "oneToOneId",
+    reference : "OneToOne",
+    unique : true
   } ],
   proxy : {
     type : "direct",

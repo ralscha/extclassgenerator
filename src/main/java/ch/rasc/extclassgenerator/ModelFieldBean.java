@@ -78,6 +78,9 @@ public class ModelFieldBean {
 
 	@JsonView(JsonViews.ExtJS5.class)
 	private Boolean allowBlank;
+	
+	@JsonView(JsonViews.ExtJS5.class)
+	private Boolean unique;	
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
@@ -386,6 +389,24 @@ public class ModelFieldBean {
 	 */
 	public void setAllowBlank(Boolean allowBlank) {
 		this.allowBlank = allowBlank;
+	}
+
+	public Boolean getUnique() {
+		return unique;
+	}
+
+	/**
+	 * true if the value of this field is unique amongst all instances. When used with a
+	 * reference this describes a "one-to-one" relationship
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-unique"
+	 * >Ext.data.Field#unique</a>
+	 * <p>
+	 * Defaults to false
+	 */
+	public void setUnique(Boolean unique) {
+		this.unique = unique;
 	}
 
 	void updateTypes(OutputConfig outputConfig) {

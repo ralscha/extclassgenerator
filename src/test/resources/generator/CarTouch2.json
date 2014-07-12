@@ -13,6 +13,8 @@ Ext.define("MyApp.model.Car",
       name : "driverId"
     }, {
       name : "ownerId"
+    }, {
+      name : "oneToOneId"
     } ]
   }
 });

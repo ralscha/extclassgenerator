@@ -56,7 +56,7 @@ public class BeanWithAnnotations {
 	@ModelField(type = ModelType.STRING)
 	private Byte aByteObject;
 
-	@ModelField(type = ModelType.FLOAT)
+	@ModelField(type = ModelType.FLOAT, allowNull = false)
 	private Short aShortObject;
 
 	@ModelField(useNull = false)
@@ -83,7 +83,7 @@ public class BeanWithAnnotations {
 
 	private Double aDoubleObject;
 
-	@ModelField(useNull = true)
+	@ModelField(allowNull = true)
 	@Email
 	@Length(max = 255)
 	@Pattern(regexp = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]")
