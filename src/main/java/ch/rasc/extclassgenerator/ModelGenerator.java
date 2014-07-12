@@ -544,6 +544,22 @@ public abstract class ModelGenerator {
 			}
 		}
 
+		ModelId modelIdAnnotation = accessibleObject.getAnnotation(ModelId.class);
+		if (modelIdAnnotation != null) {
+			model.setIdProperty(name);
+		}
+
+		ModelClientId modelClientId = accessibleObject.getAnnotation(ModelClientId.class);
+		if (modelClientId != null) {
+			model.setClientIdProperty(name);
+			model.setClientIdPropertyAddToWriter(modelClientId.configureWriter());
+		}
+
+		ModelVersion modelVersion = accessibleObject.getAnnotation(ModelVersion.class);
+		if (modelVersion != null) {
+			model.setVersionProperty(name);
+		}
+
 		ModelAssociation modelAssociationAnnotation = accessibleObject
 				.getAnnotation(ModelAssociation.class);
 		if (modelAssociationAnnotation != null) {

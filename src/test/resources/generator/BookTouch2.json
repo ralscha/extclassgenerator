@@ -4,12 +4,22 @@ Ext.define("MyApp.Book",
   uses : [ "MyApp.Author" ],
   config : {
     identifier : "uuid",
-    idProperty : "isbn",
+    idProperty : "isbn2",
+    clientIdProperty : "clientId2",
     fields : [ {
       name : "additionalProperty1",
       type : "int"
     }, {
       name : "additionalProperty2",
+      type : "string"
+    }, {
+      name : "isbn2",
+      type : "string"
+    }, {
+      name : "version2",
+      type : "string"
+    }, {
+      name : "clientId2",
       type : "string"
     }, {
       name : "title",
@@ -36,13 +46,13 @@ Ext.define("MyApp.Book",
       model : "MyApp.Author",
       associationKey : "authors",
       foreignKey : "book_id",
-      primaryKey : "isbn",
+      primaryKey : "isbn2",
       autoLoad : true,
       name : "authors"
     } ],
     proxy : {
       type : "direct",
-      idParam : "isbn"
+      idParam : "isbn2"
     }
   }
 });

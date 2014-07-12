@@ -104,10 +104,11 @@ public class ProxyObject {
 			this.writer = model.getWriter();
 		}
 		else if (model.getWriteAllFields() != null) {
-			if ((config.getOutputFormat() == OutputFormat.EXTJS5 && model
-					.getWriteAllFields())
-					|| (!model.getWriteAllFields() && (config.getOutputFormat() == OutputFormat.EXTJS4 || config
-							.getOutputFormat() == OutputFormat.TOUCH2))) {
+			if (config.getOutputFormat() == OutputFormat.EXTJS5
+					&& model.getWriteAllFields()
+					|| !model.getWriteAllFields()
+					&& (config.getOutputFormat() == OutputFormat.EXTJS4 || config
+							.getOutputFormat() == OutputFormat.TOUCH2)) {
 
 				writerConfigObject.put("writeAllFields", model.getWriteAllFields());
 

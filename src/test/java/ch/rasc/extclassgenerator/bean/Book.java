@@ -22,14 +22,27 @@ import org.joda.time.LocalDate;
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
+import ch.rasc.extclassgenerator.ModelClientId;
 import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFields;
+import ch.rasc.extclassgenerator.ModelId;
 import ch.rasc.extclassgenerator.ModelType;
+import ch.rasc.extclassgenerator.ModelVersion;
 
-@Model(value = "MyApp.Book", idProperty = "isbn", identifier = "uuid")
+@Model(value = "MyApp.Book", idProperty = "isbn1", versionProperty = "version1",
+		clientIdProperty = "clientId1", identifier = "uuid")
 @ModelFields({ @ModelField(value = "additionalProperty1", type = ModelType.INTEGER),
 		@ModelField(value = "additionalProperty2", type = ModelType.STRING) })
 public class Book {
+
+	@ModelId
+	public String isbn2;
+
+	@ModelVersion
+	public String version2;
+
+	@ModelClientId
+	public String clientId2;
 
 	public String title;
 

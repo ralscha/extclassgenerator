@@ -18,15 +18,22 @@ package ch.rasc.extclassgenerator.bean;
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
+import ch.rasc.extclassgenerator.ModelClientId;
 import ch.rasc.extclassgenerator.ModelField;
+import ch.rasc.extclassgenerator.ModelId;
+import ch.rasc.extclassgenerator.ModelVersion;
 
-@Model(value = "MyApp.Author", idProperty = "id", identifier = "sequential",
-		clientIdProperty = "theClientId")
+@Model(value = "MyApp.Author", identifier = "sequential")
 public class Author {
 
+	@ModelId
 	public String id;
 
-	public String theClientId;
+	@ModelClientId
+	public String clientId;
+
+	@ModelVersion
+	public String version;
 
 	@ModelField(defaultValue = "Mr.")
 	public String title;

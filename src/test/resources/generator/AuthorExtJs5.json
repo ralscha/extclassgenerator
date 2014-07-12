@@ -4,12 +4,16 @@ Ext.define("MyApp.Author",
   uses : [ "MyApp.Book" ],
   requires : [ "Ext.data.proxy.Direct", "Ext.data.identifier.Sequential" ],
   identifier : "sequential",
-  clientIdProperty : "theClientId",
+  versionProperty : "version",
+  clientIdProperty : "clientId",
   fields : [ {
     name : "id",
     type : "string"
   }, {
-    name : "theClientId",
+    name : "clientId",
+    type : "string"
+  }, {
+    name : "version",
     type : "string"
   }, {
     name : "title",
@@ -32,7 +36,7 @@ Ext.define("MyApp.Author",
     model : "MyApp.Book",
     associationKey : "book",
     foreignKey : "book_id",
-    primaryKey : "isbn",
+    primaryKey : "isbn2",
     setterName : "setBook",
     getterName : "getBook"
   } ],
@@ -40,7 +44,7 @@ Ext.define("MyApp.Author",
     type : "direct",
     writer : {
       writeAllFields : true,
-      clientIdProperty : "theClientId"
+      clientIdProperty : "clientId"
     }
   }
 });

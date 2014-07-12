@@ -18,9 +18,12 @@ package ch.rasc.extclassgenerator.bean;
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
+import ch.rasc.extclassgenerator.ModelId;
 
-@Model(idProperty = "eId", value = "MyApp.Employee", identifier = "negative")
+@Model(value = "MyApp.Employee", identifier = "negative")
 public class Employee {
+
+	@ModelId
 	public int eId;
 
 	public int address_id;

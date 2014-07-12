@@ -15,7 +15,11 @@
  */
 package ch.rasc.extclassgenerator.association;
 
+import java.lang.reflect.Field;
+
 import org.apache.commons.logging.LogFactory;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
 
 import ch.rasc.extclassgenerator.Model;
@@ -23,6 +27,7 @@ import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
 import ch.rasc.extclassgenerator.ModelBean;
 import ch.rasc.extclassgenerator.ModelGenerator;
+import ch.rasc.extclassgenerator.ModelId;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -277,7 +282,7 @@ public abstract class AbstractAssociation {
 			associationClass = typeOfFieldOrReturnValue;
 		}
 
-		AbstractAssociation association;
+		final AbstractAssociation association;
 
 		if (type == ModelAssociationType.HAS_MANY) {
 			association = new HasManyAssociation(associationClass);
@@ -320,6 +325,19 @@ public abstract class AbstractAssociation {
 					&& !associationModelAnnotation.idProperty().equals("id")) {
 				association.setPrimaryKey(associationModelAnnotation.idProperty());
 			}
+			ReflectionUtils.doWithFields(associationClass, new FieldCallback() {
+
+				@Override
+				public void doWith(Field field) throws IllegalArgumentException,
+						IllegalAccessException {
+					if (field.getAnnotation(ModelId.class) != null) {
+						if (!"id".equals(field.getName())) {
+							association.setPrimaryKey(field.getName());
+						}
+					}
+				}
+
+			});
 		}
 
 		if (type == ModelAssociationType.HAS_MANY) {

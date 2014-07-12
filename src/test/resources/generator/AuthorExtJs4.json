@@ -3,12 +3,15 @@ Ext.define("MyApp.Author",
   extend : "Ext.data.Model",
   uses : [ "MyApp.Book" ],
   idgen : "sequential",
-  clientIdProperty : "theClientId",
+  clientIdProperty : "clientId",
   fields : [ {
     name : "id",
     type : "string"
   }, {
-    name : "theClientId",
+    name : "clientId",
+    type : "string"
+  }, {
+    name : "version",
     type : "string"
   }, {
     name : "title",
@@ -31,7 +34,7 @@ Ext.define("MyApp.Author",
     model : "MyApp.Book",
     associationKey : "book",
     foreignKey : "book_id",
-    primaryKey : "isbn",
+    primaryKey : "isbn2",
     setterName : "setBook",
     getterName : "getBook"
   } ]
