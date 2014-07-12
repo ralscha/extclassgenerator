@@ -523,7 +523,7 @@ public abstract class ModelGenerator {
 			}
 			else {
 				ModelType type = null;
-				if (modelFieldAnnotation.type() != ModelType.AUTO) {
+				if (modelFieldAnnotation.type() != ModelType.AUTODETECT) {
 					type = modelFieldAnnotation.type();
 				}
 				else {
@@ -665,6 +665,16 @@ public abstract class ModelGenerator {
 		}
 		else {
 			modelFieldBean.setDepends(null);
+		}
+
+		ReferenceBean reference = new ReferenceBean(modelFieldAnnotation.reference());
+		if (reference.hasAnyProperties()) {
+			if (reference.typeOnly()) {
+				modelFieldBean.setReference(reference.getType());
+			}
+			else {
+				modelFieldBean.setReference(reference);
+			}
 		}
 	}
 
@@ -917,7 +927,7 @@ public abstract class ModelGenerator {
 		return null;
 	}
 
-	private static String trimToNull(String str) {
+	static String trimToNull(String str) {
 		String trimmedStr = StringUtils.trimWhitespace(str);
 		if (StringUtils.hasLength(trimmedStr)) {
 			return trimmedStr;

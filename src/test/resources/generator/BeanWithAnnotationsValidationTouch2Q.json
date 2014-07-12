@@ -97,11 +97,9 @@ Ext.define("Sch.Bean",
       name : "calculatedValue",
       type : "string"
     }, {
-      name : "someIds",
-      type : "auto"
+      name : "someIds"
     }, {
-      name : "moreIds",
-      type : "auto"
+      name : "moreIds"
     } ],
     validations : [ {
       type : "presence",

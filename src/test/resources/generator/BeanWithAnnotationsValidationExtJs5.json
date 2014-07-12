@@ -116,11 +116,9 @@ Ext.define("Sch.Bean",
     type : "string",
     calculate : function(data) { return 'CALC:' + data.aString; }
   }, {
-    name : "someIds",
-    type : "auto"
+    name : "someIds"
   }, {
-    name : "moreIds",
-    type : "auto"
+    name : "moreIds"
   } ],
   proxy : {
     type : "direct",

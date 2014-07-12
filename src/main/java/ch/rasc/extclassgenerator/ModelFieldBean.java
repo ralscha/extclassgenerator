@@ -69,6 +69,9 @@ public class ModelFieldBean {
 	@JsonView(JsonViews.ExtJS5.class)
 	private List<String> depends;
 
+	@JsonView(JsonViews.ExtJS5.class)
+	private Object reference;
+
 	/**
 	 * Creates a new ModelFieldBean with name and type
 	 *
@@ -78,7 +81,7 @@ public class ModelFieldBean {
 	public ModelFieldBean(String name, ModelType type) {
 		this.name = name;
 
-		if (type != null) {
+		if (type != null && type != ModelType.AUTODETECT) {
 			setModelType(type);
 		}
 		else {
@@ -95,7 +98,12 @@ public class ModelFieldBean {
 	public ModelFieldBean(String name, String type) {
 		this.name = name;
 		this.modelType = null;
-		this.type = type;
+		if (!"auto".equals(type)) {
+			this.type = type;
+		}
+		else {
+			this.type = null;
+		}
 	}
 
 	public String getName() {
@@ -130,11 +138,13 @@ public class ModelFieldBean {
 	 */
 	public void setModelType(ModelType type) {
 		this.modelType = type;
-		this.type = type.getJsName();
-	}
 
-	public void setType(String type) {
-		this.type = type;
+		if (type != ModelType.AUTO) {
+			this.type = type.getJsName();
+		}
+		else {
+			this.type = null;
+		}
 	}
 
 	public Object getDefaultValue() {
@@ -307,6 +317,22 @@ public class ModelFieldBean {
 	 */
 	public void setDepends(List<String> depends) {
 		this.depends = depends;
+	}
+
+	public Object getReference() {
+		return reference;
+	}
+
+	/**
+	 * Defines a relationship to another model. Either a string or an instace of type
+	 * {@link ReferenceBean}
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-reference"
+	 * >Ext.data.Field#reference</a>
+	 */
+	public void setReference(Object reference) {
+		this.reference = reference;
 	}
 
 }

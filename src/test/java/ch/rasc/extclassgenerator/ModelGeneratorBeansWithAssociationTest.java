@@ -22,6 +22,7 @@ import ch.rasc.extclassgenerator.bean.Address;
 import ch.rasc.extclassgenerator.bean.Author;
 import ch.rasc.extclassgenerator.bean.Book;
 import ch.rasc.extclassgenerator.bean.BookWithOneAuthor;
+import ch.rasc.extclassgenerator.bean.Car;
 import ch.rasc.extclassgenerator.bean.Employee;
 import ch.rasc.extclassgenerator.bean.EmployeeWithInstanceName;
 import ch.rasc.extclassgenerator.bean.Order;
@@ -43,6 +44,11 @@ public class ModelGeneratorBeansWithAssociationTest {
 	@Test
 	public void testAuthor() {
 		GeneratorTestUtil.testWriteModel(Author.class, "Author");
+	}
+
+	@Test
+	public void testCar() {
+		GeneratorTestUtil.testWriteModel(Car.class, "Car");
 	}
 
 	@Test

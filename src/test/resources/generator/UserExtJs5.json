@@ -15,8 +15,7 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
       max : 128
     } ]
   }, {
-    name : "id",
-    type : "auto"
+    name : "id"
   } ],
   proxy : {
     type : "direct",
