@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import ch.rasc.extclassgenerator.bean.Address;
 import ch.rasc.extclassgenerator.bean.Author;
+import ch.rasc.extclassgenerator.bean.AutoCar;
 import ch.rasc.extclassgenerator.bean.Book;
 import ch.rasc.extclassgenerator.bean.BookWithOneAuthor;
 import ch.rasc.extclassgenerator.bean.Car;
@@ -49,6 +50,11 @@ public class ModelGeneratorBeansWithAssociationTest {
 	@Test
 	public void testCar() {
 		GeneratorTestUtil.testWriteModel(Car.class, "Car");
+	}
+
+	@Test
+	public void testAutoCar() {
+		GeneratorTestUtil.testWriteModel(AutoCar.class, "AutoCar");
 	}
 
 	@Test

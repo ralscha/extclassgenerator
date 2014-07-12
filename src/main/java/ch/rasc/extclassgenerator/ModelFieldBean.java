@@ -78,9 +78,9 @@ public class ModelFieldBean {
 
 	@JsonView(JsonViews.ExtJS5.class)
 	private Boolean allowBlank;
-	
+
 	@JsonView(JsonViews.ExtJS5.class)
-	private Boolean unique;	
+	private Boolean unique;
 
 	/**
 	 * Creates a new ModelFieldBean with name and type
@@ -91,7 +91,7 @@ public class ModelFieldBean {
 	public ModelFieldBean(String name, ModelType type) {
 		this.name = name;
 
-		if (type != null && type != ModelType.AUTODETECT) {
+		if (type != null && type != ModelType.NOT_SPECIFIED) {
 			setModelType(type);
 		}
 		else {

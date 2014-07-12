@@ -31,6 +31,9 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
  * or {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
 public class ModelBean {
+
+	private boolean autodetectTypes = true;
+
 	private String name;
 
 	private String extend = "Ext.data.Model";
@@ -74,6 +77,14 @@ public class ModelBean {
 	private Boolean writeAllFields;
 
 	private String identifier;
+
+	public boolean isAutodetectTypes() {
+		return autodetectTypes;
+	}
+
+	public void setAutodetectTypes(boolean autodetectTypes) {
+		this.autodetectTypes = autodetectTypes;
+	}
 
 	public String getName() {
 		return name;

@@ -335,6 +335,10 @@ public abstract class ModelGenerator {
 		}
 
 		if (modelAnnotation != null) {
+			model.setAutodetectTypes(modelAnnotation.autodetectTypes());
+		}
+
+		if (modelAnnotation != null) {
 			model.setExtend(modelAnnotation.extend());
 			model.setIdProperty(modelAnnotation.idProperty());
 			model.setVersionProperty(trimToNull(modelAnnotation.versionProperty()));
@@ -509,11 +513,16 @@ public abstract class ModelGenerator {
 		}
 
 		ModelType modelType = null;
-		for (ModelType mt : ModelType.values()) {
-			if (mt.supports(javaType)) {
-				modelType = mt;
-				break;
+		if (model.isAutodetectTypes()) {
+			for (ModelType mt : ModelType.values()) {
+				if (mt.supports(javaType)) {
+					modelType = mt;
+					break;
+				}
 			}
+		}
+		else {
+			modelType = ModelType.AUTO;
 		}
 
 		ModelFieldBean modelFieldBean = null;
@@ -532,7 +541,7 @@ public abstract class ModelGenerator {
 			}
 			else {
 				ModelType type = null;
-				if (modelFieldAnnotation.type() != ModelType.AUTODETECT) {
+				if (modelFieldAnnotation.type() != ModelType.NOT_SPECIFIED) {
 					type = modelFieldAnnotation.type();
 				}
 				else {
@@ -656,7 +665,7 @@ public abstract class ModelGenerator {
 		if (!modelFieldAnnotation.allowBlank()) {
 			modelFieldBean.setAllowBlank(Boolean.FALSE);
 		}
-		
+
 		if (modelFieldAnnotation.unique()) {
 			modelFieldBean.setUnique(Boolean.TRUE);
 		}
