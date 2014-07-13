@@ -45,16 +45,16 @@ public class ReferenceBean {
 
 	// Tests if something is set.
 	public boolean hasAnyProperties() {
-		return (StringUtils.hasText(type) || StringUtils.hasText(association)
+		return StringUtils.hasText(type) || StringUtils.hasText(association)
 				|| StringUtils.hasText(child) || StringUtils.hasText(parent)
-				|| StringUtils.hasText(role) || StringUtils.hasText(inverse));
+				|| StringUtils.hasText(role) || StringUtils.hasText(inverse);
 	}
 
 	// Tests if only type is set.
 	public boolean typeOnly() {
-		return (StringUtils.hasText(type) && !StringUtils.hasText(association)
+		return StringUtils.hasText(type) && !StringUtils.hasText(association)
 				&& !StringUtils.hasText(child) && !StringUtils.hasText(parent)
-				&& !StringUtils.hasText(role) && !StringUtils.hasText(inverse));
+				&& !StringUtils.hasText(role) && !StringUtils.hasText(inverse);
 	}
 
 	public String getType() {

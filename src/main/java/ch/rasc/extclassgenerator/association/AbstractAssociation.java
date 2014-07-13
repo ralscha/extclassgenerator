@@ -330,10 +330,9 @@ public abstract class AbstractAssociation {
 				@Override
 				public void doWith(Field field) throws IllegalArgumentException,
 						IllegalAccessException {
-					if (field.getAnnotation(ModelId.class) != null) {
-						if (!"id".equals(field.getName())) {
-							association.setPrimaryKey(field.getName());
-						}
+					if (field.getAnnotation(ModelId.class) != null
+							&& !"id".equals(field.getName())) {
+						association.setPrimaryKey(field.getName());
 					}
 				}
 

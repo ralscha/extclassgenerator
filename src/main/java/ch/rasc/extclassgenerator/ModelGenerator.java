@@ -811,10 +811,9 @@ public abstract class ModelGenerator {
 					|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
 				configObject.put("clientIdProperty", model.getClientIdProperty());
 			}
-			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
-				if (!"clientId".equals(model.getClientIdProperty())) {
-					configObject.put("clientIdProperty", model.getClientIdProperty());
-				}
+			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2
+					&& !"clientId".equals(model.getClientIdProperty())) {
+				configObject.put("clientIdProperty", model.getClientIdProperty());
 			}
 		}
 
