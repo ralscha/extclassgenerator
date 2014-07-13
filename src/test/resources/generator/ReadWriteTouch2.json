@@ -1,0 +1,16 @@
+Ext.define("ReadWrite",
+{
+  extend : "Ext.data.Model",
+  config : {
+    fields : [ "id", "name" ],
+    proxy : {
+      type : "direct",
+      reader : {
+        type : "myreader"
+      },
+      writer : {
+        type : "mywriter"
+      }
+    }
+  }
+});

@@ -350,6 +350,7 @@ public abstract class ModelGenerator {
 			model.setDestroyMethod(trimToNull(modelAnnotation.destroyMethod()));
 			model.setMessageProperty(trimToNull(modelAnnotation.messageProperty()));
 			model.setWriter(trimToNull(modelAnnotation.writer()));
+			model.setReader(trimToNull(modelAnnotation.reader()));
 			model.setSuccessProperty(trimToNull(modelAnnotation.successProperty()));
 			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));

@@ -72,7 +72,9 @@ public class ModelBean {
 
 	private String rootProperty;
 
-	private String writer;
+	private String writer = "json";
+
+	private String reader = "json";
 
 	private Boolean writeAllFields;
 
@@ -391,22 +393,51 @@ public class ModelBean {
 	}
 
 	/**
-	 * If set add a writer property to the proxy.
+	 * If set adds a writer config to the proxy object.
 	 *
 	 * <pre>
 	 *   proxy: {
 	 *     type: 'direct',
-	 *     writer: 'mywriter'
+	 *     writer: {
+	 *       type: 'mywriter'
+	 *     }
 	 *   }
 	 * </pre>
 	 *
 	 * See <a href=
 	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.proxy.Proxy-cfg-writer"
 	 * >Ext.data.proxy.Proxy#writer</a>
-	 *
+	 * <p>
+	 * Defaults to "json"
 	 */
 	public void setWriter(String writer) {
 		this.writer = writer;
+	}
+
+	public String getReader() {
+		return reader;
+	}
+
+	/**
+	 * If set adds a reader config to the proxy object.
+	 *
+	 * <pre>
+	 *   proxy: {
+	 *     type: 'direct',
+	 *     reader: {
+	 *       type: 'myreader'
+	 *     }
+	 *   }
+	 * </pre>
+	 *
+	 * See <a href=
+	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.proxy.Proxy-cfg-reader"
+	 * >Ext.data.proxy.Proxy#reader</a>
+	 * <p>
+	 * Defaults to "json"
+	 */
+	public void setReader(String reader) {
+		this.reader = reader;
 	}
 
 	public String getSuccessProperty() {
@@ -486,19 +517,17 @@ public class ModelBean {
 
 	/**
 	 * If specified the generator adds a writer config object to the proxy with
-	 * writeAllFields. If {@link #writer} and {@link #writeAllFields} are specified the
-	 * {@link #writer} option has precedence.
+	 * writeAllFields.
 	 *
 	 * <pre>
 	 *   proxy: {
 	 *     type: 'direct',
 	 *     writer: {
-	 *       type: 'json',
 	 *       writeAllFields: true
 	 *     }
 	 *   }
 	 * </pre>
-	 * 
+	 *
 	 * See <a href=
 	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.writer.Writer-cfg-writeAllFields"
 	 * >Ext.data.writer.WriterView#writeAllFields</a>

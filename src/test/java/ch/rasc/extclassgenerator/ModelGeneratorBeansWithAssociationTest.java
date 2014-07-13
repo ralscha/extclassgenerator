@@ -28,6 +28,7 @@ import ch.rasc.extclassgenerator.bean.Employee;
 import ch.rasc.extclassgenerator.bean.EmployeeWithInstanceName;
 import ch.rasc.extclassgenerator.bean.Order;
 import ch.rasc.extclassgenerator.bean.Pos;
+import ch.rasc.extclassgenerator.bean.ReadWrite;
 import ch.rasc.extclassgenerator.bean.TwoHasOneClass;
 
 public class ModelGeneratorBeansWithAssociationTest {
@@ -55,6 +56,11 @@ public class ModelGeneratorBeansWithAssociationTest {
 	@Test
 	public void testAutoCar() {
 		GeneratorTestUtil.testWriteModel(AutoCar.class, "AutoCar");
+	}
+
+	@Test
+	public void testReadWrite() {
+		GeneratorTestUtil.testWriteModel(ReadWrite.class, "ReadWrite");
 	}
 
 	@Test

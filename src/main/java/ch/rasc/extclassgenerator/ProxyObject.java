@@ -44,9 +44,9 @@ public class ProxyObject {
 
 	private ApiObject api;
 
-	private Map<String, String> reader;
+	private Map<String, Object> reader;
 
-	private Object writer;
+	private Map<String, Object> writer;
 
 	protected ProxyObject(ModelBean model, OutputConfig config) {
 		if (StringUtils.hasText(model.getIdProperty())
@@ -70,7 +70,11 @@ public class ProxyObject {
 			limitParam = value;
 		}
 
-		Map<String, String> readerConfigObject = new LinkedHashMap<String, String>();
+		Map<String, Object> readerConfigObject = new LinkedHashMap<String, Object>();
+
+		if (StringUtils.hasText(model.getReader()) && !"json".equals(model.getReader())) {
+			readerConfigObject.put("type", model.getReader());
+		}
 
 		String rootPropertyName = config.getOutputFormat() == OutputFormat.EXTJS4 ? "root"
 				: "rootProperty";
@@ -100,10 +104,11 @@ public class ProxyObject {
 
 		Map<String, Object> writerConfigObject = new LinkedHashMap<String, Object>();
 
-		if (StringUtils.hasText(model.getWriter())) {
-			this.writer = model.getWriter();
+		if (StringUtils.hasText(model.getWriter()) && !"json".equals(model.getWriter())) {
+			writerConfigObject.put("type", model.getWriter());
 		}
-		else if (model.getWriteAllFields() != null) {
+
+		if (model.getWriteAllFields() != null) {
 			if (config.getOutputFormat() == OutputFormat.EXTJS5
 					&& model.getWriteAllFields()
 					|| !model.getWriteAllFields()

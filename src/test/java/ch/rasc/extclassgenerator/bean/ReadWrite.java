@@ -16,30 +16,15 @@
 package ch.rasc.extclassgenerator.bean;
 
 import ch.rasc.extclassgenerator.Model;
-import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelId;
-import ch.rasc.extclassgenerator.ReferenceConfig;
 
-@Model(extend = "MyApp.model.Base", value = "MyApp.model.Car", identifier = "negative",
-		autodetectTypes = false, reader = "json", writer = "json")
-public class AutoCar {
+@Model(value = "ReadWrite", autodetectTypes = false, reader = "myreader",
+		writer = "mywriter")
+public class ReadWrite {
 
-	@ModelField
 	@ModelId
 	public Long id;
 
 	public String name;
 
-	@ModelField(reference = @ReferenceConfig(type = "Manufacturer"), allowBlank = false)
-	public Long manufacturerId;
-
-	@ModelField(reference = @ReferenceConfig(type = "Driver", role = "theDriver",
-			association = "CarByDriver", inverse = "cars"), allowBlank = true)
-	public Long driverId;
-
-	@ModelField(reference = @ReferenceConfig(parent = "Owner"), unique = false)
-	public Long ownerId;
-
-	@ModelField(reference = @ReferenceConfig(type = "OneToOne"), unique = true)
-	public Long oneToOneId;
 }

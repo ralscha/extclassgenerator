@@ -645,7 +645,7 @@ public class ModelGeneratorTest {
 		String code = ModelGenerator.generateJavascript(model, config);
 		assertThat(code)
 				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],proxy:{type:\"direct\",directFn:\"read\",reader:{root:\"records\",messageProperty:\"mp\"},writer:\"deepjson\"}});");
+						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],proxy:{type:\"direct\",directFn:\"read\",reader:{root:\"records\",messageProperty:\"mp\"},writer:{type:\"deepjson\"}}});");
 	}
 
 	@Test
@@ -669,6 +669,6 @@ public class ModelGeneratorTest {
 		String code = ModelGenerator.generateJavascript(model, config);
 		assertThat(code)
 				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],proxy:{type:\"direct\",directFn:\"read\",reader:{rootProperty:\"records\",messageProperty:\"mp\"},writer:\"deepjson\"}}});");
+						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],proxy:{type:\"direct\",directFn:\"read\",reader:{rootProperty:\"records\",messageProperty:\"mp\"},writer:{type:\"deepjson\"}}}});");
 	}
 }
