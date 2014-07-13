@@ -17,6 +17,8 @@ package ch.rasc.extclassgenerator;
 
 import java.util.List;
 
+import org.springframework.util.StringUtils;
+
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,8 +32,8 @@ import com.fasterxml.jackson.annotation.JsonView;
  * Represents one field in a {@link ModelBean}
  */
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder(value = { "name", "type", "defaultValue", "dateFormat", "useNull",
-		"mapping" })
+@JsonPropertyOrder(value = { "name", "type", "defaultValue", "dateFormat", "allowNull",
+		"useNull", "persist", "mapping", "convert", "depends", "calculate" })
 public class ModelFieldBean {
 	private String name;
 
@@ -81,6 +83,32 @@ public class ModelFieldBean {
 
 	@JsonView(JsonViews.ExtJS5.class)
 	private Boolean unique;
+
+	/**
+	 * Returns true if only the name property is set
+	 */
+	public boolean hasOnlyName(OutputConfig outputConfig) {
+		if (StringUtils.hasText(name) && !StringUtils.hasText(type)
+				&& defaultValue == null && !StringUtils.hasText(dateFormat)
+				&& !StringUtils.hasText(mapping) && persist == null
+				&& !StringUtils.hasText(convert)) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
+				return useNull == null;
+			}
+			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
+				return allowNull == null;
+			}
+			else if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
+				return allowNull == null && critical == null
+						&& !StringUtils.hasText(calculate)
+						&& (validators == null || validators.isEmpty())
+						&& (depends == null || depends.isEmpty()) && reference == null
+						&& allowBlank == null && unique == null;
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * Creates a new ModelFieldBean with name and type

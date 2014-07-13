@@ -91,19 +91,15 @@ Ext.define("Sch.Bean",
   }, {
     name : "aBooleanVirtual",
     type : "boolean",
-    mapping : "bigValue",
     persist : false,
+    mapping : "bigValue",
     convert : function(v, record) { return (record.raw.bigValue > 1000000);},
     depends : [ "lastName", "firstName" ]
   }, {
     name : "calculatedValue",
     type : "string",
     calculate : function(data) { return 'CALC:' + data.aString; }
-  }, {
-    name : "someIds"
-  }, {
-    name : "moreIds"
-  } ],
+  }, "someIds", "moreIds" ],
   proxy : {
     type : "direct",
     idParam : "aInt",

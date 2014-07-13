@@ -63,7 +63,7 @@ public class ProxyObject {
 				value = "";
 			}
 			else {
-				value = false;
+				value = Boolean.FALSE;
 			}
 			pageParam = value;
 			startParam = value;

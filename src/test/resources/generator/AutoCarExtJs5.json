@@ -3,11 +3,7 @@ Ext.define("MyApp.model.Car",
   extend : "MyApp.model.Base",
   requires : [ "Ext.data.proxy.Direct", "Ext.data.identifier.Negative" ],
   identifier : "negative",
-  fields : [ {
-    name : "id"
-  }, {
-    name : "name"
-  }, {
+  fields : [ "id", "name", {
     name : "manufacturerId",
     reference : "Manufacturer",
     allowBlank : false

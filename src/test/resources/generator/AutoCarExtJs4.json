@@ -2,17 +2,5 @@ Ext.define("MyApp.model.Car",
 {
   extend : "MyApp.model.Base",
   idgen : "negative",
-  fields : [ {
-    name : "id"
-  }, {
-    name : "name"
-  }, {
-    name : "manufacturerId"
-  }, {
-    name : "driverId"
-  }, {
-    name : "ownerId"
-  }, {
-    name : "oneToOneId"
-  } ]
+  fields : [ "id", "name", "manufacturerId", "driverId", "ownerId", "oneToOneId" ]
 });

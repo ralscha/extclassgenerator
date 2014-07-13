@@ -642,7 +642,7 @@ public abstract class ModelGenerator {
 			}
 			else {
 				if (type == ModelType.BOOLEAN) {
-					modelFieldBean.setDefaultValue(Boolean.parseBoolean(defaultValue));
+					modelFieldBean.setDefaultValue(Boolean.valueOf(defaultValue));
 				}
 				else if (type == ModelType.INTEGER) {
 					modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
@@ -703,10 +703,10 @@ public abstract class ModelGenerator {
 		}
 	}
 
-	public static String generateJavascript(ModelBean model, OutputConfig config) {
+	public static String generateJavascript(ModelBean model, OutputConfig outputConfig) {
 
-		if (!config.isDebug()) {
-			JsCacheKey key = new JsCacheKey(model, config);
+		if (!outputConfig.isDebug()) {
+			JsCacheKey key = new JsCacheKey(model, outputConfig);
 
 			SoftReference<String> jsReference = jsCache.get(key);
 			if (jsReference != null && jsReference.get() != null) {
@@ -717,8 +717,8 @@ public abstract class ModelGenerator {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
 
-		if (!config.isSurroundApiWithQuotes()) {
-			if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+		if (!outputConfig.isSurroundApiWithQuotes()) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 				mapper.addMixInAnnotations(ProxyObject.class,
 						ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 			}
@@ -729,7 +729,7 @@ public abstract class ModelGenerator {
 			mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
 		}
 		else {
-			if (config.getOutputFormat() != OutputFormat.EXTJS5) {
+			if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
 				mapper.addMixInAnnotations(ProxyObject.class,
 						ProxyObjectWithApiQuotesMixin.class);
 			}
@@ -752,22 +752,23 @@ public abstract class ModelGenerator {
 		}
 
 		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
-		ProxyObject proxyObject = new ProxyObject(model, config);
+		ProxyObject proxyObject = new ProxyObject(model, outputConfig);
 
 		Map<String, ModelFieldBean> fields = model.getFields();
 		Set<String> requires = new HashSet<String>();
 
 		if (!model.getValidations().isEmpty()
-				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
+				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 			requires = addValidatorsToField(fields, model.getValidations());
 		}
 
-		if (proxyObject.hasContent() && config.getOutputFormat() == OutputFormat.EXTJS5) {
+		if (proxyObject.hasContent()
+				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 			requires.add("Ext.data.proxy.Direct");
 		}
 
 		if (StringUtils.hasText(model.getIdentifier())
-				&& config.getOutputFormat() == OutputFormat.EXTJS5) {
+				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 			if ("sequential".equals(model.getIdentifier())) {
 				requires.add("Ext.data.identifier.Sequential");
 			}
@@ -784,8 +785,8 @@ public abstract class ModelGenerator {
 		}
 
 		if (StringUtils.hasText(model.getIdentifier())) {
-			if (config.getOutputFormat() == OutputFormat.EXTJS5
-					|| config.getOutputFormat() == OutputFormat.TOUCH2) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
+					|| outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
 				configObject.put("identifier", model.getIdentifier());
 			}
 			else {
@@ -798,18 +799,18 @@ public abstract class ModelGenerator {
 			configObject.put("idProperty", model.getIdProperty());
 		}
 
-		if (config.getOutputFormat() == OutputFormat.EXTJS5
+		if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
 				&& StringUtils.hasText(model.getVersionProperty())) {
 			configObject.put("versionProperty", model.getVersionProperty());
 		}
 
 		if (StringUtils.hasText(model.getClientIdProperty())) {
 
-			if (config.getOutputFormat() == OutputFormat.EXTJS5
-					|| config.getOutputFormat() == OutputFormat.EXTJS4) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
+					|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
 				configObject.put("clientIdProperty", model.getClientIdProperty());
 			}
-			else if (config.getOutputFormat() == OutputFormat.TOUCH2) {
+			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
 				if (!"clientId".equals(model.getClientIdProperty())) {
 					configObject.put("clientIdProperty", model.getClientIdProperty());
 				}
@@ -817,17 +818,26 @@ public abstract class ModelGenerator {
 		}
 
 		for (ModelFieldBean field : fields.values()) {
-			field.updateTypes(config);
+			field.updateTypes(outputConfig);
 		}
 
-		configObject.put("fields", fields.values());
+		List<Object> fieldConfigObjects = new ArrayList<Object>();
+		for (ModelFieldBean field : fields.values()) {
+			if (field.hasOnlyName(outputConfig)) {
+				fieldConfigObjects.add(field.getName());
+			}
+			else {
+				fieldConfigObjects.add(field);
+			}
+		}
+		configObject.put("fields", fieldConfigObjects);
 
 		if (!model.getAssociations().isEmpty()) {
 			configObject.put("associations", model.getAssociations());
 		}
 
 		if (!model.getValidations().isEmpty()
-				&& !(config.getOutputFormat() == OutputFormat.EXTJS5)) {
+				&& !(outputConfig.getOutputFormat() == OutputFormat.EXTJS5)) {
 			configObject.put("validations", model.getValidations());
 		}
 
@@ -835,8 +845,8 @@ public abstract class ModelGenerator {
 			configObject.put("proxy", proxyObject);
 		}
 
-		if (config.getOutputFormat() == OutputFormat.EXTJS4
-				|| config.getOutputFormat() == OutputFormat.EXTJS5) {
+		if (outputConfig.getOutputFormat() == OutputFormat.EXTJS4
+				|| outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 			modelObject.putAll(configObject);
 		}
 		else {
@@ -845,21 +855,21 @@ public abstract class ModelGenerator {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Ext.define(\"").append(model.getName()).append("\",");
-		if (config.isDebug()) {
+		if (outputConfig.isDebug()) {
 			sb.append("\n");
 		}
 
 		String configObjectString;
 		Class<?> jsonView = JsonViews.ExtJS4.class;
-		if (config.getOutputFormat() == OutputFormat.TOUCH2) {
+		if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
 			jsonView = JsonViews.Touch2.class;
 		}
-		else if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+		else if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 			jsonView = JsonViews.ExtJS5.class;
 		}
 
 		try {
-			if (config.isDebug()) {
+			if (outputConfig.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter()
 						.withView(jsonView).writeValueAsString(modelObject);
 			}
@@ -884,12 +894,13 @@ public abstract class ModelGenerator {
 
 		String result = sb.toString();
 
-		if (config.isUseSingleQuotes()) {
+		if (outputConfig.isUseSingleQuotes()) {
 			result = result.replace('"', '\'');
 		}
 
-		if (!config.isDebug()) {
-			jsCache.put(new JsCacheKey(model, config), new SoftReference<String>(result));
+		if (!outputConfig.isDebug()) {
+			jsCache.put(new JsCacheKey(model, outputConfig), new SoftReference<String>(
+					result));
 		}
 		return result;
 	}

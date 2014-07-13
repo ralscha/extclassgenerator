@@ -14,9 +14,7 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
       min : 0,
       max : 128
     } ]
-  }, {
-    name : "id"
-  } ],
+  }, "id" ],
   proxy : {
     type : "direct",
     writer : {

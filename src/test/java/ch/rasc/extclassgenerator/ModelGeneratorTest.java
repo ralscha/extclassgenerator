@@ -80,7 +80,7 @@ public class ModelGeneratorTest {
 		model.setName("App.User");
 		model.addField(new ModelFieldBean("id", ModelType.INTEGER));
 		ModelFieldBean field = new ModelFieldBean("salary", ModelType.FLOAT);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		model.addField(field);
 
 		String code = ModelGenerator
@@ -104,7 +104,7 @@ public class ModelGeneratorTest {
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 
 		ModelFieldBean field = new ModelFieldBean("active", ModelType.BOOLEAN);
-		field.setDefaultValue(true);
+		field.setDefaultValue(Boolean.TRUE);
 		fields.put("active", field);
 
 		field = new ModelFieldBean("date", ModelType.DATE);
@@ -145,7 +145,7 @@ public class ModelGeneratorTest {
 		model.setName("App.User");
 		model.addField(new ModelFieldBean("id", ModelType.INTEGER));
 		ModelFieldBean field = new ModelFieldBean("salary", ModelType.FLOAT);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		model.addField(field);
 
 		String code = ModelGenerator
@@ -169,7 +169,7 @@ public class ModelGeneratorTest {
 		fields.put("id", new ModelFieldBean("id", ModelType.INTEGER));
 
 		ModelFieldBean field = new ModelFieldBean("active", ModelType.BOOLEAN);
-		field.setDefaultValue(true);
+		field.setDefaultValue(Boolean.TRUE);
 		fields.put("active", field);
 
 		field = new ModelFieldBean("date", ModelType.DATE);
@@ -205,7 +205,7 @@ public class ModelGeneratorTest {
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\"}]});");
 
 		ModelGenerator.clearCaches();
-		association.setAutoLoad(false);
+		association.setAutoLoad(Boolean.FALSE);
 		association.setAssociationKey("test");
 		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
 		assertThat(code)
@@ -213,7 +213,7 @@ public class ModelGeneratorTest {
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",associationKey:\"test\",autoLoad:false}]});");
 
 		ModelGenerator.clearCaches();
-		association.setAutoLoad(true);
+		association.setAutoLoad(Boolean.TRUE);
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
 		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
@@ -258,7 +258,7 @@ public class ModelGeneratorTest {
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\"}]}});");
 
 		ModelGenerator.clearCaches();
-		association.setAutoLoad(false);
+		association.setAutoLoad(Boolean.FALSE);
 		association.setAssociationKey("test");
 		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
 		assertThat(code)
@@ -266,7 +266,7 @@ public class ModelGeneratorTest {
 						"Ext.define(\"App.Info\",{extend:\"Ext.data.Model\",uses:[\"User\"],config:{fields:[{name:\"id\",type:\"int\"}],associations:[{type:\"hasMany\",model:\"User\",associationKey:\"test\",autoLoad:false}]}});");
 
 		ModelGenerator.clearCaches();
-		association.setAutoLoad(true);
+		association.setAutoLoad(Boolean.TRUE);
 		association.setAssociationKey(null);
 		association.setPrimaryKey("id");
 		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);

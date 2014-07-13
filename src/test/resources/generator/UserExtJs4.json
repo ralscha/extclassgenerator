@@ -4,9 +4,7 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
   fields : [ {
     name : "email",
     type : "string"
-  }, {
-    name : "id"
-  } ],
+  }, "id" ],
   validations : [ {
     type : "presence",
     field : "email"

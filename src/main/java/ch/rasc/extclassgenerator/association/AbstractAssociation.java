@@ -202,7 +202,7 @@ public abstract class AbstractAssociation {
 			}
 
 			if (associationAnnotation.autoLoad()) {
-				hasManyAssociation.setAutoLoad(true);
+				hasManyAssociation.setAutoLoad(Boolean.TRUE);
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				hasManyAssociation.setName(associationAnnotation.name());
@@ -356,7 +356,7 @@ public abstract class AbstractAssociation {
 			}
 
 			if (associationAnnotation.autoLoad()) {
-				hasManyAssociation.setAutoLoad(true);
+				hasManyAssociation.setAutoLoad(Boolean.TRUE);
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
 				hasManyAssociation.setName(associationAnnotation.name());

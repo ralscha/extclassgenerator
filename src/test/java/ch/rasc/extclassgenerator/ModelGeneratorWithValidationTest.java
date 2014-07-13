@@ -64,7 +64,7 @@ public class ModelGeneratorWithValidationTest {
 		model.addField(new ModelFieldBean("id", ModelType.INTEGER));
 		model.addField(new ModelFieldBean("email", ModelType.STRING));
 		ModelFieldBean field = new ModelFieldBean("salary", ModelType.FLOAT);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		model.addField(field);
 
 		List<AbstractValidation> validations = new ArrayList<>();
@@ -78,7 +78,7 @@ public class ModelGeneratorWithValidationTest {
 		Map<String, Object> options = new LinkedHashMap<>();
 		options.put("o1", "s");
 		options.put("o2", 10);
-		options.put("o3", true);
+		options.put("o3", Boolean.TRUE);
 		model.addValidation(new GenericValidation("myOwnValidator2", "id", options));
 
 		String code = ModelGenerator
@@ -110,7 +110,7 @@ public class ModelGeneratorWithValidationTest {
 		Map<String, Object> options = new LinkedHashMap<>();
 		options.put("o1", "s");
 		options.put("o2", 10);
-		options.put("o3", true);
+		options.put("o3", Boolean.TRUE);
 		model.addValidation(new GenericValidation("myOwnValidator2", "id", options));
 
 		String code = ModelGenerator
@@ -127,7 +127,7 @@ public class ModelGeneratorWithValidationTest {
 		model.setName("App.User");
 		model.addField(new ModelFieldBean("id", ModelType.INTEGER));
 		ModelFieldBean field = new ModelFieldBean("salary", ModelType.FLOAT);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		model.addField(field);
 
 		model.addValidation(new PresenceValidation("id"));

@@ -179,8 +179,8 @@ public abstract class AbstractValidation {
 						modelValidationAnnotation.parameters(), "integer");
 				String fraction = getParameterValue(
 						modelValidationAnnotation.parameters(), "fraction");
-				return new DigitsValidation(propertyName, Integer.valueOf(integer),
-						Integer.valueOf(fraction));
+				return new DigitsValidation(propertyName, Integer.parseInt(integer),
+						Integer.parseInt(fraction));
 			case EMAIL:
 				return new EmailValidation(propertyName);
 			case FORMAT:

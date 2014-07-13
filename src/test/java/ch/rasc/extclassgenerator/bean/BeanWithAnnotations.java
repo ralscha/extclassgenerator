@@ -368,7 +368,7 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aLongObject", ModelType.INTEGER);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBigDecimal", ModelType.FLOAT);
@@ -392,15 +392,15 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aString", ModelType.STRING);
-		field.setUseNull(true);
+		field.setUseNull(Boolean.TRUE);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBoolean", ModelType.BOOLEAN);
-		field.setDefaultValue(true);
+		field.setDefaultValue(Boolean.TRUE);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBooleanObject", ModelType.BOOLEAN);
-		field.setDefaultValue(false);
+		field.setDefaultValue(Boolean.FALSE);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aDate", ModelType.DATE);
@@ -427,12 +427,12 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aCriticalValue", ModelType.STRING);
-		field.setCritical(true);
+		field.setCritical(Boolean.TRUE);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBooleanVirtual", ModelType.BOOLEAN);
 		field.setMapping("bigValue");
-		field.setPersist(false);
+		field.setPersist(Boolean.FALSE);
 		field.setConvert("function(v, record) { return (record.raw.bigValue > 1000000);}");
 		List<String> depends = new ArrayList<>();
 		depends.add("lastName");
