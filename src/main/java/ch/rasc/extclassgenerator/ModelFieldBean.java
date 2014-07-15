@@ -285,7 +285,7 @@ public class ModelFieldBean {
 	 * not changed.
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-critical"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-critical"
 	 * >Ext.data.field.FieldView#critical</a>
 	 * <p>
 	 * Defaults to false
@@ -323,7 +323,7 @@ public class ModelFieldBean {
 	 * parsing the calculate function.
 	 * 
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-calculate"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-calculate"
 	 * >Ext.data.Field.calculate</a>
 	 */
 	public void setCalculate(String calculate) {
@@ -351,7 +351,7 @@ public class ModelFieldBean {
 	 * be simpler.
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-depends"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-depends"
 	 * >Ext.data.field.FieldView#depends</a>
 	 */
 	public void setDepends(List<String> depends) {
@@ -367,7 +367,7 @@ public class ModelFieldBean {
 	 * {@link ReferenceBean}
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-reference"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-reference"
 	 * >Ext.data.Field#reference</a>
 	 */
 	public void setReference(Object reference) {
@@ -386,7 +386,7 @@ public class ModelFieldBean {
 	 * false for boolean)
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowNull"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowNull"
 	 * >Ext.data.Field#allowNull</a>
 	 * <p>
 	 * Defaults to false
@@ -410,7 +410,7 @@ public class ModelFieldBean {
 	 * Used for validating a model.
 	 * <p>
 	 * Set <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowBlank"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-allowBlank"
 	 * >Ext.data.Field#allowBlank</a>
 	 * <p>
 	 * Defaults to true
@@ -428,7 +428,7 @@ public class ModelFieldBean {
 	 * reference this describes a "one-to-one" relationship
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/ext/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-unique"
+	 * "http://docs.sencha.com/extjs/5.0.0/apidocs/#!/api/Ext.data.field.Field-cfg-unique"
 	 * >Ext.data.Field#unique</a>
 	 * <p>
 	 * Defaults to false
