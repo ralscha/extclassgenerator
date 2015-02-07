@@ -1,7 +1,7 @@
 Ext.define("ch.rasc.extclassgenerator.bean.User",
 {
   extend : "Ext.data.Model",
-  requires : [ "Ext.data.proxy.Direct", "Ext.data.validator.Email", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
+  requires : [ "Ext.data.validator.Email", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
   fields : [ {
     name : "email",
     type : "string",
@@ -14,11 +14,5 @@ Ext.define("ch.rasc.extclassgenerator.bean.User",
       min : 0,
       max : 128
     } ]
-  }, "id" ],
-  proxy : {
-    type : "direct",
-    writer : {
-      writeAllFields : true
-    }
-  }
+  }, "id" ]
 });

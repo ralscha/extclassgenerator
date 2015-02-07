@@ -157,7 +157,10 @@ public class ProxyObject {
 	}
 
 	public boolean hasContent() {
-		return this.api != null || this.directFn != null || this.reader != null
-				|| this.writer != null || this.idParam != null;
+		return this.api != null
+				|| this.directFn != null
+				|| this.reader != null
+				|| (this.writer != null && !(this.writer.size() == 1 && this.writer
+						.containsKey("writeAllFields"))) || this.idParam != null;
 	}
 }

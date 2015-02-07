@@ -2,7 +2,6 @@ Ext.define("App.TwoHasOneClass",
 {
   extend : "Ext.data.Model",
   uses : [ "ch.rasc.extclassgenerator.bean.AssociatedClass" ],
-  requires : [ "Ext.data.proxy.Direct" ],
   fields : [ ],
   associations : [ {
     type : "hasOne",
@@ -18,11 +17,5 @@ Ext.define("App.TwoHasOneClass",
     foreignKey : "mySecondAssociation_id",
     setterName : "setMySecondAssociation",
     getterName : "getMySecondAssociation"
-  } ],
-  proxy : {
-    type : "direct",
-    writer : {
-      writeAllFields : true
-    }
-  }
+  } ]
 });
