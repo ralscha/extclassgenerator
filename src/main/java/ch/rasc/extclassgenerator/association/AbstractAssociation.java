@@ -15,11 +15,8 @@
  */
 package ch.rasc.extclassgenerator.association;
 
-import java.lang.reflect.Field;
-
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
 
 import ch.rasc.extclassgenerator.Model;
@@ -63,7 +60,7 @@ public abstract class AbstractAssociation {
 	}
 
 	public String getAssociationKey() {
-		return associationKey;
+		return this.associationKey;
 	}
 
 	/**
@@ -81,7 +78,7 @@ public abstract class AbstractAssociation {
 	}
 
 	public String getForeignKey() {
-		return foreignKey;
+		return this.foreignKey;
 	}
 
 	/**
@@ -100,7 +97,7 @@ public abstract class AbstractAssociation {
 	}
 
 	public String getPrimaryKey() {
-		return primaryKey;
+		return this.primaryKey;
 	}
 
 	/**
@@ -118,15 +115,15 @@ public abstract class AbstractAssociation {
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public String getModel() {
-		return model;
+		return this.model;
 	}
 
 	public String getInstanceName() {
-		return instanceName;
+		return this.instanceName;
 	}
 
 	public void setInstanceName(String instanceName) {
@@ -325,18 +322,14 @@ public abstract class AbstractAssociation {
 					&& !associationModelAnnotation.idProperty().equals("id")) {
 				association.setPrimaryKey(associationModelAnnotation.idProperty());
 			}
-			ReflectionUtils.doWithFields(associationClass, new FieldCallback() {
-
-				@Override
-				public void doWith(Field field) throws IllegalArgumentException,
-						IllegalAccessException {
-					if (field.getAnnotation(ModelId.class) != null
-							&& !"id".equals(field.getName())) {
-						association.setPrimaryKey(field.getName());
-					}
-				}
-
-			});
+			ReflectionUtils.doWithFields(
+					associationClass,
+					field -> {
+						if (field.getAnnotation(ModelId.class) != null
+								&& !"id".equals(field.getName())) {
+							association.setPrimaryKey(field.getName());
+						}
+					});
 		}
 
 		if (type == ModelAssociationType.HAS_MANY) {

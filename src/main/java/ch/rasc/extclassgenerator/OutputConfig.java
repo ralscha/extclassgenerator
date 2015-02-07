@@ -31,7 +31,7 @@ public class OutputConfig {
 	private boolean surroundApiWithQuotes;
 
 	public IncludeValidation getIncludeValidation() {
-		return includeValidation;
+		return this.includeValidation;
 	}
 
 	public void setIncludeValidation(IncludeValidation includeValidation) {
@@ -39,7 +39,7 @@ public class OutputConfig {
 	}
 
 	public OutputFormat getOutputFormat() {
-		return outputFormat;
+		return this.outputFormat;
 	}
 
 	public void setOutputFormat(OutputFormat outputFormat) {
@@ -47,7 +47,7 @@ public class OutputConfig {
 	}
 
 	public boolean isDebug() {
-		return debug;
+		return this.debug;
 	}
 
 	public void setDebug(boolean debug) {
@@ -55,7 +55,7 @@ public class OutputConfig {
 	}
 
 	public boolean isUseSingleQuotes() {
-		return useSingleQuotes;
+		return this.useSingleQuotes;
 	}
 
 	public void setUseSingleQuotes(boolean useSingleQuotes) {
@@ -63,7 +63,7 @@ public class OutputConfig {
 	}
 
 	public boolean isSurroundApiWithQuotes() {
-		return surroundApiWithQuotes;
+		return this.surroundApiWithQuotes;
 	}
 
 	public void setSurroundApiWithQuotes(boolean surroundApiWithQuotes) {
@@ -74,12 +74,14 @@ public class OutputConfig {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (debug ? 1231 : 1237);
+		result = prime * result + (this.debug ? 1231 : 1237);
+		result = prime
+				* result
+				+ (this.includeValidation == null ? 0 : this.includeValidation.hashCode());
 		result = prime * result
-				+ (includeValidation == null ? 0 : includeValidation.hashCode());
-		result = prime * result + (outputFormat == null ? 0 : outputFormat.hashCode());
-		result = prime * result + (surroundApiWithQuotes ? 1231 : 1237);
-		result = prime * result + (useSingleQuotes ? 1231 : 1237);
+				+ (this.outputFormat == null ? 0 : this.outputFormat.hashCode());
+		result = prime * result + (this.surroundApiWithQuotes ? 1231 : 1237);
+		result = prime * result + (this.useSingleQuotes ? 1231 : 1237);
 		return result;
 	}
 
@@ -95,19 +97,19 @@ public class OutputConfig {
 			return false;
 		}
 		OutputConfig other = (OutputConfig) obj;
-		if (debug != other.debug) {
+		if (this.debug != other.debug) {
 			return false;
 		}
-		if (includeValidation != other.includeValidation) {
+		if (this.includeValidation != other.includeValidation) {
 			return false;
 		}
-		if (outputFormat != other.outputFormat) {
+		if (this.outputFormat != other.outputFormat) {
 			return false;
 		}
-		if (surroundApiWithQuotes != other.surroundApiWithQuotes) {
+		if (this.surroundApiWithQuotes != other.surroundApiWithQuotes) {
 			return false;
 		}
-		if (useSingleQuotes != other.useSingleQuotes) {
+		if (this.useSingleQuotes != other.useSingleQuotes) {
 			return false;
 		}
 		return true;

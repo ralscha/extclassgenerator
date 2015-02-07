@@ -81,7 +81,7 @@ public class ModelBean {
 	private String identifier;
 
 	public boolean isAutodetectTypes() {
-		return autodetectTypes;
+		return this.autodetectTypes;
 	}
 
 	public void setAutodetectTypes(boolean autodetectTypes) {
@@ -89,7 +89,7 @@ public class ModelBean {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class ModelBean {
 	}
 
 	public String getExtend() {
-		return extend;
+		return this.extend;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class ModelBean {
 	}
 
 	public String getIdProperty() {
-		return idProperty;
+		return this.idProperty;
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class ModelBean {
 	}
 
 	public String getVersionProperty() {
-		return versionProperty;
+		return this.versionProperty;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class ModelBean {
 	}
 
 	public Map<String, ModelFieldBean> getFields() {
-		return fields;
+		return this.fields;
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class ModelBean {
 	}
 
 	public List<AbstractValidation> getValidations() {
-		return validations;
+		return this.validations;
 	}
 
 	public void setValidations(List<AbstractValidation> validations) {
@@ -172,7 +172,7 @@ public class ModelBean {
 	}
 
 	public List<AbstractAssociation> getAssociations() {
-		return associations;
+		return this.associations;
 	}
 
 	public void setAssociations(List<AbstractAssociation> associations) {
@@ -188,20 +188,20 @@ public class ModelBean {
 		Assert.notNull(modelFields, "modelFields must not be null");
 
 		for (ModelFieldBean bean : modelFields) {
-			fields.put(bean.getName(), bean);
+			this.fields.put(bean.getName(), bean);
 		}
 	}
 
 	public void addValidations(List<AbstractValidation> fieldValidations) {
 		Assert.notNull(fieldValidations, "fieldValidations must not be null");
 
-		validations.addAll(fieldValidations);
+		this.validations.addAll(fieldValidations);
 	}
 
 	public void addAssociations(List<AbstractAssociation> associationsList) {
 		Assert.notNull(associationsList, "associations must not be null");
 
-		associations.addAll(associationsList);
+		this.associations.addAll(associationsList);
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class ModelBean {
 	 * @return a {@link ModelFieldBean} or null if not found
 	 */
 	public ModelFieldBean getField(String fieldName) {
-		return fields.get(fieldName);
+		return this.fields.get(fieldName);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class ModelBean {
 	public void addField(ModelFieldBean bean) {
 		Assert.notNull(bean, "ModelFieldBean must not be null");
 
-		fields.put(bean.getName(), bean);
+		this.fields.put(bean.getName(), bean);
 	}
 
 	/**
@@ -234,7 +234,7 @@ public class ModelBean {
 	public void addValidation(AbstractValidation bean) {
 		Assert.notNull(bean, "ModelFieldValidationBean must not be null");
 
-		validations.add(bean);
+		this.validations.add(bean);
 	}
 
 	/**
@@ -246,11 +246,11 @@ public class ModelBean {
 	public void addAssociation(AbstractAssociation bean) {
 		Assert.notNull(bean, "AbstractAssociation must not be null");
 
-		associations.add(bean);
+		this.associations.add(bean);
 	}
 
 	public boolean isPaging() {
-		return paging;
+		return this.paging;
 	}
 
 	/**
@@ -271,7 +271,7 @@ public class ModelBean {
 	}
 
 	public boolean isDisablePagingParameters() {
-		return disablePagingParameters;
+		return this.disablePagingParameters;
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class ModelBean {
 	}
 
 	public String getReadMethod() {
-		return readMethod;
+		return this.readMethod;
 	}
 
 	/**
@@ -315,7 +315,7 @@ public class ModelBean {
 	}
 
 	public String getCreateMethod() {
-		return createMethod;
+		return this.createMethod;
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class ModelBean {
 	}
 
 	public String getUpdateMethod() {
-		return updateMethod;
+		return this.updateMethod;
 	}
 
 	/**
@@ -347,7 +347,7 @@ public class ModelBean {
 	}
 
 	public String getDestroyMethod() {
-		return destroyMethod;
+		return this.destroyMethod;
 	}
 
 	/**
@@ -366,7 +366,7 @@ public class ModelBean {
 	 * @return the messageProperty
 	 */
 	public String getMessageProperty() {
-		return messageProperty;
+		return this.messageProperty;
 	}
 
 	/**
@@ -389,7 +389,7 @@ public class ModelBean {
 	}
 
 	public String getWriter() {
-		return writer;
+		return this.writer;
 	}
 
 	/**
@@ -415,7 +415,7 @@ public class ModelBean {
 	}
 
 	public String getReader() {
-		return reader;
+		return this.reader;
 	}
 
 	/**
@@ -441,7 +441,7 @@ public class ModelBean {
 	}
 
 	public String getSuccessProperty() {
-		return successProperty;
+		return this.successProperty;
 	}
 
 	/**
@@ -464,7 +464,7 @@ public class ModelBean {
 	}
 
 	public String getTotalProperty() {
-		return totalProperty;
+		return this.totalProperty;
 	}
 
 	/**
@@ -487,7 +487,7 @@ public class ModelBean {
 	}
 
 	public String getRootProperty() {
-		return rootProperty;
+		return this.rootProperty;
 	}
 
 	/**
@@ -512,7 +512,7 @@ public class ModelBean {
 	}
 
 	public Boolean getWriteAllFields() {
-		return writeAllFields;
+		return this.writeAllFields;
 	}
 
 	/**
@@ -539,7 +539,7 @@ public class ModelBean {
 	}
 
 	public String getIdentifier() {
-		return identifier;
+		return this.identifier;
 	}
 
 	/**
@@ -554,7 +554,7 @@ public class ModelBean {
 	}
 
 	public String getClientIdProperty() {
-		return clientIdProperty;
+		return this.clientIdProperty;
 	}
 
 	/**
@@ -570,7 +570,7 @@ public class ModelBean {
 	}
 
 	public boolean isClientIdPropertyAddToWriter() {
-		return clientIdPropertyAddToWriter;
+		return this.clientIdPropertyAddToWriter;
 	}
 
 	/**

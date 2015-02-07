@@ -92,7 +92,7 @@ public class BeanWithoutAnnotations {
 	private java.time.OffsetDateTime aJava8OffsetDateTime;
 
 	public byte getaByte() {
-		return aByte;
+		return this.aByte;
 	}
 
 	public void setaByte(byte aByte) {
@@ -100,7 +100,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public short getaShort() {
-		return aShort;
+		return this.aShort;
 	}
 
 	public void setaShort(short aShort) {
@@ -108,7 +108,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public int getaInt() {
-		return aInt;
+		return this.aInt;
 	}
 
 	public void setaInt(int aInt) {
@@ -116,7 +116,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public long getaLong() {
-		return aLong;
+		return this.aLong;
 	}
 
 	public void setaLong(long aLong) {
@@ -124,7 +124,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Byte getaByteObject() {
-		return aByteObject;
+		return this.aByteObject;
 	}
 
 	public void setaByteObject(Byte aByteObject) {
@@ -132,7 +132,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Short getaShortObject() {
-		return aShortObject;
+		return this.aShortObject;
 	}
 
 	public void setaShortObject(Short aShortObject) {
@@ -140,7 +140,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Integer getaIntObject() {
-		return aIntObject;
+		return this.aIntObject;
 	}
 
 	public void setaIntObject(Integer aIntObject) {
@@ -148,7 +148,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Long getaLongObject() {
-		return aLongObject;
+		return this.aLongObject;
 	}
 
 	public void setaLongObject(Long aLongObject) {
@@ -156,7 +156,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public BigDecimal getaBigDecimal() {
-		return aBigDecimal;
+		return this.aBigDecimal;
 	}
 
 	public void setaBigDecimal(BigDecimal aBigDecimal) {
@@ -164,7 +164,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public BigInteger getaBigInteger() {
-		return aBigInteger;
+		return this.aBigInteger;
 	}
 
 	public void setaBigInteger(BigInteger aBigInteger) {
@@ -172,7 +172,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public float getaFloat() {
-		return aFloat;
+		return this.aFloat;
 	}
 
 	public void setaFloat(float aFloat) {
@@ -180,7 +180,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public double getaDouble() {
-		return aDouble;
+		return this.aDouble;
 	}
 
 	public void setaDouble(double aDouble) {
@@ -188,7 +188,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Float getaFloatObject() {
-		return aFloatObject;
+		return this.aFloatObject;
 	}
 
 	public void setaFloatObject(Float aFloatObject) {
@@ -196,7 +196,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Double getaDoubleObject() {
-		return aDoubleObject;
+		return this.aDoubleObject;
 	}
 
 	public void setaDoubleObject(Double aDoubleObject) {
@@ -204,7 +204,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public String getaString() {
-		return aString;
+		return this.aString;
 	}
 
 	public void setaString(String aString) {
@@ -212,7 +212,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public boolean isaBoolean() {
-		return aBoolean;
+		return this.aBoolean;
 	}
 
 	public void setaBoolean(boolean aBoolean) {
@@ -220,7 +220,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Boolean getaBooleanObject() {
-		return aBooleanObject;
+		return this.aBooleanObject;
 	}
 
 	public void setaBooleanObject(Boolean aBooleanObject) {
@@ -228,7 +228,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Date getaDate() {
-		return aDate;
+		return this.aDate;
 	}
 
 	public void setaDate(Date aDate) {
@@ -236,7 +236,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public java.sql.Date getaSqlDate() {
-		return aSqlDate;
+		return this.aSqlDate;
 	}
 
 	public void setaSqlDate(java.sql.Date aSqlDate) {
@@ -244,7 +244,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Timestamp getaTimestamp() {
-		return aTimestamp;
+		return this.aTimestamp;
 	}
 
 	public void setaTimestamp(Timestamp aTimestamp) {
@@ -252,7 +252,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public DateTime getaDateTime() {
-		return aDateTime;
+		return this.aDateTime;
 	}
 
 	public void setaDateTime(DateTime aDateTime) {
@@ -260,7 +260,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public ReadableDateTime getaReadableDateTime() {
-		return aReadableDateTime;
+		return this.aReadableDateTime;
 	}
 
 	public void setaReadableDateTime(ReadableDateTime aReadableDateTime) {
@@ -268,7 +268,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public LocalDate getaLocalDate() {
-		return aLocalDate;
+		return this.aLocalDate;
 	}
 
 	public void setaLocalDate(LocalDate aLocalDate) {
@@ -276,7 +276,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public java.time.LocalDate getaJava8LocalDate() {
-		return aJava8LocalDate;
+		return this.aJava8LocalDate;
 	}
 
 	public void setaJava8LocalDate(java.time.LocalDate aJava8LocalDate) {
@@ -284,7 +284,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public java.time.LocalDateTime getaJava8LocalDateTime() {
-		return aJava8LocalDateTime;
+		return this.aJava8LocalDateTime;
 	}
 
 	public void setaJava8LocalDateTime(java.time.LocalDateTime aJava8LocalDateTime) {
@@ -292,7 +292,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public java.time.ZonedDateTime getaJava8ZonedDateTime() {
-		return aJava8ZonedDateTime;
+		return this.aJava8ZonedDateTime;
 	}
 
 	public void setaJava8ZonedDateTime(java.time.ZonedDateTime aJava8ZonedDateTime) {
@@ -300,7 +300,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public java.time.OffsetDateTime getaJava8OffsetDateTime() {
-		return aJava8OffsetDateTime;
+		return this.aJava8OffsetDateTime;
 	}
 
 	public void setaJava8OffsetDateTime(java.time.OffsetDateTime aJava8OffsetDateTime) {
@@ -308,7 +308,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public Calendar getaCalendar() {
-		return aCalendar;
+		return this.aCalendar;
 	}
 
 	public void setaCalendar(Calendar aCalendar) {
@@ -316,7 +316,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public GregorianCalendar getaSecondCalendar() {
-		return aSecondCalendar;
+		return this.aSecondCalendar;
 	}
 
 	public void setaSecondCalendar(GregorianCalendar aSecondCalendar) {

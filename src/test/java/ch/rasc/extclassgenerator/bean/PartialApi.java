@@ -29,7 +29,7 @@ public class PartialApi {
 	private String name;
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
@@ -37,7 +37,7 @@ public class PartialApi {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {

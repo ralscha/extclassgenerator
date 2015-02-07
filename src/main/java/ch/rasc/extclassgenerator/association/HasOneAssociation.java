@@ -52,7 +52,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	}
 
 	public String getSetterName() {
-		return setterName;
+		return this.setterName;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class HasOneAssociation extends AbstractAssociation {
 	}
 
 	public String getGetterName() {
-		return getterName;
+		return this.getterName;
 	}
 
 	/**

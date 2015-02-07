@@ -65,9 +65,9 @@ public class ProxyObject {
 			else {
 				value = Boolean.FALSE;
 			}
-			pageParam = value;
-			startParam = value;
-			limitParam = value;
+			this.pageParam = value;
+			this.startParam = value;
+			this.limitParam = value;
 		}
 
 		Map<String, Object> readerConfigObject = new LinkedHashMap<String, Object>();
@@ -157,7 +157,7 @@ public class ProxyObject {
 	}
 
 	public boolean hasContent() {
-		return api != null || directFn != null || reader != null || writer != null
-				|| idParam != null;
+		return this.api != null || this.directFn != null || this.reader != null
+				|| this.writer != null || this.idParam != null;
 	}
 }

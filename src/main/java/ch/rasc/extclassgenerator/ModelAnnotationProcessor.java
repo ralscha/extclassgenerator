@@ -61,7 +61,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations,
 			RoundEnvironment roundEnv) {
-		processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
+		this.processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
 				"Running " + getClass().getSimpleName());
 
 		if (roundEnv.processingOver() || annotations.size() == 0) {
@@ -69,19 +69,20 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		}
 
 		if (roundEnv.getRootElements() == null || roundEnv.getRootElements().isEmpty()) {
-			processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
+			this.processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE,
 					"No sources to process");
 			return ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS;
 		}
 
 		OutputConfig outputConfig = new OutputConfig();
 
-		outputConfig.setDebug(!"false".equals(processingEnv.getOptions()
-				.get(OPTION_DEBUG)));
-		boolean createBaseAndSubclass = "true".equals(processingEnv.getOptions().get(
-				OPTION_CREATEBASEANDSUBCLASS));
+		outputConfig.setDebug(!"false".equals(this.processingEnv.getOptions().get(
+				OPTION_DEBUG)));
+		boolean createBaseAndSubclass = "true".equals(this.processingEnv.getOptions()
+				.get(OPTION_CREATEBASEANDSUBCLASS));
 
-		String outputFormatString = processingEnv.getOptions().get(OPTION_OUTPUTFORMAT);
+		String outputFormatString = this.processingEnv.getOptions().get(
+				OPTION_OUTPUTFORMAT);
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
 		if (StringUtils.hasText(outputFormatString)) {
 			if (OutputFormat.TOUCH2.name().equalsIgnoreCase(outputFormatString)) {
@@ -92,7 +93,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			}
 		}
 
-		String includeValidationString = processingEnv.getOptions().get(
+		String includeValidationString = this.processingEnv.getOptions().get(
 				OPTION_INCLUDEVALIDATION);
 		outputConfig.setIncludeValidation(IncludeValidation.NONE);
 		if (StringUtils.hasText(includeValidationString)) {
@@ -105,10 +106,10 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			}
 		}
 
-		outputConfig.setUseSingleQuotes("true".equals(processingEnv.getOptions().get(
-				OPTION_USESINGLEQUOTES)));
-		outputConfig.setSurroundApiWithQuotes("true".equals(processingEnv.getOptions()
-				.get(OPTION_SURROUNDAPIWITHQUOTES)));
+		outputConfig.setUseSingleQuotes("true".equals(this.processingEnv.getOptions()
+				.get(OPTION_USESINGLEQUOTES)));
+		outputConfig.setSurroundApiWithQuotes("true".equals(this.processingEnv
+				.getOptions().get(OPTION_SURROUNDAPIWITHQUOTES)));
 
 		for (TypeElement annotation : annotations) {
 			Set<? extends Element> elements = roundEnv
@@ -148,7 +149,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 					if (createBaseAndSubclass) {
 						code = code.replaceFirst("(Ext.define\\([\"'].+?)([\"'],)",
 								"$1Base$2");
-						FileObject fo = processingEnv.getFiler().createResource(
+						FileObject fo = this.processingEnv.getFiler().createResource(
 								StandardLocation.SOURCE_OUTPUT, packageName,
 								fileName + "Base.js");
 						OutputStream os = fo.openOutputStream();
@@ -156,7 +157,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 						os.close();
 
 						try {
-							fo = processingEnv.getFiler().getResource(
+							fo = this.processingEnv.getFiler().getResource(
 									StandardLocation.SOURCE_OUTPUT, packageName,
 									fileName + ".js");
 							InputStream is = fo.openInputStream();
@@ -165,7 +166,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 						catch (FileNotFoundException e) {
 							String subClassCode = generateSubclassCode(modelClass,
 									outputConfig);
-							fo = processingEnv.getFiler().createResource(
+							fo = this.processingEnv.getFiler().createResource(
 									StandardLocation.SOURCE_OUTPUT, packageName,
 									fileName + ".js");
 							os = fo.openOutputStream();
@@ -175,7 +176,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 					}
 					else {
-						FileObject fo = processingEnv.getFiler().createResource(
+						FileObject fo = this.processingEnv.getFiler().createResource(
 								StandardLocation.SOURCE_OUTPUT, packageName,
 								fileName + ".js");
 						OutputStream os = fo.openOutputStream();
@@ -185,11 +186,11 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 				}
 				catch (ClassNotFoundException e) {
-					processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+					this.processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
 							e.getMessage());
 				}
 				catch (IOException e) {
-					processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+					this.processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
 							e.getMessage());
 				}
 

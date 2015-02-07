@@ -135,7 +135,7 @@ public class BeanWithAnnotations {
 	private Set<Long> moreIds;
 
 	public byte getaByte() {
-		return aByte;
+		return this.aByte;
 	}
 
 	public void setaByte(byte aByte) {
@@ -143,7 +143,7 @@ public class BeanWithAnnotations {
 	}
 
 	public short getaShort() {
-		return aShort;
+		return this.aShort;
 	}
 
 	public void setaShort(short aShort) {
@@ -151,7 +151,7 @@ public class BeanWithAnnotations {
 	}
 
 	public int getaInt() {
-		return aInt;
+		return this.aInt;
 	}
 
 	public void setaInt(int aInt) {
@@ -159,7 +159,7 @@ public class BeanWithAnnotations {
 	}
 
 	public long getaLong() {
-		return aLong;
+		return this.aLong;
 	}
 
 	public void setaLong(long aLong) {
@@ -167,7 +167,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Byte getaByteObject() {
-		return aByteObject;
+		return this.aByteObject;
 	}
 
 	public void setaByteObject(Byte aByteObject) {
@@ -175,7 +175,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Short getaShortObject() {
-		return aShortObject;
+		return this.aShortObject;
 	}
 
 	public void setaShortObject(Short aShortObject) {
@@ -183,7 +183,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Integer getaIntObject() {
-		return aIntObject;
+		return this.aIntObject;
 	}
 
 	public void setaIntObject(Integer aIntObject) {
@@ -191,7 +191,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Long getaLongObject() {
-		return aLongObject;
+		return this.aLongObject;
 	}
 
 	public void setaLongObject(Long aLongObject) {
@@ -199,7 +199,7 @@ public class BeanWithAnnotations {
 	}
 
 	public BigDecimal getaBigDecimal() {
-		return aBigDecimal;
+		return this.aBigDecimal;
 	}
 
 	public void setaBigDecimal(BigDecimal aBigDecimal) {
@@ -207,7 +207,7 @@ public class BeanWithAnnotations {
 	}
 
 	public BigInteger getaBigInteger() {
-		return aBigInteger;
+		return this.aBigInteger;
 	}
 
 	public void setaBigInteger(BigInteger aBigInteger) {
@@ -215,7 +215,7 @@ public class BeanWithAnnotations {
 	}
 
 	public float getaFloat() {
-		return aFloat;
+		return this.aFloat;
 	}
 
 	public void setaFloat(float aFloat) {
@@ -223,7 +223,7 @@ public class BeanWithAnnotations {
 	}
 
 	public double getaDouble() {
-		return aDouble;
+		return this.aDouble;
 	}
 
 	public void setaDouble(double aDouble) {
@@ -231,7 +231,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Float getaFloatObject() {
-		return aFloatObject;
+		return this.aFloatObject;
 	}
 
 	public void setaFloatObject(Float aFloatObject) {
@@ -239,7 +239,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Double getaDoubleObject() {
-		return aDoubleObject;
+		return this.aDoubleObject;
 	}
 
 	public void setaDoubleObject(Double aDoubleObject) {
@@ -247,7 +247,7 @@ public class BeanWithAnnotations {
 	}
 
 	public String getaString() {
-		return aString;
+		return this.aString;
 	}
 
 	public void setaString(String aString) {
@@ -255,7 +255,7 @@ public class BeanWithAnnotations {
 	}
 
 	public boolean isaBoolean() {
-		return aBoolean;
+		return this.aBoolean;
 	}
 
 	public void setaBoolean(boolean aBoolean) {
@@ -263,7 +263,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Boolean getaBooleanObject() {
-		return aBooleanObject;
+		return this.aBooleanObject;
 	}
 
 	public void setaBooleanObject(Boolean aBooleanObject) {
@@ -271,7 +271,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Date getaDate() {
-		return aDate;
+		return this.aDate;
 	}
 
 	public void setaDate(Date aDate) {
@@ -279,7 +279,7 @@ public class BeanWithAnnotations {
 	}
 
 	public java.sql.Date getaSqlDate() {
-		return aSqlDate;
+		return this.aSqlDate;
 	}
 
 	public void setaSqlDate(java.sql.Date aSqlDate) {
@@ -287,7 +287,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Timestamp getaTimestamp() {
-		return aTimestamp;
+		return this.aTimestamp;
 	}
 
 	public void setaTimestamp(Timestamp aTimestamp) {
@@ -295,7 +295,7 @@ public class BeanWithAnnotations {
 	}
 
 	public DateTime getaDateTime() {
-		return aDateTime;
+		return this.aDateTime;
 	}
 
 	public void setaDateTime(DateTime aDateTime) {
@@ -303,7 +303,7 @@ public class BeanWithAnnotations {
 	}
 
 	public LocalDate getaLocalDate() {
-		return aLocalDate;
+		return this.aLocalDate;
 	}
 
 	public void setaLocalDate(LocalDate aLocalDate) {
@@ -311,7 +311,7 @@ public class BeanWithAnnotations {
 	}
 
 	public BigInteger getBigValue() {
-		return bigValue;
+		return this.bigValue;
 	}
 
 	public void setBigValue(BigInteger bigValue) {
@@ -319,7 +319,7 @@ public class BeanWithAnnotations {
 	}
 
 	public boolean getaBooleanVirtual() {
-		return aBooleanVirtual;
+		return this.aBooleanVirtual;
 	}
 
 	public void setaBooleanVirtual(boolean aBooleanVirtual) {
@@ -327,7 +327,7 @@ public class BeanWithAnnotations {
 	}
 
 	public List<Integer> getSomeIds() {
-		return someIds;
+		return this.someIds;
 	}
 
 	public void setSomeIds(List<Integer> someIds) {
@@ -335,7 +335,7 @@ public class BeanWithAnnotations {
 	}
 
 	public Set<Long> getMoreIds() {
-		return moreIds;
+		return this.moreIds;
 	}
 
 	public void setMoreIds(Set<Long> moreIds) {

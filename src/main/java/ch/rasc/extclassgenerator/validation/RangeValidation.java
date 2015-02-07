@@ -44,11 +44,11 @@ public class RangeValidation extends AbstractValidation {
 	}
 
 	public BigDecimal getMin() {
-		return min;
+		return this.min;
 	}
 
 	public BigDecimal getMax() {
-		return max;
+		return this.max;
 	}
 
 }

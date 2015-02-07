@@ -28,7 +28,7 @@ public class TwoHasOneClass {
 	private AssociatedClass mySecondAssociation;
 
 	public AssociatedClass getMyFirstAssociation() {
-		return myFirstAssociation;
+		return this.myFirstAssociation;
 	}
 
 	public void setMyFirstAssociation(AssociatedClass myFirstAssociation) {
@@ -36,7 +36,7 @@ public class TwoHasOneClass {
 	}
 
 	public AssociatedClass getMySecondAssociation() {
-		return mySecondAssociation;
+		return this.mySecondAssociation;
 	}
 
 	public void setMySecondAssociation(AssociatedClass mySecondAssociation) {

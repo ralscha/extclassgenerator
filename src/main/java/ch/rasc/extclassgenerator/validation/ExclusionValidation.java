@@ -29,7 +29,7 @@ public class ExclusionValidation extends AbstractValidation {
 	}
 
 	public String getList() {
-		return list;
+		return this.list;
 	}
 
 }

@@ -51,11 +51,11 @@ public abstract class AbstractValidation {
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public String getField() {
-		return field;
+		return this.field;
 	}
 
 	public static void addValidationToModel(ModelBean model,

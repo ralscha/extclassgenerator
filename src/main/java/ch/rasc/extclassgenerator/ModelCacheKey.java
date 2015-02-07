@@ -29,8 +29,10 @@ final class ModelCacheKey {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (className == null ? 0 : className.hashCode());
-		result = prime * result + (outputConfig == null ? 0 : outputConfig.hashCode());
+		result = prime * result
+				+ (this.className == null ? 0 : this.className.hashCode());
+		result = prime * result
+				+ (this.outputConfig == null ? 0 : this.outputConfig.hashCode());
 		return result;
 	}
 
@@ -46,20 +48,20 @@ final class ModelCacheKey {
 			return false;
 		}
 		ModelCacheKey other = (ModelCacheKey) obj;
-		if (className == null) {
+		if (this.className == null) {
 			if (other.className != null) {
 				return false;
 			}
 		}
-		else if (!className.equals(other.className)) {
+		else if (!this.className.equals(other.className)) {
 			return false;
 		}
-		if (outputConfig == null) {
+		if (this.outputConfig == null) {
 			if (other.outputConfig != null) {
 				return false;
 			}
 		}
-		else if (!outputConfig.equals(other.outputConfig)) {
+		else if (!this.outputConfig.equals(other.outputConfig)) {
 			return false;
 		}
 		return true;

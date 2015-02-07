@@ -77,7 +77,7 @@ public class BeanWithValidation {
 
 	@Past
 	public Date getPast() {
-		return past;
+		return this.past;
 	}
 
 	public void setPast(Date past) {

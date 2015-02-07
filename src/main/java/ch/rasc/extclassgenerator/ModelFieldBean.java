@@ -88,22 +88,23 @@ public class ModelFieldBean {
 	 * Returns true if only the name property is set
 	 */
 	public boolean hasOnlyName(OutputConfig outputConfig) {
-		if (StringUtils.hasText(name) && !StringUtils.hasText(type)
-				&& defaultValue == null && !StringUtils.hasText(dateFormat)
-				&& !StringUtils.hasText(mapping) && persist == null
-				&& !StringUtils.hasText(convert)) {
+		if (StringUtils.hasText(this.name) && !StringUtils.hasText(this.type)
+				&& this.defaultValue == null && !StringUtils.hasText(this.dateFormat)
+				&& !StringUtils.hasText(this.mapping) && this.persist == null
+				&& !StringUtils.hasText(this.convert)) {
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
-				return useNull == null;
+				return this.useNull == null;
 			}
 			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
-				return allowNull == null;
+				return this.allowNull == null;
 			}
 			else if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-				return allowNull == null && critical == null
-						&& !StringUtils.hasText(calculate)
-						&& (validators == null || validators.isEmpty())
-						&& (depends == null || depends.isEmpty()) && reference == null
-						&& allowBlank == null && unique == null;
+				return this.allowNull == null && this.critical == null
+						&& !StringUtils.hasText(this.calculate)
+						&& (this.validators == null || this.validators.isEmpty())
+						&& (this.depends == null || this.depends.isEmpty())
+						&& this.reference == null && this.allowBlank == null
+						&& this.unique == null;
 			}
 		}
 
@@ -145,7 +146,7 @@ public class ModelFieldBean {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -160,11 +161,11 @@ public class ModelFieldBean {
 	}
 
 	public ModelType getModelType() {
-		return modelType;
+		return this.modelType;
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	/**
@@ -186,7 +187,7 @@ public class ModelFieldBean {
 	}
 
 	public Object getDefaultValue() {
-		return defaultValue;
+		return this.defaultValue;
 	}
 
 	/**
@@ -201,7 +202,7 @@ public class ModelFieldBean {
 	}
 
 	public String getDateFormat() {
-		return dateFormat;
+		return this.dateFormat;
 	}
 
 	/**
@@ -220,7 +221,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getUseNull() {
-		return useNull;
+		return this.useNull;
 	}
 
 	/**
@@ -241,7 +242,7 @@ public class ModelFieldBean {
 	}
 
 	public String getMapping() {
-		return mapping;
+		return this.mapping;
 	}
 
 	/**
@@ -258,7 +259,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getPersist() {
-		return persist;
+		return this.persist;
 	}
 
 	/**
@@ -277,7 +278,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getCritical() {
-		return critical;
+		return this.critical;
 	}
 
 	/**
@@ -295,7 +296,7 @@ public class ModelFieldBean {
 	}
 
 	public String getConvert() {
-		return convert;
+		return this.convert;
 	}
 
 	/**
@@ -313,7 +314,7 @@ public class ModelFieldBean {
 	}
 
 	public String getCalculate() {
-		return calculate;
+		return this.calculate;
 	}
 
 	/**
@@ -331,7 +332,7 @@ public class ModelFieldBean {
 	}
 
 	public List<AbstractValidation> getValidators() {
-		return validators;
+		return this.validators;
 	}
 
 	public void setValidators(List<AbstractValidation> validators) {
@@ -339,7 +340,7 @@ public class ModelFieldBean {
 	}
 
 	public List<String> getDepends() {
-		return depends;
+		return this.depends;
 	}
 
 	/**
@@ -359,7 +360,7 @@ public class ModelFieldBean {
 	}
 
 	public Object getReference() {
-		return reference;
+		return this.reference;
 	}
 
 	/**
@@ -375,7 +376,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getAllowNull() {
-		return allowNull;
+		return this.allowNull;
 	}
 
 	/**
@@ -403,7 +404,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getAllowBlank() {
-		return allowBlank;
+		return this.allowBlank;
 	}
 
 	/**
@@ -420,7 +421,7 @@ public class ModelFieldBean {
 	}
 
 	public Boolean getUnique() {
-		return unique;
+		return this.unique;
 	}
 
 	/**
@@ -439,11 +440,11 @@ public class ModelFieldBean {
 
 	void updateTypes(OutputConfig outputConfig) {
 		if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-			if ("int".equals(type)) {
-				type = "integer";
+			if ("int".equals(this.type)) {
+				this.type = "integer";
 			}
-			else if ("float".equals(type)) {
-				type = "number";
+			else if ("float".equals(this.type)) {
+				this.type = "number";
 			}
 		}
 	}

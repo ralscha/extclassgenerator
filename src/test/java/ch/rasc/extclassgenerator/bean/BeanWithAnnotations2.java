@@ -46,7 +46,7 @@ public class BeanWithAnnotations2 extends Base {
 	private String accountNo;
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
@@ -54,7 +54,7 @@ public class BeanWithAnnotations2 extends Base {
 	}
 
 	public Date getDob() {
-		return dob;
+		return this.dob;
 	}
 
 	public void setDob(Date dob) {
@@ -62,7 +62,7 @@ public class BeanWithAnnotations2 extends Base {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -71,7 +71,7 @@ public class BeanWithAnnotations2 extends Base {
 
 	@JsonIgnore
 	public String getAccountNo() {
-		return accountNo;
+		return this.accountNo;
 	}
 
 	public void setAccountNo(String accountNo) {

@@ -29,7 +29,7 @@ public class FormatValidation extends AbstractValidation {
 	}
 
 	public String getMatcher() {
-		return matcher;
+		return this.matcher;
 	}
 
 }

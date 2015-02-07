@@ -52,7 +52,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	}
 
 	public Boolean getAutoLoad() {
-		return autoLoad;
+		return this.autoLoad;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class HasManyAssociation extends AbstractAssociation {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**

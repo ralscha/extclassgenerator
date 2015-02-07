@@ -29,11 +29,11 @@ public class DigitsValidation extends AbstractValidation {
 	}
 
 	public int getInteger() {
-		return integer;
+		return this.integer;
 	}
 
 	public int getFraction() {
-		return fraction;
+		return this.fraction;
 	}
 
 }

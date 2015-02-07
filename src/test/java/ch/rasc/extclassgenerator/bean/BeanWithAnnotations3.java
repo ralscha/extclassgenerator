@@ -32,7 +32,7 @@ public class BeanWithAnnotations3 {
 	private String name;
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
@@ -40,7 +40,7 @@ public class BeanWithAnnotations3 {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {

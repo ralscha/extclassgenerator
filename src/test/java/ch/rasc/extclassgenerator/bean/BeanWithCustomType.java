@@ -41,7 +41,7 @@ public class BeanWithCustomType {
 	private String creditcardnumber;
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
@@ -49,7 +49,7 @@ public class BeanWithCustomType {
 	}
 
 	public int getAge() {
-		return age;
+		return this.age;
 	}
 
 	public void setAge(int age) {
@@ -57,7 +57,7 @@ public class BeanWithCustomType {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public void setCity(String city) {
@@ -65,7 +65,7 @@ public class BeanWithCustomType {
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -73,7 +73,7 @@ public class BeanWithCustomType {
 	}
 
 	public String getCreditcardnumber() {
-		return creditcardnumber;
+		return this.creditcardnumber;
 	}
 
 	public void setCreditcardnumber(String creditcardnumber) {

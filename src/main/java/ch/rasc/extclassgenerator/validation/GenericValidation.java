@@ -36,6 +36,6 @@ public class GenericValidation extends AbstractValidation {
 
 	@JsonAnyGetter
 	public Map<String, Object> getOptions() {
-		return options;
+		return this.options;
 	}
 }

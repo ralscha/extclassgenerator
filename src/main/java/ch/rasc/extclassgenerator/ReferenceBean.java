@@ -35,30 +35,30 @@ public class ReferenceBean {
 	}
 
 	public ReferenceBean(ReferenceConfig reference) {
-		type = ModelGenerator.trimToNull(reference.type());
-		association = ModelGenerator.trimToNull(reference.association());
-		child = ModelGenerator.trimToNull(reference.child());
-		parent = ModelGenerator.trimToNull(reference.parent());
-		role = ModelGenerator.trimToNull(reference.role());
-		inverse = ModelGenerator.trimToNull(reference.inverse());
+		this.type = ModelGenerator.trimToNull(reference.type());
+		this.association = ModelGenerator.trimToNull(reference.association());
+		this.child = ModelGenerator.trimToNull(reference.child());
+		this.parent = ModelGenerator.trimToNull(reference.parent());
+		this.role = ModelGenerator.trimToNull(reference.role());
+		this.inverse = ModelGenerator.trimToNull(reference.inverse());
 	}
 
 	// Tests if something is set.
 	public boolean hasAnyProperties() {
-		return StringUtils.hasText(type) || StringUtils.hasText(association)
-				|| StringUtils.hasText(child) || StringUtils.hasText(parent)
-				|| StringUtils.hasText(role) || StringUtils.hasText(inverse);
+		return StringUtils.hasText(this.type) || StringUtils.hasText(this.association)
+				|| StringUtils.hasText(this.child) || StringUtils.hasText(this.parent)
+				|| StringUtils.hasText(this.role) || StringUtils.hasText(this.inverse);
 	}
 
 	// Tests if only type is set.
 	public boolean typeOnly() {
-		return StringUtils.hasText(type) && !StringUtils.hasText(association)
-				&& !StringUtils.hasText(child) && !StringUtils.hasText(parent)
-				&& !StringUtils.hasText(role) && !StringUtils.hasText(inverse);
+		return StringUtils.hasText(this.type) && !StringUtils.hasText(this.association)
+				&& !StringUtils.hasText(this.child) && !StringUtils.hasText(this.parent)
+				&& !StringUtils.hasText(this.role) && !StringUtils.hasText(this.inverse);
 	}
 
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class ReferenceBean {
 	}
 
 	public String getAssociation() {
-		return association;
+		return this.association;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class ReferenceBean {
 	}
 
 	public String getChild() {
-		return child;
+		return this.child;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class ReferenceBean {
 	}
 
 	public String getParent() {
-		return parent;
+		return this.parent;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ReferenceBean {
 	}
 
 	public String getRole() {
-		return role;
+		return this.role;
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class ReferenceBean {
 	}
 
 	public String getInverse() {
-		return inverse;
+		return this.inverse;
 	}
 
 	/**

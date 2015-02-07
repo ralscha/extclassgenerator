@@ -28,7 +28,7 @@ public class InclusionValidationArray extends AbstractValidation {
 	}
 
 	public List<String> getList() {
-		return list;
+		return this.list;
 	}
 
 }

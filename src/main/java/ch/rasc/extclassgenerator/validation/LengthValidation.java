@@ -42,11 +42,11 @@ public class LengthValidation extends AbstractValidation {
 	}
 
 	public Long getMin() {
-		return min;
+		return this.min;
 	}
 
 	public Long getMax() {
-		return max;
+		return this.max;
 	}
 
 }
