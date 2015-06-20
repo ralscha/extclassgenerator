@@ -160,7 +160,8 @@ public class ProxyObject {
 		return this.api != null
 				|| this.directFn != null
 				|| this.reader != null
-				|| (this.writer != null && !(this.writer.size() == 1 && this.writer
-						.containsKey("writeAllFields"))) || this.idParam != null;
+				|| this.writer != null
+				&& !(this.writer.size() == 1 && this.writer.containsKey("writeAllFields"))
+				|| this.idParam != null;
 	}
 }
