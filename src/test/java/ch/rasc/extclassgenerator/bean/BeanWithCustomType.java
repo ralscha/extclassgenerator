@@ -81,6 +81,7 @@ public class BeanWithCustomType {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 		ModelFieldBean field = new ModelFieldBean("id", ModelType.STRING);
 		expectedFields.add(field);

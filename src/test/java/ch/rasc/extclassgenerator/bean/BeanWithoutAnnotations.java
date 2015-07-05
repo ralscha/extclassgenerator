@@ -324,6 +324,7 @@ public class BeanWithoutAnnotations {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 		expectedFields.add(new ModelFieldBean("aByte", ModelType.INTEGER));
 		expectedFields.add(new ModelFieldBean("aShort", ModelType.INTEGER));

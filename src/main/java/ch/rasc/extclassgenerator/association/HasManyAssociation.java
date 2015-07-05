@@ -15,10 +15,10 @@
  */
 package ch.rasc.extclassgenerator.association;
 
-import ch.rasc.extclassgenerator.Model;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import ch.rasc.extclassgenerator.Model;
 
 /**
  * A hasMany association
@@ -79,8 +79,8 @@ public class HasManyAssociation extends AbstractAssociation {
 	 * this if the class name contains a package component.
 	 * <p>
 	 * Corresponds to the <a href=
-	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-name"
-	 * >name</a> config property.
+	 * "http://docs.sencha.com/ext-js/4-2/#!/api/Ext.data.association.HasMany-cfg-name" >
+	 * name</a> config property.
 	 *
 	 * @param name the new name for the function
 	 */

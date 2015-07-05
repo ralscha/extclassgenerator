@@ -120,8 +120,8 @@ public class BeanWithAnnotations {
 
 	// or @ModelField(mapping="bigValue", persist=false,
 	// convert="new Function('v', 'record', return (record.raw.bigValue > 1000000);)")
-	@ModelField(mapping = "bigValue", persist = false, depends = { "lastName",
-			"firstName" },
+	@ModelField(mapping = "bigValue", persist = false,
+			depends = { "lastName", "firstName" },
 			convert = "function(v, record) { return (record.raw.bigValue > 1000000);}")
 	private boolean aBooleanVirtual;
 
@@ -343,6 +343,7 @@ public class BeanWithAnnotations {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("by", ModelType.INTEGER);
@@ -433,7 +434,8 @@ public class BeanWithAnnotations {
 		field = new ModelFieldBean("aBooleanVirtual", ModelType.BOOLEAN);
 		field.setMapping("bigValue");
 		field.setPersist(Boolean.FALSE);
-		field.setConvert("function(v, record) { return (record.raw.bigValue > 1000000);}");
+		field.setConvert(
+				"function(v, record) { return (record.raw.bigValue > 1000000);}");
 		List<String> depends = new ArrayList<>();
 		depends.add("lastName");
 		depends.add("firstName");

@@ -15,10 +15,10 @@
  */
 package ch.rasc.extclassgenerator.association;
 
-import ch.rasc.extclassgenerator.Model;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import ch.rasc.extclassgenerator.Model;
 
 /**
  * A belongsTo association

@@ -25,6 +25,8 @@ import java.util.Map;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import ch.rasc.extclassgenerator.IncludeValidation;
 import ch.rasc.extclassgenerator.JsonViews;
 import ch.rasc.extclassgenerator.ModelBean;
@@ -32,8 +34,6 @@ import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelValidation;
 import ch.rasc.extclassgenerator.ModelValidationParameter;
 import ch.rasc.extclassgenerator.ModelValidationType;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 /**
  * Base class for the validation objects
@@ -77,14 +77,15 @@ public abstract class AbstractValidation {
 
 				Integer min = (Integer) AnnotationUtils.getValue(fieldAnnotation, "min");
 				Integer max = (Integer) AnnotationUtils.getValue(fieldAnnotation, "max");
-				model.addValidation(new LengthValidation(modelFieldBean.getName(), min,
-						max));
+				model.addValidation(
+						new LengthValidation(modelFieldBean.getName(), min, max));
 
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Pattern")) {
 				String regexp = (String) AnnotationUtils.getValue(fieldAnnotation,
 						"regexp");
-				model.addValidation(new FormatValidation(modelFieldBean.getName(), regexp));
+				model.addValidation(
+						new FormatValidation(modelFieldBean.getName(), regexp));
 			}
 			else if (annotationClassName
 					.equals("org.hibernate.validator.constraints.Email")) {
@@ -118,21 +119,21 @@ public abstract class AbstractValidation {
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Max")) {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
-				model.addValidation(new RangeValidation(modelFieldBean.getName(), null,
-						value));
+				model.addValidation(
+						new RangeValidation(modelFieldBean.getName(), null, value));
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Min")) {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
-				model.addValidation(new RangeValidation(modelFieldBean.getName(), value,
-						null));
+				model.addValidation(
+						new RangeValidation(modelFieldBean.getName(), value, null));
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Past")) {
 				model.addValidation(new PastValidation(modelFieldBean.getName()));
 			}
 			else if (annotationClassName
 					.equals("org.hibernate.validator.constraints.CreditCardNumber")) {
-				model.addValidation(new CreditCardNumberValidation(modelFieldBean
-						.getName()));
+				model.addValidation(
+						new CreditCardNumberValidation(modelFieldBean.getName()));
 			}
 			else if (annotationClassName
 					.equals("org.hibernate.validator.constraints.NotBlank")) {
@@ -142,14 +143,15 @@ public abstract class AbstractValidation {
 					.equals("org.hibernate.validator.constraints.Range")) {
 				Long min = (Long) AnnotationUtils.getValue(fieldAnnotation, "min");
 				Long max = (Long) AnnotationUtils.getValue(fieldAnnotation, "max");
-				model.addValidation(new RangeValidation(modelFieldBean.getName(), min,
-						max));
+				model.addValidation(
+						new RangeValidation(modelFieldBean.getName(), min, max));
 			}
 		}
 	}
 
 	public static AbstractValidation createValidation(String propertyName,
-			ModelValidation modelValidationAnnotation, IncludeValidation includeValidation) {
+			ModelValidation modelValidationAnnotation,
+			IncludeValidation includeValidation) {
 
 		if (!StringUtils.hasText(propertyName)) {
 			return null;
@@ -157,8 +159,9 @@ public abstract class AbstractValidation {
 
 		ModelValidationType validationType = modelValidationAnnotation.value();
 
-		if ((includeValidation == IncludeValidation.ALL || includeValidation == IncludeValidation.BUILTIN
-				&& validationType.isBuiltin())
+		if ((includeValidation == IncludeValidation.ALL
+				|| includeValidation == IncludeValidation.BUILTIN
+						&& validationType.isBuiltin())
 				&& validationType.isValid(modelValidationAnnotation)) {
 			switch (validationType) {
 			case GENERIC:
@@ -175,8 +178,8 @@ public abstract class AbstractValidation {
 			case CREDITCARDNUMBER:
 				return new CreditCardNumberValidation(propertyName);
 			case DIGITS:
-				String integer = getParameterValue(
-						modelValidationAnnotation.parameters(), "integer");
+				String integer = getParameterValue(modelValidationAnnotation.parameters(),
+						"integer");
 				String fraction = getParameterValue(
 						modelValidationAnnotation.parameters(), "fraction");
 				return new DigitsValidation(propertyName, Integer.parseInt(integer),
@@ -190,8 +193,8 @@ public abstract class AbstractValidation {
 				return new FutureValidation(propertyName);
 			case INCLUSION:
 				if (modelValidationAnnotation.exclusionOrInclusionList().length > 0) {
-					List<String> list = Arrays.asList(modelValidationAnnotation
-							.exclusionOrInclusionList());
+					List<String> list = Arrays
+							.asList(modelValidationAnnotation.exclusionOrInclusionList());
 					return new InclusionValidationArray(propertyName, list);
 				}
 				else {// backward compatibility
@@ -201,8 +204,8 @@ public abstract class AbstractValidation {
 				}
 			case EXCLUSION:
 				if (modelValidationAnnotation.exclusionOrInclusionList().length > 0) {
-					List<String> list = Arrays.asList(modelValidationAnnotation
-							.exclusionOrInclusionList());
+					List<String> list = Arrays
+							.asList(modelValidationAnnotation.exclusionOrInclusionList());
 					return new ExclusionValidationArray(propertyName, list);
 				}
 				else {// backward compatibility
@@ -237,8 +240,8 @@ public abstract class AbstractValidation {
 				maxValue = getParameterValue(modelValidationAnnotation.parameters(),
 						"max");
 
-				if (minValue != null && minValue.indexOf(".") != -1 || maxValue != null
-						&& maxValue.indexOf(".") != -1) {
+				if (minValue != null && minValue.indexOf(".") != -1
+						|| maxValue != null && maxValue.indexOf(".") != -1) {
 					BigDecimal minBD = null;
 					BigDecimal maxBD = null;
 

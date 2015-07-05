@@ -22,12 +22,12 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Model(value = "Sch.Bean2", idProperty = "id", paging = false, readMethod = "read",
 		messageProperty = "theMessageProperty")
@@ -79,6 +79,7 @@ public class BeanWithAnnotations2 extends Base {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("id", ModelType.INTEGER);

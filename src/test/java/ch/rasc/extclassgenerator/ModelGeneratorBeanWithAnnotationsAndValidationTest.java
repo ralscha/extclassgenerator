@@ -71,13 +71,13 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 		}
 
 		assertThat(modelBean.getValidations()).hasSize(5);
-		assertThat(modelBean.getValidations().get(0)).isInstanceOf(
-				PresenceValidation.class);
+		assertThat(modelBean.getValidations().get(0))
+				.isInstanceOf(PresenceValidation.class);
 		assertThat(modelBean.getValidations().get(0).getType()).isEqualTo("presence");
 		assertThat(modelBean.getValidations().get(0).getField()).isEqualTo("aBigInteger");
 
-		assertThat(modelBean.getValidations().get(1)).isInstanceOf(
-				PresenceValidation.class);
+		assertThat(modelBean.getValidations().get(1))
+				.isInstanceOf(PresenceValidation.class);
 		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo("presence");
 		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo("aDouble");
 
@@ -99,8 +99,8 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 				.get(4);
 		assertThat(formatValidation.getType()).isEqualTo("format");
 		assertThat(formatValidation.getField()).isEqualTo("aString");
-		assertThat(formatValidation.getMatcher()).isEqualTo(
-				"/\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]/");
+		assertThat(formatValidation.getMatcher())
+				.isEqualTo("/\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]/");
 	}
 
 }

@@ -45,6 +45,7 @@ public class PartialApi {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("id", ModelType.INTEGER);

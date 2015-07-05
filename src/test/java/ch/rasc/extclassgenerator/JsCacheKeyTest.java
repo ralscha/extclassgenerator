@@ -20,9 +20,9 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-
 import org.junit.Test;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class JsCacheKeyTest {
 

@@ -75,9 +75,8 @@ public class OutputConfig {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (this.debug ? 1231 : 1237);
-		result = prime
-				* result
-				+ (this.includeValidation == null ? 0 : this.includeValidation.hashCode());
+		result = prime * result + (this.includeValidation == null ? 0
+				: this.includeValidation.hashCode());
 		result = prime * result
 				+ (this.outputFormat == null ? 0 : this.outputFormat.hashCode());
 		result = prime * result + (this.surroundApiWithQuotes ? 1231 : 1237);

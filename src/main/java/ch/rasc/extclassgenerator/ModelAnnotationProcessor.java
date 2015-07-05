@@ -76,13 +76,13 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 		OutputConfig outputConfig = new OutputConfig();
 
-		outputConfig.setDebug(!"false".equals(this.processingEnv.getOptions().get(
-				OPTION_DEBUG)));
-		boolean createBaseAndSubclass = "true".equals(this.processingEnv.getOptions()
-				.get(OPTION_CREATEBASEANDSUBCLASS));
+		outputConfig.setDebug(
+				!"false".equals(this.processingEnv.getOptions().get(OPTION_DEBUG)));
+		boolean createBaseAndSubclass = "true".equals(
+				this.processingEnv.getOptions().get(OPTION_CREATEBASEANDSUBCLASS));
 
-		String outputFormatString = this.processingEnv.getOptions().get(
-				OPTION_OUTPUTFORMAT);
+		String outputFormatString = this.processingEnv.getOptions()
+				.get(OPTION_OUTPUTFORMAT);
 		outputConfig.setOutputFormat(OutputFormat.EXTJS4);
 		if (StringUtils.hasText(outputFormatString)) {
 			if (OutputFormat.TOUCH2.name().equalsIgnoreCase(outputFormatString)) {
@@ -93,23 +93,23 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			}
 		}
 
-		String includeValidationString = this.processingEnv.getOptions().get(
-				OPTION_INCLUDEVALIDATION);
+		String includeValidationString = this.processingEnv.getOptions()
+				.get(OPTION_INCLUDEVALIDATION);
 		outputConfig.setIncludeValidation(IncludeValidation.NONE);
 		if (StringUtils.hasText(includeValidationString)) {
 			if (IncludeValidation.ALL.name().equalsIgnoreCase(includeValidationString)) {
 				outputConfig.setIncludeValidation(IncludeValidation.ALL);
 			}
-			else if (IncludeValidation.BUILTIN.name().equalsIgnoreCase(
-					includeValidationString)) {
+			else if (IncludeValidation.BUILTIN.name()
+					.equalsIgnoreCase(includeValidationString)) {
 				outputConfig.setIncludeValidation(IncludeValidation.BUILTIN);
 			}
 		}
 
-		outputConfig.setUseSingleQuotes("true".equals(this.processingEnv.getOptions()
-				.get(OPTION_USESINGLEQUOTES)));
-		outputConfig.setSurroundApiWithQuotes("true".equals(this.processingEnv
-				.getOptions().get(OPTION_SURROUNDAPIWITHQUOTES)));
+		outputConfig.setUseSingleQuotes("true"
+				.equals(this.processingEnv.getOptions().get(OPTION_USESINGLEQUOTES)));
+		outputConfig.setSurroundApiWithQuotes("true".equals(
+				this.processingEnv.getOptions().get(OPTION_SURROUNDAPIWITHQUOTES)));
 
 		for (TypeElement annotation : annotations) {
 			Set<? extends Element> elements = roundEnv
@@ -200,7 +200,8 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		return ALLOW_OTHER_PROCESSORS_TO_CLAIM_ANNOTATIONS;
 	}
 
-	private static String generateSubclassCode(Class<?> clazz, OutputConfig outputConfig) {
+	private static String generateSubclassCode(Class<?> clazz,
+			OutputConfig outputConfig) {
 		Model modelAnnotation = clazz.getAnnotation(Model.class);
 
 		String name;

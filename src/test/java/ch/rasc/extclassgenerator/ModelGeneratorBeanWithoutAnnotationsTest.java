@@ -47,8 +47,8 @@ public class ModelGeneratorBeanWithoutAnnotationsTest {
 		assertThat(modelBean.getIdProperty()).isNull();
 		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
-		assertThat(modelBean.getName()).isEqualTo(
-				"ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations");
+		assertThat(modelBean.getName())
+				.isEqualTo("ch.rasc.extclassgenerator.bean.BeanWithoutAnnotations");
 		assertThat(modelBean.getFields()).hasSize(29);
 		assertThat(BeanWithoutAnnotations.expectedFields).hasSize(29);
 

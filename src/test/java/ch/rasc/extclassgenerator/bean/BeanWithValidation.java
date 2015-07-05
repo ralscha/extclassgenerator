@@ -40,8 +40,8 @@ import ch.rasc.extclassgenerator.ModelValidation;
 import ch.rasc.extclassgenerator.ModelValidationType;
 import ch.rasc.extclassgenerator.ModelValidations;
 
-@ModelValidations({ @ModelValidation(propertyName = "email",
-		value = ModelValidationType.PRESENCE) })
+@ModelValidations({
+		@ModelValidation(propertyName = "email", value = ModelValidationType.PRESENCE) })
 public class BeanWithValidation {
 
 	@Email
@@ -85,6 +85,7 @@ public class BeanWithValidation {
 	}
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("email", ModelType.STRING);

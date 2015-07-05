@@ -30,7 +30,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,18 +47,16 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
-import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.util.StringUtils;
-
-import ch.rasc.extclassgenerator.association.AbstractAssociation;
-import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ch.rasc.extclassgenerator.association.AbstractAssociation;
+import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
 /**
  * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided
@@ -89,7 +86,7 @@ public abstract class ModelGenerator {
 	 */
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, Class<?> clazz, OutputFormat format)
-			throws IOException {
+					throws IOException {
 		writeModel(request, response, clazz, format, IncludeValidation.NONE, false);
 	}
 
@@ -138,7 +135,7 @@ public abstract class ModelGenerator {
 
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, Class<?> clazz, OutputConfig outputConfig)
-			throws IOException {
+					throws IOException {
 		ModelBean model = createModel(clazz, outputConfig);
 		writeModel(request, response, model, outputConfig);
 	}
@@ -155,7 +152,7 @@ public abstract class ModelGenerator {
 	 */
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, ModelBean model, OutputFormat format)
-			throws IOException {
+					throws IOException {
 		writeModel(request, response, model, format, false);
 	}
 
@@ -286,7 +283,7 @@ public abstract class ModelGenerator {
 
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, ModelBean model, OutputConfig outputConfig)
-			throws IOException {
+					throws IOException {
 
 		byte[] data = generateJavascript(model, outputConfig).getBytes(UTF8_CHARSET);
 		String ifNoneMatch = request.getHeader("If-None-Match");
@@ -387,20 +384,9 @@ public abstract class ModelGenerator {
 		if (clazz.isInterface()) {
 			final List<Method> methods = new ArrayList<Method>();
 
-			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
-				@Override
-				public void doWith(Method method) throws IllegalArgumentException,
-						IllegalAccessException {
-					methods.add(method);
-				}
-			});
+			ReflectionUtils.doWithMethods(clazz, method -> methods.add(method));
 
-			Collections.sort(methods, new Comparator<Method>() {
-				@Override
-				public int compare(Method o1, Method o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			Collections.sort(methods, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
 			for (Method method : methods) {
 				createModelBean(model, method, outputConfig);
@@ -410,8 +396,8 @@ public abstract class ModelGenerator {
 
 			final Set<String> fields = new HashSet<String>();
 
-			Set<ModelField> modelFieldsOnType = AnnotationUtils.getRepeatableAnnotation(
-					clazz, ModelFields.class, ModelField.class);
+			Set<ModelField> modelFieldsOnType = AnnotationUtils
+					.getRepeatableAnnotation(clazz, ModelFields.class, ModelField.class);
 			for (ModelField modelField : modelFieldsOnType) {
 				if (StringUtils.hasText(modelField.value())) {
 					ModelFieldBean modelFieldBean;
@@ -453,26 +439,20 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			ReflectionUtils.doWithFields(clazz, new FieldCallback() {
+			ReflectionUtils.doWithFields(clazz, field -> {
+				if (!fields.contains(field.getName()) && (field
+						.getAnnotation(ModelField.class) != null
+						|| field.getAnnotation(ModelAssociation.class) != null
+						|| (Modifier.isPublic(field.getModifiers())
+								|| hasReadMethod.contains(field.getName()))
+								&& field.getAnnotation(JsonIgnore.class) == null)) {
 
-				@Override
-				public void doWith(Field field) throws IllegalArgumentException,
-						IllegalAccessException {
-					if (!fields.contains(field.getName())
-							&& (field.getAnnotation(ModelField.class) != null
-									|| field.getAnnotation(ModelAssociation.class) != null || (Modifier
-									.isPublic(field.getModifiers()) || hasReadMethod
-									.contains(field.getName()))
-									&& field.getAnnotation(JsonIgnore.class) == null)) {
+					// ignore superclass declarations of fields already
+					// found in a subclass
+					fields.add(field.getName());
+					createModelBean(model, field, outputConfig);
 
-						// ignore superclass declarations of fields already
-						// found in a subclass
-						fields.add(field.getName());
-						createModelBean(model, field, outputConfig);
-
-					}
 				}
-
 			});
 		}
 
@@ -610,13 +590,13 @@ public abstract class ModelGenerator {
 				}
 
 				if (accessibleObject instanceof Field) {
-					PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(
-							declaringClass, name);
+					PropertyDescriptor pd = BeanUtils
+							.getPropertyDescriptor(declaringClass, name);
 					if (pd != null && pd.getReadMethod() != null) {
 						for (Annotation readMethodAnnotation : pd.getReadMethod()
 								.getAnnotations()) {
-							AbstractValidation.addValidationToModel(model,
-									modelFieldBean, readMethodAnnotation,
+							AbstractValidation.addValidationToModel(model, modelFieldBean,
+									readMethodAnnotation,
 									outputConfig.getIncludeValidation());
 						}
 					}
@@ -659,7 +639,8 @@ public abstract class ModelGenerator {
 
 		if ((modelFieldAnnotation.useNull() || modelFieldAnnotation.allowNull())
 				&& (type == ModelType.INTEGER || type == ModelType.FLOAT
-						|| type == ModelType.NUMBER || type == ModelType.STRING || type == ModelType.BOOLEAN)) {
+						|| type == ModelType.NUMBER || type == ModelType.STRING
+						|| type == ModelType.BOOLEAN)) {
 			modelFieldBean.setAllowNull(Boolean.TRUE);
 		}
 
@@ -874,8 +855,8 @@ public abstract class ModelGenerator {
 						.withView(jsonView).writeValueAsString(modelObject);
 			}
 			else {
-				configObjectString = mapper.writerWithView(jsonView).writeValueAsString(
-						modelObject);
+				configObjectString = mapper.writerWithView(jsonView)
+						.writeValueAsString(modelObject);
 			}
 
 		}
@@ -899,8 +880,8 @@ public abstract class ModelGenerator {
 		}
 
 		if (!outputConfig.isDebug()) {
-			jsCache.put(new JsCacheKey(model, outputConfig), new SoftReference<String>(
-					result));
+			jsCache.put(new JsCacheKey(model, outputConfig),
+					new SoftReference<String>(result));
 		}
 		return result;
 	}

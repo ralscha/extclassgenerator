@@ -29,33 +29,34 @@ import ch.rasc.extclassgenerator.ModelValidations;
 		value = ModelValidationType.PRESENCE) })
 public class BeanWithGenericValidation {
 
-	@ModelValidation(value = ModelValidationType.GENERIC, parameters = {
-			@ModelValidationParameter(name = "type", value = "notUnique"),
-			@ModelValidationParameter(name = "update", value = "true") })
+	@ModelValidation(value = ModelValidationType.GENERIC,
+			parameters = { @ModelValidationParameter(name = "type", value = "notUnique"),
+					@ModelValidationParameter(name = "update", value = "true") })
 	public String singleton;
 
 	@ModelValidation(value = ModelValidationType.EXCLUSION,
 			exclusionOrInclusionList = { "_" })
 	public String excluded;
 
-	@ModelValidation(value = ModelValidationType.EXCLUSION, exclusionOrInclusionList = {
-			"_", "*" })
+	@ModelValidation(value = ModelValidationType.EXCLUSION,
+			exclusionOrInclusionList = { "_", "*" })
 	public String excluded2;
 
-	@ModelValidation(value = ModelValidationType.INCLUSION, exclusionOrInclusionList = {
-			"fish", "fruit" })
+	@ModelValidation(value = ModelValidationType.INCLUSION,
+			exclusionOrInclusionList = { "fish", "fruit" })
 	public String included;
 
 	@ModelValidation(value = ModelValidationType.EXCLUSION,
-			parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]"))
+			parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]") )
 	public String excludedV1;
 
 	@ModelValidation(value = ModelValidationType.INCLUSION,
 			parameters = @ModelValidationParameter(name = "list",
-					value = "[\"fish\",\"fruit\"]"))
+					value = "[\"fish\",\"fruit\"]") )
 	public String includedV1;
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
+
 	static {
 
 		ModelFieldBean field = new ModelFieldBean("singleton", ModelType.STRING);

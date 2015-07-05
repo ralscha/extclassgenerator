@@ -109,10 +109,11 @@ public class ProxyObject {
 		}
 
 		if (model.getWriteAllFields() != null
-				&& (config.getOutputFormat() == OutputFormat.EXTJS5
-						&& model.getWriteAllFields() || !model.getWriteAllFields()
-						&& (config.getOutputFormat() == OutputFormat.EXTJS4 || config
-								.getOutputFormat() == OutputFormat.TOUCH2))) {
+				&& (config.getOutputFormat() == OutputFormat.EXTJS5 && model
+						.getWriteAllFields()
+				|| !model.getWriteAllFields()
+						&& (config.getOutputFormat() == OutputFormat.EXTJS4
+								|| config.getOutputFormat() == OutputFormat.TOUCH2))) {
 			writerConfigObject.put("writeAllFields", model.getWriteAllFields());
 		}
 
@@ -157,11 +158,9 @@ public class ProxyObject {
 	}
 
 	public boolean hasContent() {
-		return this.api != null
-				|| this.directFn != null
-				|| this.reader != null
-				|| this.writer != null
-				&& !(this.writer.size() == 1 && this.writer.containsKey("writeAllFields"))
+		return this.api != null || this.directFn != null || this.reader != null
+				|| this.writer != null && !(this.writer.size() == 1
+						&& this.writer.containsKey("writeAllFields"))
 				|| this.idParam != null;
 	}
 }

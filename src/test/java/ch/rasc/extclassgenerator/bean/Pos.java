@@ -25,8 +25,8 @@ public class Pos {
 	public int orderId;
 
 	@ModelAssociation(autoLoad = true, foreignKey = "orderId",
-			getterName = "getMeTheOrder", setterName = "setTheOrder",
-			model = Order.class, name = "theOrder", primaryKey = "entityId",
+			getterName = "getMeTheOrder", setterName = "setTheOrder", model = Order.class,
+			name = "theOrder", primaryKey = "entityId",
 			value = ModelAssociationType.BELONGS_TO)
 	public Order order;
 }

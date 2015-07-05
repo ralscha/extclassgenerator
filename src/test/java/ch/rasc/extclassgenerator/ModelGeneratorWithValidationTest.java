@@ -49,12 +49,11 @@ public class ModelGeneratorWithValidationTest {
 		model.addValidation(new PresenceValidation("id"));
 		model.addValidation(new LengthValidation("name", 2, null));
 
-		String code = ModelGenerator
-				.generateJavascript(model, OutputFormat.EXTJS4, false);
+		String code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
+				false);
 
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],validations:[{type:\"presence\",field:\"id\"},{type:\"length\",field:\"name\",min:2}]});");
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],validations:[{type:\"presence\",field:\"id\"},{type:\"length\",field:\"name\",min:2}]});");
 	}
 
 	@Test
@@ -81,16 +80,14 @@ public class ModelGeneratorWithValidationTest {
 		options.put("o3", Boolean.TRUE);
 		model.addValidation(new GenericValidation("myOwnValidator2", "id", options));
 
-		String code = ModelGenerator
-				.generateJavascript(model, OutputFormat.EXTJS4, false);
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"email\",type:\"string\"},{name:\"salary\",type:\"float\",useNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]});");
+		String code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
+				false);
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"email\",type:\"string\"},{name:\"salary\",type:\"float\",useNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]});");
 
 		code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false);
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"email\",type:\"string\"},{name:\"salary\",type:\"float\",useNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]});");
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"email\",type:\"string\"},{name:\"salary\",type:\"float\",useNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]});");
 	}
 
 	@Test
@@ -113,11 +110,10 @@ public class ModelGeneratorWithValidationTest {
 		options.put("o3", Boolean.TRUE);
 		model.addValidation(new GenericValidation("myOwnValidator2", "id", options));
 
-		String code = ModelGenerator
-				.generateJavascript(model, OutputFormat.TOUCH2, false);
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],validations:[{type:\"presence\",field:\"id\"},{type:\"length\",field:\"name\",min:2},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]}});");
+		String code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
+				false);
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}],validations:[{type:\"presence\",field:\"id\"},{type:\"length\",field:\"name\",min:2},{type:\"myOwnValidator1\",field:\"name\"},{type:\"myOwnValidator2\",field:\"id\",o1:\"s\",o2:10,o3:true}]}});");
 
 	}
 
@@ -135,16 +131,14 @@ public class ModelGeneratorWithValidationTest {
 				.<AbstractValidation> singletonList(new EmailValidation("email")));
 		model.addValidation(new FormatValidation("salary", "[0-9]*\\.[0-9]*"));
 
-		String code = ModelGenerator
-				.generateJavascript(model, OutputFormat.TOUCH2, false);
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/}]}});");
+		String code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,
+				false);
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/}]}});");
 
 		code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false);
-		assertThat(code)
-				.isEqualTo(
-						"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/}]}});");
+		assertThat(code).isEqualTo(
+				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",config:{fields:[{name:\"id\",type:\"int\"},{name:\"salary\",type:\"float\",allowNull:true}],validations:[{type:\"presence\",field:\"id\"},{type:\"email\",field:\"email\"},{type:\"format\",field:\"salary\",matcher:/[0-9]*\\.[0-9]*/}]}});");
 	}
 
 }

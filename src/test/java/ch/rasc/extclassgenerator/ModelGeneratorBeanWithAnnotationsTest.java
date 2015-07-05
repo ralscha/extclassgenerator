@@ -37,8 +37,8 @@ public class ModelGeneratorBeanWithAnnotationsTest {
 
 	@Test
 	public void testWithoutQuotes() {
-		GeneratorTestUtil
-				.testWriteModel(BeanWithAnnotations.class, "BeanWithAnnotations");
+		GeneratorTestUtil.testWriteModel(BeanWithAnnotations.class,
+				"BeanWithAnnotations");
 		GeneratorTestUtil.testGenerateJavascript(BeanWithAnnotations.class,
 				"BeanWithAnnotations", false, IncludeValidation.NONE, false);
 	}

@@ -197,17 +197,19 @@ public class GeneratorTestUtil {
 	public static void testGenerateJavascript(Class<?> clazz, String modelName,
 			boolean apiWithQuotes, IncludeValidation includeValidation,
 			boolean useSingleQuote) {
-		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS4, true,
-				apiWithQuotes, includeValidation, useSingleQuote);
+		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS4, true, apiWithQuotes,
+				includeValidation, useSingleQuote);
 		if (!useSingleQuote) {
 			if (includeValidation == IncludeValidation.NONE) {
 				GeneratorTestUtil.compareExtJs4Code(modelName, ModelGenerator
 						.generateJavascript(clazz, OutputFormat.EXTJS4, true), true,
 						false);
 			}
-			GeneratorTestUtil.compareExtJs4Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.EXTJS4, includeValidation,
-							true), true, false);
+			GeneratorTestUtil
+					.compareExtJs4Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.EXTJS4, includeValidation, true),
+							true, false);
 		}
 
 		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS4, false,
@@ -218,22 +220,26 @@ public class GeneratorTestUtil {
 						.generateJavascript(clazz, OutputFormat.EXTJS4, false), false,
 						false);
 			}
-			GeneratorTestUtil.compareExtJs4Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.EXTJS4, includeValidation,
-							false), false, false);
+			GeneratorTestUtil
+					.compareExtJs4Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.EXTJS4, includeValidation, false),
+							false, false);
 		}
 
-		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS5, true,
-				apiWithQuotes, includeValidation, useSingleQuote);
+		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS5, true, apiWithQuotes,
+				includeValidation, useSingleQuote);
 		if (!useSingleQuote) {
 			if (includeValidation == IncludeValidation.NONE) {
 				GeneratorTestUtil.compareExtJs5Code(modelName, ModelGenerator
 						.generateJavascript(clazz, OutputFormat.EXTJS5, true), true,
 						false);
 			}
-			GeneratorTestUtil.compareExtJs5Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.EXTJS5, includeValidation,
-							true), true, false);
+			GeneratorTestUtil
+					.compareExtJs5Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.EXTJS5, includeValidation, true),
+							true, false);
 		}
 
 		testGenerateJavascript(clazz, modelName, OutputFormat.EXTJS5, false,
@@ -244,22 +250,26 @@ public class GeneratorTestUtil {
 						.generateJavascript(clazz, OutputFormat.EXTJS5, false), false,
 						false);
 			}
-			GeneratorTestUtil.compareExtJs5Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.EXTJS5, includeValidation,
-							false), false, false);
+			GeneratorTestUtil
+					.compareExtJs5Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.EXTJS5, includeValidation, false),
+							false, false);
 		}
 
-		testGenerateJavascript(clazz, modelName, OutputFormat.TOUCH2, true,
-				apiWithQuotes, includeValidation, useSingleQuote);
+		testGenerateJavascript(clazz, modelName, OutputFormat.TOUCH2, true, apiWithQuotes,
+				includeValidation, useSingleQuote);
 		if (!useSingleQuote) {
 			if (includeValidation == IncludeValidation.NONE) {
 				GeneratorTestUtil.compareTouch2Code(modelName, ModelGenerator
 						.generateJavascript(clazz, OutputFormat.TOUCH2, true), true,
 						false);
 			}
-			GeneratorTestUtil.compareTouch2Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.TOUCH2, includeValidation,
-							true), true, false);
+			GeneratorTestUtil
+					.compareTouch2Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.TOUCH2, includeValidation, true),
+							true, false);
 		}
 
 		testGenerateJavascript(clazz, modelName, OutputFormat.TOUCH2, false,
@@ -270,30 +280,32 @@ public class GeneratorTestUtil {
 						.generateJavascript(clazz, OutputFormat.TOUCH2, false), false,
 						false);
 			}
-			GeneratorTestUtil.compareTouch2Code(modelName, ModelGenerator
-					.generateJavascript(clazz, OutputFormat.TOUCH2, includeValidation,
-							false), false, false);
+			GeneratorTestUtil
+					.compareTouch2Code(
+							modelName, ModelGenerator.generateJavascript(clazz,
+									OutputFormat.TOUCH2, includeValidation, false),
+							false, false);
 		}
 	}
 
 	private static void compareModelString(String expectedValue, String value,
 			boolean debug) {
 		if (debug) {
-			assertThat(value.replaceAll("\\r?\\n", "\n")).isEqualTo(
-					expectedValue.replaceAll("\\r?\\n", "\n"));
+			assertThat(value.replaceAll("\\r?\\n", "\n"))
+					.isEqualTo(expectedValue.replaceAll("\\r?\\n", "\n"));
 		}
 		else {
-			assertThat(value.replace(" ", "")).isEqualTo(
-					expectedValue.replaceAll("\\r?\\n", "").replace(" ", ""));
+			assertThat(value.replace(" ", ""))
+					.isEqualTo(expectedValue.replaceAll("\\r?\\n", "").replace(" ", ""));
 		}
 	}
 
 	public static void compareExtJs4Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils.toString(GeneratorTestUtil.class
-					.getResourceAsStream("/generator/" + model + "ExtJs4"
-							+ (apiWithQuotes ? "Q" : "") + ".json"));
+			String expectedValue = IOUtils
+					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
+							+ model + "ExtJs4" + (apiWithQuotes ? "Q" : "") + ".json"));
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -304,9 +316,9 @@ public class GeneratorTestUtil {
 	public static void compareExtJs5Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils.toString(GeneratorTestUtil.class
-					.getResourceAsStream("/generator/" + model + "ExtJs5"
-							+ (apiWithQuotes ? "Q" : "") + ".json"));
+			String expectedValue = IOUtils
+					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
+							+ model + "ExtJs5" + (apiWithQuotes ? "Q" : "") + ".json"));
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -317,9 +329,9 @@ public class GeneratorTestUtil {
 	public static void compareTouch2Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils.toString(GeneratorTestUtil.class
-					.getResourceAsStream("/generator/" + model + "Touch2"
-							+ (apiWithQuotes ? "Q" : "") + ".json"));
+			String expectedValue = IOUtils
+					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
+							+ model + "Touch2" + (apiWithQuotes ? "Q" : "") + ".json"));
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {

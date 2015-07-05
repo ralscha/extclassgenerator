@@ -126,19 +126,27 @@ public class ModelGeneratorBeanWithValidationTest {
 
 	@Test
 	public void testGenerateJavascriptClassOfQOutputFormatBoolean() {
-		GeneratorTestUtil.compareExtJs4Code("BeanWithValidation", ModelGenerator
-				.generateJavascript(BeanWithValidation.class, OutputFormat.EXTJS4,
-						IncludeValidation.ALL, true), true, false);
-		GeneratorTestUtil.compareExtJs4Code("BeanWithValidation", ModelGenerator
-				.generateJavascript(BeanWithValidation.class, OutputFormat.EXTJS4,
-						IncludeValidation.ALL, false), false, false);
+		GeneratorTestUtil
+				.compareExtJs4Code("BeanWithValidation",
+						ModelGenerator.generateJavascript(BeanWithValidation.class,
+								OutputFormat.EXTJS4, IncludeValidation.ALL, true),
+						true, false);
+		GeneratorTestUtil
+				.compareExtJs4Code("BeanWithValidation",
+						ModelGenerator.generateJavascript(BeanWithValidation.class,
+								OutputFormat.EXTJS4, IncludeValidation.ALL, false),
+						false, false);
 
-		GeneratorTestUtil.compareTouch2Code("BeanWithValidation", ModelGenerator
-				.generateJavascript(BeanWithValidation.class, OutputFormat.TOUCH2,
-						IncludeValidation.ALL, true), true, false);
-		GeneratorTestUtil.compareTouch2Code("BeanWithValidation", ModelGenerator
-				.generateJavascript(BeanWithValidation.class, OutputFormat.TOUCH2,
-						IncludeValidation.ALL, false), false, false);
+		GeneratorTestUtil
+				.compareTouch2Code("BeanWithValidation",
+						ModelGenerator.generateJavascript(BeanWithValidation.class,
+								OutputFormat.TOUCH2, IncludeValidation.ALL, true),
+						true, false);
+		GeneratorTestUtil
+				.compareTouch2Code("BeanWithValidation",
+						ModelGenerator.generateJavascript(BeanWithValidation.class,
+								OutputFormat.TOUCH2, IncludeValidation.ALL, false),
+						false, false);
 	}
 
 	@Test
@@ -152,8 +160,8 @@ public class ModelGeneratorBeanWithValidationTest {
 		assertThat(modelBean.getIdProperty()).isNull();
 		assertThat(modelBean.getVersionProperty()).isNull();
 		assertThat(modelBean.isPaging()).isFalse();
-		assertThat(modelBean.getName()).isEqualTo(
-				"ch.rasc.extclassgenerator.bean.BeanWithValidation");
+		assertThat(modelBean.getName())
+				.isEqualTo("ch.rasc.extclassgenerator.bean.BeanWithValidation");
 		assertThat(modelBean.getFields()).hasSize(10);
 		assertThat(BeanWithValidation.expectedFields).hasSize(10);
 
@@ -164,8 +172,8 @@ public class ModelGeneratorBeanWithValidationTest {
 
 		assertThat(modelBean.getValidations()).hasSize(13);
 
-		assertThat(modelBean.getValidations().get(0)).isInstanceOf(
-				PresenceValidation.class);
+		assertThat(modelBean.getValidations().get(0))
+				.isInstanceOf(PresenceValidation.class);
 		PresenceValidation presenceValidation = (PresenceValidation) modelBean
 				.getValidations().get(0);
 		assertThat(presenceValidation.getType()).isEqualTo("presence");
@@ -238,17 +246,17 @@ public class ModelGeneratorBeanWithValidationTest {
 		assertThat(modelBean.getValidations().get(10).getType()).isEqualTo("past");
 		assertThat(modelBean.getValidations().get(10).getField()).isEqualTo("past");
 
-		assertThat(modelBean.getValidations().get(11)).isInstanceOf(
-				NotBlankValidation.class);
+		assertThat(modelBean.getValidations().get(11))
+				.isInstanceOf(NotBlankValidation.class);
 		assertThat(modelBean.getValidations().get(11).getType()).isEqualTo("notBlank");
 		assertThat(modelBean.getValidations().get(11).getField()).isEqualTo("notBlank");
 
-		assertThat(modelBean.getValidations().get(12)).isInstanceOf(
-				CreditCardNumberValidation.class);
-		assertThat(modelBean.getValidations().get(12).getType()).isEqualTo(
-				"creditCardNumber");
-		assertThat(modelBean.getValidations().get(12).getField()).isEqualTo(
-				"creditCardNumber");
+		assertThat(modelBean.getValidations().get(12))
+				.isInstanceOf(CreditCardNumberValidation.class);
+		assertThat(modelBean.getValidations().get(12).getType())
+				.isEqualTo("creditCardNumber");
+		assertThat(modelBean.getValidations().get(12).getField())
+				.isEqualTo("creditCardNumber");
 
 	}
 
@@ -257,15 +265,15 @@ public class ModelGeneratorBeanWithValidationTest {
 		ModelBean model = ModelGenerator.createModel(BeanWithValidation.class,
 				IncludeValidation.ALL);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, true),
-				true, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, true), true,
+				false);
 		GeneratorTestUtil.compareExtJs4Code("BeanWithValidation",
 				ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4, false),
 				false, false);
 
 		GeneratorTestUtil.compareTouch2Code("BeanWithValidation",
-				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, true),
-				true, false);
+				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, true), true,
+				false);
 		GeneratorTestUtil.compareTouch2Code("BeanWithValidation",
 				ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2, false),
 				false, false);
@@ -274,7 +282,8 @@ public class ModelGeneratorBeanWithValidationTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testLengthValidation() {
 		@SuppressWarnings("unused")
-		LengthValidation lv = new LengthValidation("name", (Integer) null, (Integer) null);
+		LengthValidation lv = new LengthValidation("name", (Integer) null,
+				(Integer) null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
