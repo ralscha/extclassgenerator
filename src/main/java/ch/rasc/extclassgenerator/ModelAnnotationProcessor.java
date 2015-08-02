@@ -58,6 +58,8 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 	private static final String OPTION_SURROUNDAPIWITHQUOTES = "surroundApiWithQuotes";
 
+	private static final String OPTION_LINEENDING = "lineEnding";
+
 	@Override
 	public boolean process(Set<? extends TypeElement> annotations,
 			RoundEnvironment roundEnv) {
@@ -110,6 +112,19 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 				.equals(this.processingEnv.getOptions().get(OPTION_USESINGLEQUOTES)));
 		outputConfig.setSurroundApiWithQuotes("true".equals(
 				this.processingEnv.getOptions().get(OPTION_SURROUNDAPIWITHQUOTES)));
+
+		outputConfig.setLineEnding(LineEnding.SYSTEM);
+		String lineEndingOption = this.processingEnv.getOptions().get(OPTION_LINEENDING);
+		if (lineEndingOption != null) {
+			try {
+				LineEnding lineEnding = LineEnding
+						.valueOf(lineEndingOption.toUpperCase());
+				outputConfig.setLineEnding(lineEnding);
+			}
+			catch (Exception e) {
+				// ignore an invalid value
+			}
+		}
 
 		for (TypeElement annotation : annotations) {
 			Set<? extends Element> elements = roundEnv

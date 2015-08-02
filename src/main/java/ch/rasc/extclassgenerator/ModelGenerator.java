@@ -52,14 +52,14 @@ import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.util.StringUtils;
 
-import ch.rasc.extclassgenerator.association.AbstractAssociation;
-import ch.rasc.extclassgenerator.validation.AbstractValidation;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import ch.rasc.extclassgenerator.association.AbstractAssociation;
+import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
 /**
  * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided
@@ -857,7 +857,7 @@ public abstract class ModelGenerator {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Ext.define(\"").append(model.getName()).append("\",");
 		if (outputConfig.isDebug()) {
-			sb.append("\n");
+			sb.append("\r\n");
 		}
 
 		String configObjectString;
@@ -897,6 +897,17 @@ public abstract class ModelGenerator {
 
 		if (outputConfig.isUseSingleQuotes()) {
 			result = result.replace('"', '\'');
+		}
+
+		if (outputConfig.getLineEnding() == LineEnding.CRLF) {
+			result = result.replaceAll("\r?\n", "\r\n");
+		}
+		else if (outputConfig.getLineEnding() == LineEnding.LF) {
+			result = result.replaceAll("\r?\n", "\n");
+		}
+		else if (outputConfig.getLineEnding() == LineEnding.SYSTEM) {
+			String lineSeparator = System.getProperty("line.separator");
+			result = result.replaceAll("\r?\n", lineSeparator);
 		}
 
 		if (!outputConfig.isDebug()) {

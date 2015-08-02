@@ -30,6 +30,8 @@ public class OutputConfig {
 
 	private boolean surroundApiWithQuotes;
 
+	private LineEnding lineEnding;
+
 	public IncludeValidation getIncludeValidation() {
 		return this.includeValidation;
 	}
@@ -70,6 +72,14 @@ public class OutputConfig {
 		this.surroundApiWithQuotes = surroundApiWithQuotes;
 	}
 
+	public LineEnding getLineEnding() {
+		return this.lineEnding;
+	}
+
+	public void setLineEnding(LineEnding lineEnding) {
+		this.lineEnding = lineEnding;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,6 +87,8 @@ public class OutputConfig {
 		result = prime * result + (this.debug ? 1231 : 1237);
 		result = prime * result + (this.includeValidation == null ? 0
 				: this.includeValidation.hashCode());
+		result = prime * result
+				+ (this.lineEnding == null ? 0 : this.lineEnding.hashCode());
 		result = prime * result
 				+ (this.outputFormat == null ? 0 : this.outputFormat.hashCode());
 		result = prime * result + (this.surroundApiWithQuotes ? 1231 : 1237);
@@ -100,6 +112,9 @@ public class OutputConfig {
 			return false;
 		}
 		if (this.includeValidation != other.includeValidation) {
+			return false;
+		}
+		if (this.lineEnding != other.lineEnding) {
 			return false;
 		}
 		if (this.outputFormat != other.outputFormat) {
