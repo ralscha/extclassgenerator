@@ -82,10 +82,10 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 		assertThat(modelBean.getValidations().get(1)).isInstanceOf(RangeValidation.class);
 		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo("range");
 		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo("aBigInteger");
-		RangeValidation rv = (RangeValidation)modelBean.getValidations().get(1);
+		RangeValidation rv = (RangeValidation) modelBean.getValidations().get(1);
 		assertThat(rv.getMin()).isNull();
 		assertThat(rv.getMax()).isEqualTo(new BigDecimal("500000"));
-		
+
 		assertThat(modelBean.getValidations().get(2))
 				.isInstanceOf(PresenceValidation.class);
 		assertThat(modelBean.getValidations().get(2).getType()).isEqualTo("presence");

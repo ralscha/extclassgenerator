@@ -367,7 +367,7 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		final Set<String> hasReadMethod = new HashSet<String>();
+		final Set<String> readMethods = new HashSet<String>();
 
 		BeanInfo bi;
 		try {
@@ -380,7 +380,7 @@ public abstract class ModelGenerator {
 		for (PropertyDescriptor pd : bi.getPropertyDescriptors()) {
 			if (pd.getReadMethod() != null
 					&& pd.getReadMethod().getAnnotation(JsonIgnore.class) == null) {
-				hasReadMethod.add(pd.getName());
+				readMethods.add(pd.getName());
 			}
 		}
 
@@ -462,7 +462,7 @@ public abstract class ModelGenerator {
 							.getAnnotation(ModelField.class) != null
 							|| field.getAnnotation(ModelAssociation.class) != null
 							|| (Modifier.isPublic(field.getModifiers())
-									|| hasReadMethod.contains(field.getName()))
+									|| readMethods.contains(field.getName()))
 									&& field.getAnnotation(JsonIgnore.class) == null)) {
 
 						// ignore superclass declarations of fields already
@@ -473,6 +473,19 @@ public abstract class ModelGenerator {
 					}
 				}
 
+			});
+
+			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
+				@Override
+				public void doWith(Method method)
+						throws IllegalArgumentException, IllegalAccessException {
+
+					if ((method.getAnnotation(ModelField.class) != null
+							|| method.getAnnotation(ModelAssociation.class) != null)
+							&& method.getAnnotation(JsonIgnore.class) == null) {
+						createModelBean(model, method, outputConfig);
+					}
+				}
 			});
 		}
 
@@ -612,11 +625,23 @@ public abstract class ModelGenerator {
 				if (accessibleObject instanceof Field) {
 					PropertyDescriptor pd = BeanUtils
 							.getPropertyDescriptor(declaringClass, name);
-					if (pd != null && pd.getReadMethod() != null) {
-						for (Annotation readMethodAnnotation : pd.getReadMethod()
-								.getAnnotations()) {
-							AbstractValidation.addValidationToModel(model, modelFieldBean,
-									readMethodAnnotation, outputConfig);
+					if (pd != null) {
+						if (pd.getReadMethod() != null) {
+							for (Annotation readMethodAnnotation : pd.getReadMethod()
+									.getAnnotations()) {
+								AbstractValidation.addValidationToModel(model,
+										modelFieldBean, readMethodAnnotation,
+										outputConfig);
+							}
+						}
+
+						if (pd.getWriteMethod() != null) {
+							for (Annotation writeMethodAnnotation : pd.getWriteMethod()
+									.getAnnotations()) {
+								AbstractValidation.addValidationToModel(model,
+										modelFieldBean, writeMethodAnnotation,
+										outputConfig);
+							}
 						}
 					}
 				}
