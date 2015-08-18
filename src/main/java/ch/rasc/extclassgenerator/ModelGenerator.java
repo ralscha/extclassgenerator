@@ -606,7 +606,7 @@ public abstract class ModelGenerator {
 
 				for (Annotation fieldAnnotation : fieldAnnotations) {
 					AbstractValidation.addValidationToModel(model, modelFieldBean,
-							fieldAnnotation, outputConfig.getIncludeValidation());
+							fieldAnnotation, outputConfig);
 				}
 
 				if (accessibleObject instanceof Field) {
@@ -616,8 +616,7 @@ public abstract class ModelGenerator {
 						for (Annotation readMethodAnnotation : pd.getReadMethod()
 								.getAnnotations()) {
 							AbstractValidation.addValidationToModel(model, modelFieldBean,
-									readMethodAnnotation,
-									outputConfig.getIncludeValidation());
+									readMethodAnnotation, outputConfig);
 						}
 					}
 				}

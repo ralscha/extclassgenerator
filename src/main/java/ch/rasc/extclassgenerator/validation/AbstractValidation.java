@@ -34,6 +34,8 @@ import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelValidation;
 import ch.rasc.extclassgenerator.ModelValidationParameter;
 import ch.rasc.extclassgenerator.ModelValidationType;
+import ch.rasc.extclassgenerator.OutputConfig;
+import ch.rasc.extclassgenerator.OutputFormat;
 
 /**
  * Base class for the validation objects
@@ -60,8 +62,9 @@ public abstract class AbstractValidation {
 
 	public static void addValidationToModel(ModelBean model,
 			ModelFieldBean modelFieldBean, Annotation fieldAnnotation,
-			IncludeValidation includeValidation) {
+			OutputConfig outputConfig) {
 		String annotationClassName = fieldAnnotation.annotationType().getName();
+		IncludeValidation includeValidation = outputConfig.getIncludeValidation();
 
 		if (includeValidation == IncludeValidation.BUILTIN
 				|| includeValidation == IncludeValidation.ALL) {
@@ -93,7 +96,9 @@ public abstract class AbstractValidation {
 			}
 		}
 
-		if (includeValidation == IncludeValidation.ALL) {
+		if ((includeValidation == IncludeValidation.BUILTIN
+				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5)
+				|| includeValidation == IncludeValidation.ALL) {
 
 			if (annotationClassName.equals("javax.validation.constraints.DecimalMax")) {
 				String value = (String) AnnotationUtils.getValue(fieldAnnotation);
@@ -106,17 +111,6 @@ public abstract class AbstractValidation {
 				model.addValidation(new RangeValidation(modelFieldBean.getName(),
 						new BigDecimal(value), null));
 			}
-			else if (annotationClassName.equals("javax.validation.constraints.Digits")) {
-				Integer integer = (Integer) AnnotationUtils.getValue(fieldAnnotation,
-						"integer");
-				Integer fraction = (Integer) AnnotationUtils.getValue(fieldAnnotation,
-						"fraction");
-				model.addValidation(new DigitsValidation(modelFieldBean.getName(),
-						integer, fraction));
-			}
-			else if (annotationClassName.equals("javax.validation.constraints.Future")) {
-				model.addValidation(new FutureValidation(modelFieldBean.getName()));
-			}
 			else if (annotationClassName.equals("javax.validation.constraints.Max")) {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(
@@ -126,6 +120,28 @@ public abstract class AbstractValidation {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(
 						new RangeValidation(modelFieldBean.getName(), value, null));
+			}
+			else if (annotationClassName
+					.equals("org.hibernate.validator.constraints.Range")) {
+				Long min = (Long) AnnotationUtils.getValue(fieldAnnotation, "min");
+				Long max = (Long) AnnotationUtils.getValue(fieldAnnotation, "max");
+				model.addValidation(
+						new RangeValidation(modelFieldBean.getName(), min, max));
+			}
+		}
+
+		if (includeValidation == IncludeValidation.ALL) {
+
+			if (annotationClassName.equals("javax.validation.constraints.Digits")) {
+				Integer integer = (Integer) AnnotationUtils.getValue(fieldAnnotation,
+						"integer");
+				Integer fraction = (Integer) AnnotationUtils.getValue(fieldAnnotation,
+						"fraction");
+				model.addValidation(new DigitsValidation(modelFieldBean.getName(),
+						integer, fraction));
+			}
+			else if (annotationClassName.equals("javax.validation.constraints.Future")) {
+				model.addValidation(new FutureValidation(modelFieldBean.getName()));
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Past")) {
 				model.addValidation(new PastValidation(modelFieldBean.getName()));
@@ -138,13 +154,6 @@ public abstract class AbstractValidation {
 			else if (annotationClassName
 					.equals("org.hibernate.validator.constraints.NotBlank")) {
 				model.addValidation(new NotBlankValidation(modelFieldBean.getName()));
-			}
-			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.Range")) {
-				Long min = (Long) AnnotationUtils.getValue(fieldAnnotation, "min");
-				Long max = (Long) AnnotationUtils.getValue(fieldAnnotation, "max");
-				model.addValidation(
-						new RangeValidation(modelFieldBean.getName(), min, max));
 			}
 		}
 	}

@@ -17,6 +17,8 @@ package ch.rasc.extclassgenerator;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +27,7 @@ import ch.rasc.extclassgenerator.validation.EmailValidation;
 import ch.rasc.extclassgenerator.validation.FormatValidation;
 import ch.rasc.extclassgenerator.validation.LengthValidation;
 import ch.rasc.extclassgenerator.validation.PresenceValidation;
+import ch.rasc.extclassgenerator.validation.RangeValidation;
 
 public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 
@@ -70,33 +73,40 @@ public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 			assertThat(field).isEqualsToByComparingFields(expectedField);
 		}
 
-		assertThat(modelBean.getValidations()).hasSize(5);
+		assertThat(modelBean.getValidations()).hasSize(6);
 		assertThat(modelBean.getValidations().get(0))
 				.isInstanceOf(PresenceValidation.class);
 		assertThat(modelBean.getValidations().get(0).getType()).isEqualTo("presence");
 		assertThat(modelBean.getValidations().get(0).getField()).isEqualTo("aBigInteger");
 
-		assertThat(modelBean.getValidations().get(1))
+		assertThat(modelBean.getValidations().get(1)).isInstanceOf(RangeValidation.class);
+		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo("range");
+		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo("aBigInteger");
+		RangeValidation rv = (RangeValidation)modelBean.getValidations().get(1);
+		assertThat(rv.getMin()).isNull();
+		assertThat(rv.getMax()).isEqualTo(new BigDecimal("500000"));
+		
+		assertThat(modelBean.getValidations().get(2))
 				.isInstanceOf(PresenceValidation.class);
-		assertThat(modelBean.getValidations().get(1).getType()).isEqualTo("presence");
-		assertThat(modelBean.getValidations().get(1).getField()).isEqualTo("aDouble");
+		assertThat(modelBean.getValidations().get(2).getType()).isEqualTo("presence");
+		assertThat(modelBean.getValidations().get(2).getField()).isEqualTo("aDouble");
 
-		assertThat(modelBean.getValidations().get(2)).isInstanceOf(EmailValidation.class);
-		assertThat(modelBean.getValidations().get(2).getType()).isEqualTo("email");
-		assertThat(modelBean.getValidations().get(2).getField()).isEqualTo("aString");
+		assertThat(modelBean.getValidations().get(3)).isInstanceOf(EmailValidation.class);
+		assertThat(modelBean.getValidations().get(3).getType()).isEqualTo("email");
+		assertThat(modelBean.getValidations().get(3).getField()).isEqualTo("aString");
 
-		assertThat(modelBean.getValidations().get(3))
+		assertThat(modelBean.getValidations().get(4))
 				.isInstanceOf(LengthValidation.class);
 		LengthValidation lengthValidation = (LengthValidation) modelBean.getValidations()
-				.get(3);
+				.get(4);
 		assertThat(lengthValidation.getType()).isEqualTo("length");
 		assertThat(lengthValidation.getField()).isEqualTo("aString");
 		assertThat(lengthValidation.getMax()).isEqualTo(255L);
 
-		assertThat(modelBean.getValidations().get(4))
+		assertThat(modelBean.getValidations().get(5))
 				.isInstanceOf(FormatValidation.class);
 		FormatValidation formatValidation = (FormatValidation) modelBean.getValidations()
-				.get(4);
+				.get(5);
 		assertThat(formatValidation.getType()).isEqualTo("format");
 		assertThat(formatValidation.getField()).isEqualTo("aString");
 		assertThat(formatValidation.getMatcher())

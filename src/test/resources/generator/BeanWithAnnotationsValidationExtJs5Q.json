@@ -1,7 +1,7 @@
 Ext.define("Sch.Bean",
 {
   extend : "Ext.data.Model",
-  requires : [ "Ext.data.proxy.Direct", "Ext.data.validator.Email", "Ext.data.validator.Format", "Ext.data.validator.Length", "Ext.data.validator.Presence" ],
+  requires : [ "Ext.data.proxy.Direct", "Ext.data.validator.Email", "Ext.data.validator.Format", "Ext.data.validator.Length", "Ext.data.validator.Presence", "Ext.data.validator.Range" ],
   idProperty : "aInt",
   fields : [ {
     name : "by",
@@ -38,6 +38,9 @@ Ext.define("Sch.Bean",
     defaultValue : 1,
     validators : [ {
       type : "presence"
+    }, {
+      type : "range",
+      max : 500000
     } ]
   }, {
     name : "aFloat",
