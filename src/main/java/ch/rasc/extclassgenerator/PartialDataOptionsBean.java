@@ -15,6 +15,10 @@
  */
 package ch.rasc.extclassgenerator;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class PartialDataOptionsBean {
 	private Boolean associated;
 
@@ -55,8 +59,8 @@ public class PartialDataOptionsBean {
 
 	// Tests if something is set.
 	public boolean hasAnyProperties() {
-		return associated != null && changes != null && critical != null
-				&& persist != null;
+		return associated != null || changes != null || critical != null
+				|| persist != null;
 	}
 
 	public Boolean getAssociated() {

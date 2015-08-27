@@ -336,9 +336,7 @@ public abstract class ModelGenerator {
 
 		if (modelAnnotation != null) {
 			model.setAutodetectTypes(modelAnnotation.autodetectTypes());
-		}
 
-		if (modelAnnotation != null) {
 			model.setExtend(modelAnnotation.extend());
 			model.setIdProperty(modelAnnotation.idProperty());
 			model.setVersionProperty(trimToNull(modelAnnotation.versionProperty()));
