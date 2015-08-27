@@ -475,6 +475,7 @@ public abstract class ModelGenerator {
 
 			});
 
+			final List<Method> candidateMethods = new ArrayList<Method>();
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method)
@@ -483,10 +484,22 @@ public abstract class ModelGenerator {
 					if ((method.getAnnotation(ModelField.class) != null
 							|| method.getAnnotation(ModelAssociation.class) != null)
 							&& method.getAnnotation(JsonIgnore.class) == null) {
-						createModelBean(model, method, outputConfig);
+						candidateMethods.add(method);
 					}
 				}
 			});
+
+			Collections.sort(candidateMethods, new Comparator<Method>() {
+				@Override
+				public int compare(Method o1, Method o2) {
+					return o1.getName().compareTo(o2.getName());
+				}
+			});
+
+			for (Method method : candidateMethods) {
+				createModelBean(model, method, outputConfig);
+			}
+
 		}
 
 		modelCache.put(key, new SoftReference<ModelBean>(model));
