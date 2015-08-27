@@ -123,6 +123,19 @@ public class ProxyObject {
 			writerConfigObject.put("clientIdProperty", model.getClientIdProperty());
 		}
 
+		if (config.getOutputFormat() == OutputFormat.EXTJS5) {
+			if (model.getAllDataOptions() != null
+					&& model.getAllDataOptions().hasAnyProperties()) {
+				writerConfigObject.put("allDataOptions", model.getAllDataOptions());
+			}
+
+			if (model.getPartialDataOptions() != null
+					&& model.getPartialDataOptions().hasAnyProperties()) {
+				writerConfigObject.put("partialDataOptions",
+						model.getPartialDataOptions());
+			}
+		}
+
 		if (!writerConfigObject.isEmpty()) {
 			this.writer = writerConfigObject;
 		}

@@ -80,6 +80,10 @@ public class ModelBean {
 
 	private String identifier;
 
+	private AllDataOptionsBean allDataOptions;
+
+	private PartialDataOptionsBean partialDataOptions;
+
 	public boolean isAutodetectTypes() {
 		return this.autodetectTypes;
 	}
@@ -581,6 +585,42 @@ public class ModelBean {
 	 */
 	public void setClientIdPropertyAddToWriter(boolean clientIdPropertyAddToWriter) {
 		this.clientIdPropertyAddToWriter = clientIdPropertyAddToWriter;
+	}
+
+	public AllDataOptionsBean getAllDataOptions() {
+		return allDataOptions;
+	}
+
+	/**
+	 * Configuration for the writer
+	 * <p>
+	 * This object contains the options passed to Ext.data.Model.getData when writing
+	 * Ext.data.Model.phantom records or when writeAllFields is set to true.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/extjs/6.0/6.0.0-classic/#!/api/Ext.data.writer.Writer-cfg-allDataOptions"
+	 * > Ext.data.Model#allDataOptions</a>
+	 */
+	public void setAllDataOptions(AllDataOptionsBean allDataOptions) {
+		this.allDataOptions = allDataOptions;
+	}
+
+	public PartialDataOptionsBean getPartialDataOptions() {
+		return partialDataOptions;
+	}
+
+	/**
+	 * Configuration for the writer
+	 * <p>
+	 * This object contains the options passed to Ext.data.Model.getData when writing non
+	 * Ext.data.Model.phantom records or when writeAllFields is set to false.
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/extjs/6.0/6.0.0-classic/#!/api/Ext.data.writer.Writer-cfg-partialDataOptions"
+	 * > Ext.data.Model#partialDataOptions</a>
+	 */
+	public void setPartialDataOptions(PartialDataOptionsBean partialDataOptions) {
+		this.partialDataOptions = partialDataOptions;
 	}
 
 }

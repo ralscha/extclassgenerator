@@ -355,6 +355,10 @@ public abstract class ModelGenerator {
 			model.setTotalProperty(trimToNull(modelAnnotation.totalProperty()));
 			model.setRootProperty(trimToNull(modelAnnotation.rootProperty()));
 			model.setWriteAllFields(modelAnnotation.writeAllFields());
+			model.setAllDataOptions(
+					new AllDataOptionsBean(modelAnnotation.allDataOptions()));
+			model.setPartialDataOptions(
+					new PartialDataOptionsBean(modelAnnotation.partialDataOptions()));
 			model.setIdentifier(trimToNull(modelAnnotation.identifier()));
 			String clientIdProperty = trimToNull(modelAnnotation.clientIdProperty());
 			if (StringUtils.hasText(clientIdProperty)) {
