@@ -48,8 +48,8 @@
 	</scm>
 
 	<properties>
-		<spring.version>4.2.0.RELEASE</spring.version>
-		<jackson.version>2.6.1</jackson.version>
+		<spring.version>4.2.1.RELEASE</spring.version>
+		<jackson.version>2.6.2</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.target>1.6</maven.compiler.target>
@@ -116,15 +116,15 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>1.7.4</version>
+			<version>1.7.5</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.easytesting</groupId>
-			<artifactId>fest-assert-core</artifactId>
-			<version>2.0M10</version>
-			<scope>test</scope>
+		  <groupId>org.assertj</groupId>
+		  <artifactId>assertj-core</artifactId>
+		  <version>3.2.0</version>
+		  <scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -144,7 +144,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.1.Final</version>
+			<version>5.2.2.Final</version>
 			<scope>test</scope>
 		</dependency>
 

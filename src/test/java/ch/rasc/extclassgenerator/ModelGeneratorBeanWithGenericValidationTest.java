@@ -15,7 +15,7 @@
  */
 package ch.rasc.extclassgenerator;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
@@ -164,7 +164,7 @@ public class ModelGeneratorBeanWithGenericValidationTest {
 
 		for (ModelFieldBean expectedField : BeanWithGenericValidation.expectedFields) {
 			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
-			assertThat(field).isEqualsToByComparingFields(expectedField);
+			assertThat(field).isEqualToComparingFieldByField(expectedField);
 		}
 
 		assertThat(modelBean.getValidations()).hasSize(7);

@@ -15,7 +15,7 @@
  */
 package ch.rasc.extclassgenerator;
 
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,10 +53,10 @@ public class ModelGeneratorTest {
 				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}]});");
 
 		ModelFieldBean getIdField = model.getField("id");
-		assertThat(getIdField).isEqualsToByComparingFields(idField);
+		assertThat(getIdField).isEqualToComparingFieldByField(idField);
 
 		ModelFieldBean getNameField = model.getField("name");
-		assertThat(getNameField).isEqualsToByComparingFields(nameField);
+		assertThat(getNameField).isEqualToComparingFieldByField(nameField);
 
 		ModelGenerator.clearCaches();
 		nameField.setModelType(ModelType.INTEGER);
