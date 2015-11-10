@@ -308,6 +308,8 @@
 						<exclude>**/*.py</exclude>
 						<exclude>.travis.yml</exclude>
 						<exclude>**/.gitignore</exclude>
+						<exclude>.mvn/**/*</exclude>
+						<exclude>mvnw.cmd</exclude>						
 					</excludes>
 					<strictCheck>true</strictCheck>
 				</configuration>
