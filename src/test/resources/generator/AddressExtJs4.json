@@ -16,6 +16,7 @@ Ext.define("ch.rasc.extclassgenerator.bean.Address",
     foreignKey : "e_id",
     primaryKey : "eId",
     setterName : "setE",
-    getterName : "getE"
+    getterName : "getE",
+    name : "emp"
   } ]
 });

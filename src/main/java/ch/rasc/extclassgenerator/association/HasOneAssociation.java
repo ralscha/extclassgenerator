@@ -30,6 +30,8 @@ public class HasOneAssociation extends AbstractAssociation {
 
 	private String getterName;
 
+	private String name;
+
 	/**
 	 * Creates an instance of a hasOne association. Sets {@link #model} to the provided
 	 * parameters.
@@ -87,4 +89,11 @@ public class HasOneAssociation extends AbstractAssociation {
 		this.getterName = getterName;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
 }

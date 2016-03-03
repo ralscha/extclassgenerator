@@ -260,8 +260,7 @@ public abstract class AbstractAssociation {
 						getWarningText(null, name, association.getType(), "autoLoad"));
 			}
 			if (StringUtils.hasText(associationAnnotation.name())) {
-				LogFactory.getLog(ModelGenerator.class)
-						.warn(getWarningText(null, name, association.getType(), "name"));
+				hasOneAssociation.setName(associationAnnotation.name());
 			}
 		}
 
@@ -410,9 +409,9 @@ public abstract class AbstractAssociation {
 				LogFactory.getLog(ModelGenerator.class).warn(getWarningText(
 						declaringClass, name, association.getType(), "autoLoad"));
 			}
+
 			if (StringUtils.hasText(associationAnnotation.name())) {
-				LogFactory.getLog(ModelGenerator.class).warn(getWarningText(
-						declaringClass, name, association.getType(), "name"));
+				hasOneAssociation.setName(associationAnnotation.name());
 			}
 		}
 
