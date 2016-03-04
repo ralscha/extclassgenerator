@@ -96,8 +96,8 @@ public abstract class AbstractValidation {
 			}
 		}
 
-		if (includeValidation == IncludeValidation.BUILTIN
-				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5
+		if ((includeValidation == IncludeValidation.BUILTIN
+				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5)
 				|| includeValidation == IncludeValidation.ALL) {
 
 			if (annotationClassName.equals("javax.validation.constraints.DecimalMax")) {

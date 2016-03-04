@@ -38,19 +38,19 @@ public class AllDataOptionsBean {
 				&& allDataOptions.critical() == false)) {
 
 			if (allDataOptions.associated()) {
-				this.associated = allDataOptions.associated();
+				associated = allDataOptions.associated();
 			}
 
 			if (allDataOptions.changes()) {
-				this.changes = allDataOptions.changes();
+				changes = allDataOptions.changes();
 
 				if (allDataOptions.critical()) {
-					this.critical = allDataOptions.critical();
+					critical = allDataOptions.critical();
 				}
 			}
 			else {
 				if (allDataOptions.persist()) {
-					this.persist = allDataOptions.persist();
+					persist = allDataOptions.persist();
 				}
 			}
 		}
@@ -58,12 +58,12 @@ public class AllDataOptionsBean {
 
 	// Tests if something is set.
 	public boolean hasAnyProperties() {
-		return this.associated != null || this.changes != null || this.critical != null
-				|| this.persist != null;
+		return associated != null || changes != null || critical != null
+				|| persist != null;
 	}
 
 	public Boolean getAssociated() {
-		return this.associated;
+		return associated;
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class AllDataOptionsBean {
 	}
 
 	public Boolean getChanges() {
-		return this.changes;
+		return changes;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class AllDataOptionsBean {
 	}
 
 	public Boolean getCritical() {
-		return this.critical;
+		return critical;
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class AllDataOptionsBean {
 	}
 
 	public Boolean getPersist() {
-		return this.persist;
+		return persist;
 	}
 
 	/**

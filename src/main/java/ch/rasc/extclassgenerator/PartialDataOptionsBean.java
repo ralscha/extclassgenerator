@@ -39,19 +39,19 @@ public class PartialDataOptionsBean {
 				&& partialDataOptions.critical() == true)) {
 
 			if (partialDataOptions.associated()) {
-				this.associated = partialDataOptions.associated();
+				associated = partialDataOptions.associated();
 			}
 
 			if (partialDataOptions.changes()) {
-				this.changes = partialDataOptions.changes();
+				changes = partialDataOptions.changes();
 
 				if (partialDataOptions.critical()) {
-					this.critical = partialDataOptions.critical();
+					critical = partialDataOptions.critical();
 				}
 			}
 			else {
 				if (partialDataOptions.persist()) {
-					this.persist = partialDataOptions.persist();
+					persist = partialDataOptions.persist();
 				}
 			}
 		}
@@ -59,12 +59,12 @@ public class PartialDataOptionsBean {
 
 	// Tests if something is set.
 	public boolean hasAnyProperties() {
-		return this.associated != null || this.changes != null || this.critical != null
-				|| this.persist != null;
+		return associated != null || changes != null || critical != null
+				|| persist != null;
 	}
 
 	public Boolean getAssociated() {
-		return this.associated;
+		return associated;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class PartialDataOptionsBean {
 	}
 
 	public Boolean getChanges() {
-		return this.changes;
+		return changes;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class PartialDataOptionsBean {
 	}
 
 	public Boolean getCritical() {
-		return this.critical;
+		return critical;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class PartialDataOptionsBean {
 	}
 
 	public Boolean getPersist() {
-		return this.persist;
+		return persist;
 	}
 
 	/**

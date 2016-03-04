@@ -34,7 +34,7 @@ public class UserClass {
 
 	@ModelField
 	public UUID getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(UUID id) {
@@ -42,7 +42,7 @@ public class UserClass {
 	}
 
 	public String getEmail() {
-		return this.email;
+		return email;
 	}
 
 	@NotEmpty
