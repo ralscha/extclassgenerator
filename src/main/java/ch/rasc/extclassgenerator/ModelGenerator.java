@@ -89,7 +89,7 @@ public abstract class ModelGenerator {
 	 */
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, Class<?> clazz, OutputFormat format)
-					throws IOException {
+			throws IOException {
 		writeModel(request, response, clazz, format, IncludeValidation.NONE, false);
 	}
 
@@ -138,7 +138,7 @@ public abstract class ModelGenerator {
 
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, Class<?> clazz, OutputConfig outputConfig)
-					throws IOException {
+			throws IOException {
 		ModelBean model = createModel(clazz, outputConfig);
 		writeModel(request, response, model, outputConfig);
 	}
@@ -155,7 +155,7 @@ public abstract class ModelGenerator {
 	 */
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, ModelBean model, OutputFormat format)
-					throws IOException {
+			throws IOException {
 		writeModel(request, response, model, format, false);
 	}
 
@@ -286,7 +286,7 @@ public abstract class ModelGenerator {
 
 	public static void writeModel(HttpServletRequest request,
 			HttpServletResponse response, ModelBean model, OutputConfig outputConfig)
-					throws IOException {
+			throws IOException {
 
 		byte[] data = generateJavascript(model, outputConfig).getBytes(UTF8_CHARSET);
 		String ifNoneMatch = request.getHeader("If-None-Match");

@@ -26,7 +26,7 @@ import ch.rasc.extclassgenerator.AllDataOptions;
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelField;
 
-@Model(value = "User", allDataOptions = @AllDataOptions(associated = true) )
+@Model(value = "User", allDataOptions = @AllDataOptions(associated = true))
 public class UserDataOptionsAll {
 
 	@ModelField

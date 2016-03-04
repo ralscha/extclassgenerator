@@ -28,8 +28,8 @@ import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.PartialDataOptions;
 
 @Model(value = "User",
-		partialDataOptions = @PartialDataOptions(associated = true, critical = false) ,
-		allDataOptions = @AllDataOptions(associated = true) )
+		partialDataOptions = @PartialDataOptions(associated = true, critical = false),
+		allDataOptions = @AllDataOptions(associated = true))
 public class UserDataOptionsAllAndPartial {
 
 	@ModelField

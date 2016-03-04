@@ -22,15 +22,15 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
 import ch.rasc.extclassgenerator.ModelAssociationType;
 import ch.rasc.extclassgenerator.ModelBean;
 import ch.rasc.extclassgenerator.ModelGenerator;
 import ch.rasc.extclassgenerator.ModelId;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Base class for the association objects

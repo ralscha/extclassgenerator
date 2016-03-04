@@ -588,7 +588,7 @@ public class ModelBean {
 	}
 
 	public AllDataOptionsBean getAllDataOptions() {
-		return allDataOptions;
+		return this.allDataOptions;
 	}
 
 	/**
@@ -606,7 +606,7 @@ public class ModelBean {
 	}
 
 	public PartialDataOptionsBean getPartialDataOptions() {
-		return partialDataOptions;
+		return this.partialDataOptions;
 	}
 
 	/**

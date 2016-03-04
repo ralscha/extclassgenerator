@@ -47,12 +47,12 @@ public class BeanWithGenericValidation {
 	public String included;
 
 	@ModelValidation(value = ModelValidationType.EXCLUSION,
-			parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]") )
+			parameters = @ModelValidationParameter(name = "list", value = "[\"_\"]"))
 	public String excludedV1;
 
 	@ModelValidation(value = ModelValidationType.INCLUSION,
 			parameters = @ModelValidationParameter(name = "list",
-					value = "[\"fish\",\"fruit\"]") )
+					value = "[\"fish\",\"fruit\"]"))
 	public String includedV1;
 
 	public static List<ModelFieldBean> expectedFields = new ArrayList<>();

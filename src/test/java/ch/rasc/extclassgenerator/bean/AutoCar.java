@@ -30,16 +30,16 @@ public class AutoCar {
 
 	public String name;
 
-	@ModelField(reference = @ReferenceConfig(type = "Manufacturer") , allowBlank = false)
+	@ModelField(reference = @ReferenceConfig(type = "Manufacturer"), allowBlank = false)
 	public Long manufacturerId;
 
 	@ModelField(reference = @ReferenceConfig(type = "Driver", role = "theDriver",
-			association = "CarByDriver", inverse = "cars") , allowBlank = true)
+			association = "CarByDriver", inverse = "cars"), allowBlank = true)
 	public Long driverId;
 
-	@ModelField(reference = @ReferenceConfig(parent = "Owner") , unique = false)
+	@ModelField(reference = @ReferenceConfig(parent = "Owner"), unique = false)
 	public Long ownerId;
 
-	@ModelField(reference = @ReferenceConfig(type = "OneToOne") , unique = true)
+	@ModelField(reference = @ReferenceConfig(type = "OneToOne"), unique = true)
 	public Long oneToOneId;
 }

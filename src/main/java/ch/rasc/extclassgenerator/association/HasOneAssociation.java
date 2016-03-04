@@ -94,6 +94,6 @@ public class HasOneAssociation extends AbstractAssociation {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 }
