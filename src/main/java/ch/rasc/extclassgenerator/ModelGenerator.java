@@ -30,7 +30,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,8 +47,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
-import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -389,20 +386,9 @@ public abstract class ModelGenerator {
 		if (clazz.isInterface()) {
 			final List<Method> methods = new ArrayList<Method>();
 
-			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
-				@Override
-				public void doWith(Method method)
-						throws IllegalArgumentException, IllegalAccessException {
-					methods.add(method);
-				}
-			});
+			ReflectionUtils.doWithMethods(clazz, method -> methods.add(method));
 
-			Collections.sort(methods, new Comparator<Method>() {
-				@Override
-				public int compare(Method o1, Method o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			Collections.sort(methods, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
 			for (Method method : methods) {
 				createModelBean(model, method, outputConfig);
@@ -455,48 +441,33 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			ReflectionUtils.doWithFields(clazz, new FieldCallback() {
+			ReflectionUtils.doWithFields(clazz, field -> {
+if (!fields.contains(field.getName()) && (field
+				.getAnnotation(ModelField.class) != null
+				|| field.getAnnotation(ModelAssociation.class) != null
+				|| (Modifier.isPublic(field.getModifiers())
+						|| readMethods.contains(field.getName()))
+						&& field.getAnnotation(JsonIgnore.class) == null)) {
 
-				@Override
-				public void doWith(Field field)
-						throws IllegalArgumentException, IllegalAccessException {
-					if (!fields.contains(field.getName()) && (field
-							.getAnnotation(ModelField.class) != null
-							|| field.getAnnotation(ModelAssociation.class) != null
-							|| (Modifier.isPublic(field.getModifiers())
-									|| readMethods.contains(field.getName()))
-									&& field.getAnnotation(JsonIgnore.class) == null)) {
+			// ignore superclass declarations of fields already
+			// found in a subclass
+			fields.add(field.getName());
+			createModelBean(model, field, outputConfig);
 
-						// ignore superclass declarations of fields already
-						// found in a subclass
-						fields.add(field.getName());
-						createModelBean(model, field, outputConfig);
-
-					}
-				}
-
-			});
+}
+});
 
 			final List<Method> candidateMethods = new ArrayList<Method>();
-			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
-				@Override
-				public void doWith(Method method)
-						throws IllegalArgumentException, IllegalAccessException {
+			ReflectionUtils.doWithMethods(clazz, method -> {
 
-					if ((method.getAnnotation(ModelField.class) != null
-							|| method.getAnnotation(ModelAssociation.class) != null)
-							&& method.getAnnotation(JsonIgnore.class) == null) {
-						candidateMethods.add(method);
-					}
-				}
-			});
+if ((method.getAnnotation(ModelField.class) != null
+				|| method.getAnnotation(ModelAssociation.class) != null)
+				&& method.getAnnotation(JsonIgnore.class) == null) {
+			candidateMethods.add(method);
+}
+});
 
-			Collections.sort(candidateMethods, new Comparator<Method>() {
-				@Override
-				public int compare(Method o1, Method o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			Collections.sort(candidateMethods, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 
 			for (Method method : candidateMethods) {
 				createModelBean(model, method, outputConfig);
