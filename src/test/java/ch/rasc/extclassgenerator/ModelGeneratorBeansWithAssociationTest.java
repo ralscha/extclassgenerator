@@ -15,13 +15,18 @@
  */
 package ch.rasc.extclassgenerator;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
 
 import ch.rasc.extclassgenerator.bean.Address;
 import ch.rasc.extclassgenerator.bean.Author;
 import ch.rasc.extclassgenerator.bean.AutoCar;
 import ch.rasc.extclassgenerator.bean.Book;
+import ch.rasc.extclassgenerator.bean.BookHasMany;
 import ch.rasc.extclassgenerator.bean.BookWithOneAuthor;
 import ch.rasc.extclassgenerator.bean.Car;
 import ch.rasc.extclassgenerator.bean.Employee;
@@ -68,6 +73,15 @@ public class ModelGeneratorBeansWithAssociationTest {
 		GeneratorTestUtil.testWriteModel(BookWithOneAuthor.class, "BookWithOneAuthor");
 	}
 
+	@Test
+	public void testBookHasMany() throws IOException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BookHasMany.class,
+				OutputFormat.EXTJS5, false);
+		GeneratorTestUtil.compareExtJs5Code("BookHasMany", response.getContentAsString(),
+				false, false);
+	}
+	
 	@Test
 	public void testOrder() {
 		GeneratorTestUtil.testWriteModel(Order.class, "Order");

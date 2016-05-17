@@ -367,6 +367,11 @@ public abstract class ModelGenerator {
 				model.setClientIdProperty(null);
 				model.setClientIdPropertyAddToWriter(false);
 			}
+
+			if (modelAnnotation.hasMany() != null && modelAnnotation.hasMany().length > 0
+					&& StringUtils.hasText(modelAnnotation.hasMany()[0])) {
+				model.setHasMany(modelAnnotation.hasMany());
+			}
 		}
 
 		final Set<String> readMethods = new HashSet<String>();
@@ -871,6 +876,10 @@ public abstract class ModelGenerator {
 			}
 		}
 		configObject.put("fields", fieldConfigObjects);
+
+		if (model.getHasMany() != null) {
+			configObject.put("hasMany", model.getHasMany());
+		}
 
 		if (!model.getAssociations().isEmpty()) {
 			configObject.put("associations", model.getAssociations());

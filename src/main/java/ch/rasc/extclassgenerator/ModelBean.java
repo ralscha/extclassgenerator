@@ -52,6 +52,8 @@ public class ModelBean {
 
 	private List<AbstractAssociation> associations = new ArrayList<AbstractAssociation>();
 
+	private String[] hasMany;
+	
 	private boolean paging;
 
 	private boolean disablePagingParameters;
@@ -621,6 +623,20 @@ public class ModelBean {
 	 */
 	public void setPartialDataOptions(PartialDataOptionsBean partialDataOptions) {
 		this.partialDataOptions = partialDataOptions;
+	}
+
+	public String[] getHasMany() {
+		return hasMany;
+	}
+
+	/**
+	 * Configures One-to-Many associations without foreign keys
+	 * <p>
+	 * See <a href=
+	 * "http://docs.sencha.com/extjs/6.0/6.0.2-classic/#!/api/Ext.data.Model-cfg-hasMany">Ext.data.Model-cfg-hasMany</a>
+	 */
+	public void setHasMany(String[] hasMany) {
+		this.hasMany = hasMany;
 	}
 
 }
