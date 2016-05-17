@@ -600,7 +600,7 @@ public class ModelBean {
 	 * Ext.data.Model.phantom records or when writeAllFields is set to true.
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/extjs/6.0/6.0.0-classic/#!/api/Ext.data.writer.Writer-cfg-allDataOptions"
+	 * "http://docs.sencha.com/extjs/6.0/6.0.2-classic/#!/api/Ext.data.writer.Writer-cfg-allDataOptions"
 	 * > Ext.data.Model#allDataOptions</a>
 	 */
 	public void setAllDataOptions(AllDataOptionsBean allDataOptions) {
@@ -618,7 +618,7 @@ public class ModelBean {
 	 * Ext.data.Model.phantom records or when writeAllFields is set to false.
 	 * <p>
 	 * See <a href=
-	 * "http://docs.sencha.com/extjs/6.0/6.0.0-classic/#!/api/Ext.data.writer.Writer-cfg-partialDataOptions"
+	 * "http://docs.sencha.com/extjs/6.0/6.0.2-classic/#!/api/Ext.data.writer.Writer-cfg-partialDataOptions"
 	 * > Ext.data.Model#partialDataOptions</a>
 	 */
 	public void setPartialDataOptions(PartialDataOptionsBean partialDataOptions) {
