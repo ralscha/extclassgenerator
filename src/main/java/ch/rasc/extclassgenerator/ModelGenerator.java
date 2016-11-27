@@ -292,6 +292,8 @@ public abstract class ModelGenerator {
 		String ifNoneMatch = request.getHeader("If-None-Match");
 		String etag = "\"0" + DigestUtils.md5DigestAsHex(data) + "\"";
 
+		response.setHeader("ETag", etag);
+
 		if (etag.equals(ifNoneMatch)) {
 			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 			return;
@@ -301,13 +303,10 @@ public abstract class ModelGenerator {
 		response.setCharacterEncoding(UTF8_CHARSET.name());
 		response.setContentLength(data.length);
 
-		response.setHeader("ETag", etag);
-
 		@SuppressWarnings("resource")
 		ServletOutputStream out = response.getOutputStream();
 		out.write(data);
 		out.flush();
-
 	}
 
 	public static ModelBean createModel(final Class<?> clazz,
