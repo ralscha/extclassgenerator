@@ -48,7 +48,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>4.3.4.RELEASE</spring.version>
+		<spring.version>4.3.5.RELEASE</spring.version>
 		<jackson.version>2.8.5</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -297,7 +297,7 @@
 					<properties>
 						<owner>Ralph Schaer</owner>
 						<year>${project.inceptionYear}</year>
-						<currentYear>2016</currentYear>
+						<currentYear>2017</currentYear>
 						<email>ralphschaer@gmail.com</email>
 					</properties>
 					<excludes>
