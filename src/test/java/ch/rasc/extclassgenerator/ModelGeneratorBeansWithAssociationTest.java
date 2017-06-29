@@ -76,12 +76,12 @@ public class ModelGeneratorBeansWithAssociationTest {
 	@Test
 	public void testBookHasMany() throws IOException {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		ModelGenerator.writeModel(new MockHttpServletRequest(), response, BookHasMany.class,
-				OutputFormat.EXTJS5, false);
+		ModelGenerator.writeModel(new MockHttpServletRequest(), response,
+				BookHasMany.class, OutputFormat.EXTJS5, false);
 		GeneratorTestUtil.compareExtJs5Code("BookHasMany", response.getContentAsString(),
 				false, false);
 	}
-	
+
 	@Test
 	public void testOrder() {
 		GeneratorTestUtil.testWriteModel(Order.class, "Order");

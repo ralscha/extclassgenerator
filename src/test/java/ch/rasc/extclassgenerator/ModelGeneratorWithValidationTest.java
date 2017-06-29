@@ -128,7 +128,7 @@ public class ModelGeneratorWithValidationTest {
 
 		model.addValidation(new PresenceValidation("id"));
 		model.addValidations(Collections
-				.<AbstractValidation> singletonList(new EmailValidation("email")));
+				.<AbstractValidation>singletonList(new EmailValidation("email")));
 		model.addValidation(new FormatValidation("salary", "[0-9]*\\.[0-9]*"));
 
 		String code = ModelGenerator.generateJavascript(model, OutputFormat.TOUCH2,

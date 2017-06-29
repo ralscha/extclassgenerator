@@ -53,7 +53,7 @@ public class ModelBean {
 	private List<AbstractAssociation> associations = new ArrayList<AbstractAssociation>();
 
 	private String[] hasMany;
-	
+
 	private boolean paging;
 
 	private boolean disablePagingParameters;

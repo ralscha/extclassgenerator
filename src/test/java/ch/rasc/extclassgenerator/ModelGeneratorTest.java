@@ -283,7 +283,7 @@ public class ModelGeneratorTest {
 
 		BelongsToAssociation association = new BelongsToAssociation("User");
 		model.setAssociations(
-				Collections.<AbstractAssociation> singletonList(association));
+				Collections.<AbstractAssociation>singletonList(association));
 
 		String code = ModelGenerator.generateJavascript(model, OutputFormat.EXTJS4,
 				false);

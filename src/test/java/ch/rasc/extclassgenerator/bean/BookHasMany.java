@@ -26,7 +26,7 @@ import ch.rasc.extclassgenerator.ModelId;
 import ch.rasc.extclassgenerator.ModelVersion;
 
 @Model(value = "MyApp.Book", idProperty = "isbn1", versionProperty = "version1",
-		clientIdProperty = "clientId1", identifier = "uuid", hasMany="Author")
+		clientIdProperty = "clientId1", identifier = "uuid", hasMany = "Author")
 public class BookHasMany {
 
 	@ModelId
@@ -50,7 +50,7 @@ public class BookHasMany {
 	public int numberOfPages;
 
 	public boolean read;
-	
+
 	public List<Author> authors;
 
 }
