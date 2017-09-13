@@ -1,4 +1,4 @@
-##Ext Class Generator 
+## Ext Class Generator 
 
 [![Build Status](https://api.travis-ci.org/ralscha/extclassgenerator.png)](https://travis-ci.org/ralscha/extclassgenerator)
 
