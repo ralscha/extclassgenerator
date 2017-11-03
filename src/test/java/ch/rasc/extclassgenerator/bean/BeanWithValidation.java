@@ -23,15 +23,15 @@ import java.util.List;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 import ch.rasc.extclassgenerator.ModelFieldBean;
@@ -84,7 +84,7 @@ public class BeanWithValidation {
 		this.past = past;
 	}
 
-	public static List<ModelFieldBean> expectedFields = new ArrayList<ModelFieldBean>();
+	public static List<ModelFieldBean> expectedFields = new ArrayList<>();
 
 	static {
 

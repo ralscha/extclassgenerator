@@ -18,6 +18,7 @@ package ch.rasc.extclassgenerator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -305,7 +306,7 @@ public class GeneratorTestUtil {
 		try {
 			String expectedValue = IOUtils
 					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "ExtJs4" + (apiWithQuotes ? "Q" : "") + ".json"));
+							+ model + "ExtJs4" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -318,7 +319,7 @@ public class GeneratorTestUtil {
 		try {
 			String expectedValue = IOUtils
 					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "ExtJs5" + (apiWithQuotes ? "Q" : "") + ".json"));
+							+ model + "ExtJs5" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -331,7 +332,7 @@ public class GeneratorTestUtil {
 		try {
 			String expectedValue = IOUtils
 					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "Touch2" + (apiWithQuotes ? "Q" : "") + ".json"));
+							+ model + "Touch2" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {

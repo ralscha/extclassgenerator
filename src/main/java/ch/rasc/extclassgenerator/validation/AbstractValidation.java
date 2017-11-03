@@ -71,7 +71,9 @@ public abstract class AbstractValidation {
 
 			if (annotationClassName.equals("javax.validation.constraints.NotNull")
 					|| annotationClassName
-							.equals("org.hibernate.validator.constraints.NotEmpty")) {
+							.equals("org.hibernate.validator.constraints.NotEmpty")
+					|| annotationClassName
+							.equals("javax.validation.constraints.NotEmpty")) {
 				model.addValidation(new PresenceValidation(modelFieldBean.getName()));
 			}
 			else if (annotationClassName.equals("javax.validation.constraints.Size")
@@ -91,7 +93,8 @@ public abstract class AbstractValidation {
 						new FormatValidation(modelFieldBean.getName(), regexp));
 			}
 			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.Email")) {
+					.equals("org.hibernate.validator.constraints.Email")
+					|| annotationClassName.equals("javax.validation.constraints.Email")) {
 				model.addValidation(new EmailValidation(modelFieldBean.getName()));
 			}
 		}
@@ -152,7 +155,9 @@ public abstract class AbstractValidation {
 						new CreditCardNumberValidation(modelFieldBean.getName()));
 			}
 			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.NotBlank")) {
+					.equals("org.hibernate.validator.constraints.NotBlank")
+					|| annotationClassName
+							.equals("javax.validation.constraints.NotBlank")) {
 				model.addValidation(new NotBlankValidation(modelFieldBean.getName()));
 			}
 		}
@@ -176,7 +181,7 @@ public abstract class AbstractValidation {
 			case GENERIC:
 				String type = getParameterValue(modelValidationAnnotation.parameters(),
 						"type");
-				Map<String, Object> options = new LinkedHashMap<String, Object>();
+				Map<String, Object> options = new LinkedHashMap<>();
 				for (ModelValidationParameter parameter : modelValidationAnnotation
 						.parameters()) {
 					if (!parameter.name().equals("type")) {

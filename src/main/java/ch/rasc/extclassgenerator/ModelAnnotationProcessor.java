@@ -167,16 +167,16 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 						FileObject fo = this.processingEnv.getFiler().createResource(
 								StandardLocation.SOURCE_OUTPUT, packageName,
 								fileName + "Base.js");
-						OutputStream os = fo.openOutputStream();
-						os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
-						os.close();
+						try (OutputStream os = fo.openOutputStream()) {
+							os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
+						}
 
 						try {
 							fo = this.processingEnv.getFiler().getResource(
 									StandardLocation.SOURCE_OUTPUT, packageName,
 									fileName + ".js");
-							InputStream is = fo.openInputStream();
-							is.close();
+							try (InputStream is = fo.openInputStream()) {
+								/* nothing here */}
 						}
 						catch (FileNotFoundException e) {
 							String subClassCode = generateSubclassCode(modelClass,
@@ -184,9 +184,10 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 							fo = this.processingEnv.getFiler().createResource(
 									StandardLocation.SOURCE_OUTPUT, packageName,
 									fileName + ".js");
-							os = fo.openOutputStream();
-							os.write(subClassCode.getBytes(ModelGenerator.UTF8_CHARSET));
-							os.close();
+							try (OutputStream os = fo.openOutputStream()) {
+								os.write(subClassCode
+										.getBytes(ModelGenerator.UTF8_CHARSET));
+							}
 						}
 
 					}
@@ -194,9 +195,9 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 						FileObject fo = this.processingEnv.getFiler().createResource(
 								StandardLocation.SOURCE_OUTPUT, packageName,
 								fileName + ".js");
-						OutputStream os = fo.openOutputStream();
-						os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
-						os.close();
+						try (OutputStream os = fo.openOutputStream()) {
+							os.write(code.getBytes(ModelGenerator.UTF8_CHARSET));
+						}
 					}
 
 				}
@@ -227,7 +228,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 			name = clazz.getName();
 		}
 
-		Map<String, Object> modelObject = new LinkedHashMap<String, Object>();
+		Map<String, Object> modelObject = new LinkedHashMap<>();
 		modelObject.put("extend", name + "Base");
 
 		StringBuilder sb = new StringBuilder(100);
@@ -244,18 +245,18 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 
 			if (!outputConfig.isSurroundApiWithQuotes()) {
 				if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-					mapper.addMixInAnnotations(ProxyObject.class,
+					mapper.addMixIn(ProxyObject.class,
 							ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 				}
 				else {
-					mapper.addMixInAnnotations(ProxyObject.class,
+					mapper.addMixIn(ProxyObject.class,
 							ProxyObjectWithoutApiQuotesMixin.class);
 				}
-				mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
+				mapper.addMixIn(ApiObject.class, ApiObjectMixin.class);
 			}
 			else {
 				if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-					mapper.addMixInAnnotations(ProxyObject.class,
+					mapper.addMixIn(ProxyObject.class,
 							ProxyObjectWithApiQuotesMixin.class);
 				}
 			}

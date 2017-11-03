@@ -69,9 +69,9 @@ public abstract class ModelGenerator {
 
 	public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
 
-	private static final Map<JsCacheKey, SoftReference<String>> jsCache = new ConcurrentHashMap<JsCacheKey, SoftReference<String>>();
+	private static final Map<JsCacheKey, SoftReference<String>> jsCache = new ConcurrentHashMap<>();
 
-	private static final Map<ModelCacheKey, SoftReference<ModelBean>> modelCache = new ConcurrentHashMap<ModelCacheKey, SoftReference<ModelBean>>();
+	private static final Map<ModelCacheKey, SoftReference<ModelBean>> modelCache = new ConcurrentHashMap<>();
 
 	/**
 	 * Instrospects the provided class, creates a model object (JS code) and writes it
@@ -373,7 +373,7 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		final Set<String> readMethods = new HashSet<String>();
+		final Set<String> readMethods = new HashSet<>();
 
 		BeanInfo bi;
 		try {
@@ -391,7 +391,7 @@ public abstract class ModelGenerator {
 		}
 
 		if (clazz.isInterface()) {
-			final List<Method> methods = new ArrayList<Method>();
+			final List<Method> methods = new ArrayList<>();
 
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
@@ -414,10 +414,10 @@ public abstract class ModelGenerator {
 		}
 		else {
 
-			final Set<String> fields = new HashSet<String>();
+			final Set<String> fields = new HashSet<>();
 
 			Set<ModelField> modelFieldsOnType = AnnotationUtils
-					.getRepeatableAnnotation(clazz, ModelFields.class, ModelField.class);
+					.getRepeatableAnnotations(clazz, ModelField.class, null);
 			for (ModelField modelField : modelFieldsOnType) {
 				if (StringUtils.hasText(modelField.value())) {
 					ModelFieldBean modelFieldBean;
@@ -437,8 +437,8 @@ public abstract class ModelGenerator {
 			}
 
 			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils
-					.getRepeatableAnnotation(clazz, ModelAssociations.class,
-							ModelAssociation.class);
+					.getRepeatableAnnotations(clazz, 
+							ModelAssociation.class, null);
 			for (ModelAssociation modelAssociationAnnotation : modelAssociationsOnType) {
 				AbstractAssociation modelAssociation = AbstractAssociation
 						.createAssociation(modelAssociationAnnotation);
@@ -448,8 +448,8 @@ public abstract class ModelGenerator {
 			}
 
 			Set<ModelValidation> modelValidationsOnType = AnnotationUtils
-					.getRepeatableAnnotation(clazz, ModelValidations.class,
-							ModelValidation.class);
+					.getRepeatableAnnotations(clazz, 
+							ModelValidation.class, null);
 			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
 				AbstractValidation modelValidation = AbstractValidation.createValidation(
 						modelValidationAnnotation.propertyName(),
@@ -481,7 +481,7 @@ public abstract class ModelGenerator {
 
 			});
 
-			final List<Method> candidateMethods = new ArrayList<Method>();
+			final List<Method> candidateMethods = new ArrayList<>();
 			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
 				@Override
 				public void doWith(Method method)
@@ -508,7 +508,7 @@ public abstract class ModelGenerator {
 
 		}
 
-		modelCache.put(key, new SoftReference<ModelBean>(model));
+		modelCache.put(key, new SoftReference<>(model));
 		return model;
 	}
 
@@ -621,8 +621,8 @@ public abstract class ModelGenerator {
 				&& outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
 
 			Set<ModelValidation> modelValidationAnnotations = AnnotationUtils
-					.getRepeatableAnnotation(accessibleObject, ModelValidations.class,
-							ModelValidation.class);
+					.getRepeatableAnnotations(accessibleObject, ModelValidation.class,
+							null);
 			if (!modelValidationAnnotations.isEmpty()) {
 				for (ModelValidation modelValidationAnnotation : modelValidationAnnotations) {
 					AbstractValidation modelValidation = AbstractValidation
@@ -764,27 +764,27 @@ public abstract class ModelGenerator {
 
 		if (!outputConfig.isSurroundApiWithQuotes()) {
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-				mapper.addMixInAnnotations(ProxyObject.class,
+				mapper.addMixIn(ProxyObject.class,
 						ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 			}
 			else {
-				mapper.addMixInAnnotations(ProxyObject.class,
+				mapper.addMixIn(ProxyObject.class,
 						ProxyObjectWithoutApiQuotesMixin.class);
 			}
-			mapper.addMixInAnnotations(ApiObject.class, ApiObjectMixin.class);
+			mapper.addMixIn(ApiObject.class, ApiObjectMixin.class);
 		}
 		else {
 			if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-				mapper.addMixInAnnotations(ProxyObject.class,
+				mapper.addMixIn(ProxyObject.class,
 						ProxyObjectWithApiQuotesMixin.class);
 			}
 		}
 
-		Map<String, Object> modelObject = new LinkedHashMap<String, Object>();
+		Map<String, Object> modelObject = new LinkedHashMap<>();
 		modelObject.put("extend", model.getExtend());
 
 		if (!model.getAssociations().isEmpty()) {
-			Set<String> usesClasses = new HashSet<String>();
+			Set<String> usesClasses = new HashSet<>();
 			for (AbstractAssociation association : model.getAssociations()) {
 				usesClasses.add(association.getModel());
 			}
@@ -796,11 +796,11 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		Map<String, Object> configObject = new LinkedHashMap<String, Object>();
+		Map<String, Object> configObject = new LinkedHashMap<>();
 		ProxyObject proxyObject = new ProxyObject(model, outputConfig);
 
 		Map<String, ModelFieldBean> fields = model.getFields();
-		Set<String> requires = new HashSet<String>();
+		Set<String> requires = new HashSet<>();
 
 		if (!model.getValidations().isEmpty()
 				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
@@ -865,7 +865,7 @@ public abstract class ModelGenerator {
 			field.updateTypes(outputConfig);
 		}
 
-		List<Object> fieldConfigObjects = new ArrayList<Object>();
+		List<Object> fieldConfigObjects = new ArrayList<>();
 		for (ModelFieldBean field : fields.values()) {
 			if (field.hasOnlyName(outputConfig)) {
 				fieldConfigObjects.add(field.getName());
@@ -959,7 +959,7 @@ public abstract class ModelGenerator {
 
 		if (!outputConfig.isDebug()) {
 			jsCache.put(new JsCacheKey(model, outputConfig),
-					new SoftReference<String>(result));
+					new SoftReference<>(result));
 		}
 		return result;
 	}
@@ -967,14 +967,14 @@ public abstract class ModelGenerator {
 	private static Set<String> addValidatorsToField(Map<String, ModelFieldBean> fields,
 			List<AbstractValidation> validations) {
 
-		Set<String> requires = new TreeSet<String>();
+		Set<String> requires = new TreeSet<>();
 
 		for (ModelFieldBean field : fields.values()) {
 			for (AbstractValidation validation : validations) {
 				if (field.getName().equals(validation.getField())) {
 					List<AbstractValidation> validators = field.getValidators();
 					if (validators == null) {
-						validators = new ArrayList<AbstractValidation>();
+						validators = new ArrayList<>();
 						field.setValidators(validators);
 					}
 

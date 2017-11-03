@@ -27,7 +27,7 @@ public class GenericValidation extends AbstractValidation {
 	public GenericValidation(String type, String field, Map<String, Object> options) {
 		super(type, field);
 		if (options != null) {
-			this.options = new LinkedHashMap<String, Object>(options);
+			this.options = new LinkedHashMap<>(options);
 		}
 		else {
 			this.options = null;

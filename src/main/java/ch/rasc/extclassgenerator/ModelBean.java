@@ -46,11 +46,11 @@ public class ModelBean {
 
 	private boolean clientIdPropertyAddToWriter;
 
-	private Map<String, ModelFieldBean> fields = new LinkedHashMap<String, ModelFieldBean>();
+	private Map<String, ModelFieldBean> fields = new LinkedHashMap<>();
 
-	private List<AbstractValidation> validations = new ArrayList<AbstractValidation>();
+	private List<AbstractValidation> validations = new ArrayList<>();
 
-	private List<AbstractAssociation> associations = new ArrayList<AbstractAssociation>();
+	private List<AbstractAssociation> associations = new ArrayList<>();
 
 	private String[] hasMany;
 
