@@ -45,8 +45,8 @@
 	</scm>
 
 	<properties>
-		<spring.version>5.0.4.RELEASE</spring.version>
-		<jackson.version>2.9.4</jackson.version>
+		<spring.version>5.0.5.RELEASE</spring.version>
+		<jackson.version>2.9.5</jackson.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -141,7 +141,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.8.Final</version>
+			<version>6.0.9.Final</version>
 			<scope>test</scope>
 		</dependency>
 
