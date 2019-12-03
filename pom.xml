@@ -246,6 +246,7 @@
 						<exclude>mvnw</exclude>
 						<exclude>.editorconfig</exclude>
 						<exclude>LICENSE</exclude>
+						<exclude>.github/**</exclude>
 					</excludes>
 					<strictCheck>true</strictCheck>
 				</configuration>
