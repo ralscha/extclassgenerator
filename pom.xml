@@ -45,7 +45,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>5.2.7.RELEASE</spring.version>
+		<spring.version>5.2.8.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -292,7 +292,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.12.2</version>
+				<version>3.12.4</version>
 				<configuration>
 					<targetJdk>1.6</targetJdk>
 				</configuration>
