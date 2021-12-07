@@ -6,7 +6,7 @@ jobs:
   test:
     strategy:
        matrix:
-         java: [1.8, 11, 13]	
+         java: [8, 11.0.3, 11, 13, 17.0.1, 17, 18-ea]	
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
