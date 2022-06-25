@@ -45,7 +45,7 @@
 	</scm>
 
 	<properties>
-		<spring.version>5.3.20</spring.version>
+		<spring.version>5.3.21</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -119,7 +119,7 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.22.0</version>
+			<version>3.23.1</version>
 			<scope>test</scope>
 		</dependency>
 
