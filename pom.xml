@@ -84,7 +84,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.14.0</version>
+			<version>2.14.1</version>
 		</dependency>
 
 		<!-- TEST dependencies -->
@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>nl.jqno.equalsverifier</groupId>
 			<artifactId>equalsverifier</artifactId>
-			<version>3.11.1</version>
+			<version>3.12.3</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -133,7 +133,7 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.12.1</version>
+			<version>2.12.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -215,7 +215,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.4.0</version>
 				<configuration>
 					<additionalOptions>-Xdoclint:none</additionalOptions>
 				</configuration>
@@ -275,7 +275,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.4.0</version>
 				<configuration>
 					<links>
 						<link>http://docs.spring.io/spring/docs/3.2.x/javadoc-api/</link>
