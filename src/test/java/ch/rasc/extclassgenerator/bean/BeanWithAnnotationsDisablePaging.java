@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +19,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Model(value = "Sch.Bean2", idProperty = "id", paging = false, readMethod = "read",
 		messageProperty = "theMessageProperty", disablePagingParameters = true)

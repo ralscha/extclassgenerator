@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,10 @@ import javax.tools.StandardLocation;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 @SupportedAnnotationTypes({ "ch.rasc.extclassgenerator.Model" })
 @SupportedOptions({ "outputFormat", "debug", "includeValidation" })
@@ -240,27 +241,28 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		String configObjectString;
 		try {
 
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+			JsonMapper.Builder mapperBuilder = JsonMapper.builder()
+					.configure(JsonWriteFeature.QUOTE_FIELD_NAMES, false);
 
 			if (!outputConfig.isSurroundApiWithQuotes()) {
 				if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-					mapper.addMixIn(ProxyObject.class,
+					mapperBuilder.addMixIn(ProxyObject.class,
 							ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 				}
 				else {
-					mapper.addMixIn(ProxyObject.class,
+					mapperBuilder.addMixIn(ProxyObject.class,
 							ProxyObjectWithoutApiQuotesMixin.class);
 				}
-				mapper.addMixIn(ApiObject.class, ApiObjectMixin.class);
+				mapperBuilder.addMixIn(ApiObject.class, ApiObjectMixin.class);
 			}
 			else {
 				if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-					mapper.addMixIn(ProxyObject.class,
+					mapperBuilder.addMixIn(ProxyObject.class,
 							ProxyObjectWithApiQuotesMixin.class);
 				}
 			}
 
+			ObjectMapper mapper = mapperBuilder.build();
 			if (outputConfig.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter()
 						.writeValueAsString(modelObject);

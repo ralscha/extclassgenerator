@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,10 +39,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
@@ -54,12 +50,16 @@ import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.json.JsonWriteFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import ch.rasc.extclassgenerator.association.AbstractAssociation;
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided
@@ -437,8 +437,7 @@ public abstract class ModelGenerator {
 			}
 
 			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils
-					.getRepeatableAnnotations(clazz, 
-							ModelAssociation.class, null);
+					.getRepeatableAnnotations(clazz, ModelAssociation.class, null);
 			for (ModelAssociation modelAssociationAnnotation : modelAssociationsOnType) {
 				AbstractAssociation modelAssociation = AbstractAssociation
 						.createAssociation(modelAssociationAnnotation);
@@ -448,8 +447,7 @@ public abstract class ModelGenerator {
 			}
 
 			Set<ModelValidation> modelValidationsOnType = AnnotationUtils
-					.getRepeatableAnnotations(clazz, 
-							ModelValidation.class, null);
+					.getRepeatableAnnotations(clazz, ModelValidation.class, null);
 			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
 				AbstractValidation modelValidation = AbstractValidation.createValidation(
 						modelValidationAnnotation.propertyName(),
@@ -759,23 +757,23 @@ public abstract class ModelGenerator {
 			}
 		}
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);
+		JsonMapper.Builder mapperBuilder = JsonMapper.builder()
+				.configure(JsonWriteFeature.QUOTE_FIELD_NAMES, false);
 
 		if (!outputConfig.isSurroundApiWithQuotes()) {
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-				mapper.addMixIn(ProxyObject.class,
+				mapperBuilder.addMixIn(ProxyObject.class,
 						ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 			}
 			else {
-				mapper.addMixIn(ProxyObject.class,
+				mapperBuilder.addMixIn(ProxyObject.class,
 						ProxyObjectWithoutApiQuotesMixin.class);
 			}
-			mapper.addMixIn(ApiObject.class, ApiObjectMixin.class);
+			mapperBuilder.addMixIn(ApiObject.class, ApiObjectMixin.class);
 		}
 		else {
 			if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-				mapper.addMixIn(ProxyObject.class,
+				mapperBuilder.addMixIn(ProxyObject.class,
 						ProxyObjectWithApiQuotesMixin.class);
 			}
 		}
@@ -917,6 +915,7 @@ public abstract class ModelGenerator {
 		}
 
 		try {
+			ObjectMapper mapper = mapperBuilder.build();
 			if (outputConfig.isDebug()) {
 				configObjectString = mapper.writerWithDefaultPrettyPrinter()
 						.withView(jsonView).writeValueAsString(modelObject);
@@ -958,8 +957,7 @@ public abstract class ModelGenerator {
 		}
 
 		if (!outputConfig.isDebug()) {
-			jsCache.put(new JsCacheKey(model, outputConfig),
-					new SoftReference<>(result));
+			jsCache.put(new JsCacheKey(model, outputConfig), new SoftReference<>(result));
 		}
 		return result;
 	}
@@ -1027,9 +1025,11 @@ public abstract class ModelGenerator {
 	}
 
 	static String trimToNull(String str) {
-		String trimmedStr = StringUtils.trimWhitespace(str);
-		if (StringUtils.hasLength(trimmedStr)) {
-			return trimmedStr;
+		if (str != null) {
+			String trimmedStr = str.strip();
+			if (StringUtils.hasLength(trimmedStr)) {
+				return trimmedStr;
+			}
 		}
 		return null;
 	}

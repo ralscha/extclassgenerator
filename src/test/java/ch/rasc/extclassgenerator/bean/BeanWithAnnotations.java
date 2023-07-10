@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.Length;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -38,6 +31,12 @@ import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelField;
 import ch.rasc.extclassgenerator.ModelFieldBean;
 import ch.rasc.extclassgenerator.ModelType;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Model(value = "Sch.Bean", idProperty = "aInt", paging = true, readMethod = "read",
 		createMethod = "create", updateMethod = "update", destroyMethod = "destroy")

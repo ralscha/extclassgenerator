@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ public class ModelGeneratorBeanWithAnnotations3Test {
 
 		for (ModelFieldBean expectedField : BeanWithAnnotations3.expectedFields) {
 			ModelFieldBean field = modelBean.getFields().get(expectedField.getName());
-			assertThat(field).isEqualToComparingFieldByField(expectedField);
+			assertThat(field).usingRecursiveComparison().isEqualTo(expectedField);
 		}
 	}
 

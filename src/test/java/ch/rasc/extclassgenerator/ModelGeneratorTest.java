@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,10 +53,10 @@ public class ModelGeneratorTest {
 				"Ext.define(\"App.User\",{extend:\"Ext.data.Model\",fields:[{name:\"id\",type:\"int\"},{name:\"name\",type:\"string\"}]});");
 
 		ModelFieldBean getIdField = model.getField("id");
-		assertThat(getIdField).isEqualToComparingFieldByField(idField);
+		assertThat(getIdField).usingRecursiveComparison().isEqualTo(idField);
 
 		ModelFieldBean getNameField = model.getField("name");
-		assertThat(getNameField).isEqualToComparingFieldByField(nameField);
+		assertThat(getNameField).usingRecursiveComparison().isEqualTo(nameField);
 
 		ModelGenerator.clearCaches();
 		nameField.setModelType(ModelType.INTEGER);

@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2018 the original author or authors.
+ * Copyright the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -304,9 +304,10 @@ public class GeneratorTestUtil {
 	public static void compareExtJs4Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils
-					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "ExtJs4" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
+			String expectedValue = IOUtils.toString(
+					GeneratorTestUtil.class.getResourceAsStream("/generator/" + model
+							+ "ExtJs4" + (apiWithQuotes ? "Q" : "") + ".json"),
+					StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -317,9 +318,10 @@ public class GeneratorTestUtil {
 	public static void compareExtJs5Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils
-					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "ExtJs5" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
+			String expectedValue = IOUtils.toString(
+					GeneratorTestUtil.class.getResourceAsStream("/generator/" + model
+							+ "ExtJs5" + (apiWithQuotes ? "Q" : "") + ".json"),
+					StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
@@ -330,9 +332,10 @@ public class GeneratorTestUtil {
 	public static void compareTouch2Code(String model, String value, boolean debug,
 			boolean apiWithQuotes) {
 		try {
-			String expectedValue = IOUtils
-					.toString(GeneratorTestUtil.class.getResourceAsStream("/generator/"
-							+ model + "Touch2" + (apiWithQuotes ? "Q" : "") + ".json"), StandardCharsets.UTF_8);
+			String expectedValue = IOUtils.toString(
+					GeneratorTestUtil.class.getResourceAsStream("/generator/" + model
+							+ "Touch2" + (apiWithQuotes ? "Q" : "") + ".json"),
+					StandardCharsets.UTF_8);
 			compareModelString(expectedValue, value, debug);
 		}
 		catch (IOException e) {
