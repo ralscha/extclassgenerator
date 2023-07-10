@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.ref.SoftReference;
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -40,7 +41,12 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.MergedAnnotation;
+import org.springframework.core.annotation.MergedAnnotationCollectors;
+import org.springframework.core.annotation.MergedAnnotationPredicates;
+import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.core.annotation.RepeatableContainers;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ReflectionUtils;
@@ -416,8 +422,8 @@ public abstract class ModelGenerator {
 
 			final Set<String> fields = new HashSet<>();
 
-			Set<ModelField> modelFieldsOnType = AnnotationUtils
-					.getRepeatableAnnotations(clazz, ModelField.class, null);
+			Set<ModelField> modelFieldsOnType = getRepeatableAnnotations(clazz,
+					ModelField.class);
 			for (ModelField modelField : modelFieldsOnType) {
 				if (StringUtils.hasText(modelField.value())) {
 					ModelFieldBean modelFieldBean;
@@ -436,8 +442,8 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			Set<ModelAssociation> modelAssociationsOnType = AnnotationUtils
-					.getRepeatableAnnotations(clazz, ModelAssociation.class, null);
+			Set<ModelAssociation> modelAssociationsOnType = getRepeatableAnnotations(
+					clazz, ModelAssociation.class);
 			for (ModelAssociation modelAssociationAnnotation : modelAssociationsOnType) {
 				AbstractAssociation modelAssociation = AbstractAssociation
 						.createAssociation(modelAssociationAnnotation);
@@ -446,8 +452,8 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			Set<ModelValidation> modelValidationsOnType = AnnotationUtils
-					.getRepeatableAnnotations(clazz, ModelValidation.class, null);
+			Set<ModelValidation> modelValidationsOnType = getRepeatableAnnotations(clazz,
+					ModelValidation.class);
 			for (ModelValidation modelValidationAnnotation : modelValidationsOnType) {
 				AbstractValidation modelValidation = AbstractValidation.createValidation(
 						modelValidationAnnotation.propertyName(),
@@ -618,9 +624,8 @@ public abstract class ModelGenerator {
 		if (modelFieldBean != null
 				&& outputConfig.getIncludeValidation() != IncludeValidation.NONE) {
 
-			Set<ModelValidation> modelValidationAnnotations = AnnotationUtils
-					.getRepeatableAnnotations(accessibleObject, ModelValidation.class,
-							null);
+			Set<ModelValidation> modelValidationAnnotations = getRepeatableAnnotations(
+					accessibleObject, ModelValidation.class);
 			if (!modelValidationAnnotations.isEmpty()) {
 				for (ModelValidation modelValidationAnnotation : modelValidationAnnotations) {
 					AbstractValidation modelValidation = AbstractValidation
@@ -1040,6 +1045,19 @@ public abstract class ModelGenerator {
 	public static void clearCaches() {
 		modelCache.clear();
 		jsCache.clear();
+	}
+
+	private static <A extends Annotation> Set<A> getRepeatableAnnotations(
+			AnnotatedElement annotatedElement, Class<A> annotationType) {
+
+		return MergedAnnotations
+				.from(annotatedElement, SearchStrategy.SUPERCLASS,
+						RepeatableContainers.standardRepeatables())
+				.stream(annotationType)
+				.filter(MergedAnnotationPredicates
+						.firstRunOf(MergedAnnotation::getAggregateIndex))
+				.map(MergedAnnotation::withNonMergedAttributes)
+				.collect(MergedAnnotationCollectors.toAnnotationSet());
 	}
 
 }
