@@ -33,7 +33,8 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
  */
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder(value = { "name", "type", "defaultValue", "dateFormat", "allowNull",
-		"useNull", "persist", "mapping", "convert", "depends", "calculate" })
+		"useNull", "persist", "mapping", "convert", "depends", "calculate", "validators",
+		"reference", "allowBlank", "unique", "critical" })
 public class ModelFieldBean {
 	private String name;
 
@@ -95,10 +96,10 @@ public class ModelFieldBean {
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
 				return this.useNull == null;
 			}
-			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
+			if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2) {
 				return this.allowNull == null;
 			}
-			else if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
 				return this.allowNull == null && this.critical == null
 						&& !StringUtils.hasText(this.calculate)
 						&& (this.validators == null || this.validators.isEmpty())

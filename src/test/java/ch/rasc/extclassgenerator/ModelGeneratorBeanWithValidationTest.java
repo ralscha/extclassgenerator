@@ -16,12 +16,13 @@
 package ch.rasc.extclassgenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -39,7 +40,7 @@ import ch.rasc.extclassgenerator.validation.RangeValidation;
 
 public class ModelGeneratorBeanWithValidationTest {
 
-	@Before
+	@BeforeEach
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}
@@ -279,17 +280,16 @@ public class ModelGeneratorBeanWithValidationTest {
 				false, false);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testLengthValidation() {
-		@SuppressWarnings("unused")
-		LengthValidation lv = new LengthValidation("name", (Integer) null,
-				(Integer) null);
+		assertThrows(IllegalArgumentException.class,
+				() -> new LengthValidation("name", (Integer) null, (Integer) null));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testRangeValidation() {
-		@SuppressWarnings("unused")
-		RangeValidation rv = new RangeValidation("name", (Long) null, (Long) null);
+		assertThrows(IllegalArgumentException.class,
+				() -> new RangeValidation("name", (Long) null, (Long) null));
 	}
 
 }

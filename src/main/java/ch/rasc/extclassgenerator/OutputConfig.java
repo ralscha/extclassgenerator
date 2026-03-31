@@ -15,6 +15,8 @@
  */
 package ch.rasc.extclassgenerator;
 
+import java.util.Objects;
+
 /**
  * Class to configure the output of the {@link ModelGenerator}
  */
@@ -82,18 +84,8 @@ public class OutputConfig {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (this.debug ? 1231 : 1237);
-		result = prime * result + (this.includeValidation == null ? 0
-				: this.includeValidation.hashCode());
-		result = prime * result
-				+ (this.lineEnding == null ? 0 : this.lineEnding.hashCode());
-		result = prime * result
-				+ (this.outputFormat == null ? 0 : this.outputFormat.hashCode());
-		result = prime * result + (this.surroundApiWithQuotes ? 1231 : 1237);
-		result = prime * result + (this.useSingleQuotes ? 1231 : 1237);
-		return result;
+		return Objects.hash(this.debug, this.includeValidation, this.lineEnding,
+				this.outputFormat, this.surroundApiWithQuotes, this.useSingleQuotes);
 	}
 
 	@Override
@@ -101,29 +93,16 @@ public class OutputConfig {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		OutputConfig other = (OutputConfig) obj;
-		if (this.debug != other.debug) {
+		if (this.debug != other.debug || this.includeValidation != other.includeValidation
+				|| this.lineEnding != other.lineEnding
+				|| this.outputFormat != other.outputFormat) {
 			return false;
 		}
-		if (this.includeValidation != other.includeValidation) {
-			return false;
-		}
-		if (this.lineEnding != other.lineEnding) {
-			return false;
-		}
-		if (this.outputFormat != other.outputFormat) {
-			return false;
-		}
-		if (this.surroundApiWithQuotes != other.surroundApiWithQuotes) {
-			return false;
-		}
-		if (this.useSingleQuotes != other.useSingleQuotes) {
+		if ((this.surroundApiWithQuotes != other.surroundApiWithQuotes) || (this.useSingleQuotes != other.useSingleQuotes)) {
 			return false;
 		}
 		return true;

@@ -24,21 +24,22 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(Include.NON_NULL)
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
+@JsonPropertyOrder({ "type", "idParam", "pageParam", "startParam", "limitParam",
+		"directFn", "api", "reader", "writer" })
 @SuppressWarnings("unused")
 public class ProxyObject {
 
-	private final String type = "direct";
-
 	private String idParam;
 
-	private Object pageParam = null;
+	private Object pageParam;
 
-	private Object startParam = null;
+	private Object startParam;
 
-	private Object limitParam = null;
+	private Object limitParam;
 
 	private String directFn;
 
@@ -50,7 +51,7 @@ public class ProxyObject {
 
 	protected ProxyObject(ModelBean model, OutputConfig config) {
 		if (StringUtils.hasText(model.getIdProperty())
-				&& !model.getIdProperty().equals("id")) {
+				&& !"id".equals(model.getIdProperty())) {
 			this.idParam = model.getIdProperty();
 		}
 
@@ -70,7 +71,7 @@ public class ProxyObject {
 			this.limitParam = value;
 		}
 
-		Map<String, Object> readerConfigObject = new LinkedHashMap<String, Object>();
+		Map<String, Object> readerConfigObject = new LinkedHashMap<>();
 
 		if (StringUtils.hasText(model.getReader()) && !"json".equals(model.getReader())) {
 			readerConfigObject.put("type", model.getReader());
@@ -102,7 +103,7 @@ public class ProxyObject {
 			this.reader = readerConfigObject;
 		}
 
-		Map<String, Object> writerConfigObject = new LinkedHashMap<String, Object>();
+		Map<String, Object> writerConfigObject = new LinkedHashMap<>();
 
 		if (StringUtils.hasText(model.getWriter()) && !"json".equals(model.getWriter())) {
 			writerConfigObject.put("type", model.getWriter());
@@ -171,8 +172,9 @@ public class ProxyObject {
 
 	public boolean hasContent() {
 		return this.api != null || this.directFn != null || this.reader != null
-				|| this.writer != null && !(this.writer.size() == 1
-						&& this.writer.containsKey("writeAllFields"))
-				|| this.idParam != null;
+				|| this.writer != null && (this.writer.size() != 1
+						|| !this.writer.containsKey("writeAllFields"))
+				|| this.idParam != null || this.pageParam != null
+				|| this.startParam != null || this.limitParam != null;
 	}
 }

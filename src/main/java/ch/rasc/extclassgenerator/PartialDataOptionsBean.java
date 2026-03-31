@@ -33,10 +33,8 @@ public class PartialDataOptionsBean {
 	}
 
 	public PartialDataOptionsBean(PartialDataOptions partialDataOptions) {
-		if (!(partialDataOptions.persist() == false
-				&& partialDataOptions.associated() == false
-				&& partialDataOptions.changes() == true
-				&& partialDataOptions.critical() == true)) {
+		if (partialDataOptions.persist() || partialDataOptions.associated()
+				|| !partialDataOptions.changes() || !partialDataOptions.critical()) {
 
 			if (partialDataOptions.associated()) {
 				this.associated = partialDataOptions.associated();
@@ -49,10 +47,8 @@ public class PartialDataOptionsBean {
 					this.critical = partialDataOptions.critical();
 				}
 			}
-			else {
-				if (partialDataOptions.persist()) {
-					this.persist = partialDataOptions.persist();
-				}
+			else if (partialDataOptions.persist()) {
+				this.persist = partialDataOptions.persist();
 			}
 		}
 	}

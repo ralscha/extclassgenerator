@@ -33,9 +33,8 @@ public class AllDataOptionsBean {
 	}
 
 	public AllDataOptionsBean(AllDataOptions allDataOptions) {
-		if (!(allDataOptions.persist() == true && allDataOptions.associated() == false
-				&& allDataOptions.changes() == false
-				&& allDataOptions.critical() == false)) {
+		if (!allDataOptions.persist() || allDataOptions.associated()
+				|| allDataOptions.changes() || allDataOptions.critical()) {
 
 			if (allDataOptions.associated()) {
 				this.associated = allDataOptions.associated();
@@ -48,10 +47,8 @@ public class AllDataOptionsBean {
 					this.critical = allDataOptions.critical();
 				}
 			}
-			else {
-				if (allDataOptions.persist()) {
-					this.persist = allDataOptions.persist();
-				}
+			else if (allDataOptions.persist()) {
+				this.persist = allDataOptions.persist();
 			}
 		}
 	}

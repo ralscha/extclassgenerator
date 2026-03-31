@@ -15,15 +15,13 @@
  */
 package ch.rasc.extclassgenerator.association;
 
-import java.lang.reflect.Field;
-
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import ch.rasc.extclassgenerator.Model;
 import ch.rasc.extclassgenerator.ModelAssociation;
@@ -36,6 +34,8 @@ import ch.rasc.extclassgenerator.ModelId;
  * Base class for the association objects
  */
 @JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({ "type", "model", "associationKey", "foreignKey", "primaryKey",
+		"instanceName", "setterName", "getterName", "autoLoad", "name" })
 public abstract class AbstractAssociation {
 
 	private final String type;
@@ -183,7 +183,7 @@ public abstract class AbstractAssociation {
 					.getAnnotation(Model.class);
 			if (associationModelAnnotation != null
 					&& StringUtils.hasText(associationModelAnnotation.idProperty())
-					&& !associationModelAnnotation.idProperty().equals("id")) {
+					&& !"id".equals(associationModelAnnotation.idProperty())) {
 				association.setPrimaryKey(associationModelAnnotation.idProperty());
 			}
 		}
@@ -312,7 +312,7 @@ public abstract class AbstractAssociation {
 		}
 		else if (type == ModelAssociationType.HAS_MANY
 				&& StringUtils.hasText(model.getIdProperty())
-				&& !model.getIdProperty().equals("id")) {
+				&& !"id".equals(model.getIdProperty())) {
 			association.setPrimaryKey(model.getIdProperty());
 		}
 		else if (type == ModelAssociationType.BELONGS_TO
@@ -321,20 +321,14 @@ public abstract class AbstractAssociation {
 					.getAnnotation(Model.class);
 			if (associationModelAnnotation != null
 					&& StringUtils.hasText(associationModelAnnotation.idProperty())
-					&& !associationModelAnnotation.idProperty().equals("id")) {
+					&& !"id".equals(associationModelAnnotation.idProperty())) {
 				association.setPrimaryKey(associationModelAnnotation.idProperty());
 			}
-			ReflectionUtils.doWithFields(associationClass, new FieldCallback() {
-
-				@Override
-				public void doWith(Field field)
-						throws IllegalArgumentException, IllegalAccessException {
-					if (field.getAnnotation(ModelId.class) != null
-							&& !"id".equals(field.getName())) {
-						association.setPrimaryKey(field.getName());
-					}
+			ReflectionUtils.doWithFields(associationClass, field -> {
+				if (field.getAnnotation(ModelId.class) != null
+						&& !"id".equals(field.getName())) {
+					association.setPrimaryKey(field.getName());
 				}
-
 			});
 		}
 
@@ -424,14 +418,15 @@ public abstract class AbstractAssociation {
 
 	private static String getWarningText(Class<?> declaringClass, String name,
 			String type, String propertyName) {
-		String warning = "Field ";
+		StringBuilder warning = new StringBuilder("Field ");
 		if (declaringClass != null) {
-			warning += declaringClass.getName();
-			warning += ".";
+			warning.append(declaringClass.getName());
+			warning.append(".");
 		}
-		warning += name;
-		return warning + ": A '" + type + "' association does not support property '"
-				+ propertyName + "'. Property will be ignored.";
+		warning.append(name);
+		return warning.append(": A '").append(type)
+				.append("' association does not support property '").append(propertyName)
+				.append("'. Property will be ignored.").toString();
 	}
 
 }

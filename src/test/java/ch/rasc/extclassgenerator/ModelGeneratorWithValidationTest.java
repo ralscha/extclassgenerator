@@ -23,8 +23,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
 import ch.rasc.extclassgenerator.validation.EmailValidation;
@@ -35,7 +35,7 @@ import ch.rasc.extclassgenerator.validation.PresenceValidation;
 
 public class ModelGeneratorWithValidationTest {
 
-	@Before
+	@BeforeEach
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}

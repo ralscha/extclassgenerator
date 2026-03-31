@@ -35,11 +35,9 @@ import javax.tools.StandardLocation;
 
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.json.JsonWriteFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import tools.jackson.core.json.JsonWriteFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 @SupportedAnnotationTypes({ "ch.rasc.extclassgenerator.Model" })
 @SupportedOptions({ "outputFormat", "debug", "includeValidation" })
@@ -202,11 +200,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 					}
 
 				}
-				catch (ClassNotFoundException e) {
-					this.processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
-							e.getMessage());
-				}
-				catch (IOException e) {
+				catch (ClassNotFoundException | IOException e) {
 					this.processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
 							e.getMessage());
 				}
@@ -239,47 +233,33 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 		}
 
 		String configObjectString;
-		try {
 
-			JsonMapper.Builder mapperBuilder = JsonMapper.builder()
-					.configure(JsonWriteFeature.QUOTE_FIELD_NAMES, false);
+		JsonMapper.Builder mapperBuilder = JsonMapper.builder()
+				.configure(JsonWriteFeature.QUOTE_PROPERTY_NAMES, false);
 
-			if (!outputConfig.isSurroundApiWithQuotes()) {
-				if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
-					mapperBuilder.addMixIn(ProxyObject.class,
-							ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
-				}
-				else {
-					mapperBuilder.addMixIn(ProxyObject.class,
-							ProxyObjectWithoutApiQuotesMixin.class);
-				}
-				mapperBuilder.addMixIn(ApiObject.class, ApiObjectMixin.class);
+		if (!outputConfig.isSurroundApiWithQuotes()) {
+			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
+				mapperBuilder.addMixIn(ProxyObject.class,
+						ProxyObjectWithoutApiQuotesExtJs5Mixin.class);
 			}
 			else {
-				if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-					mapperBuilder.addMixIn(ProxyObject.class,
-							ProxyObjectWithApiQuotesMixin.class);
-				}
+				mapperBuilder.addMixIn(ProxyObject.class,
+						ProxyObjectWithoutApiQuotesMixin.class);
 			}
+			mapperBuilder.addMixIn(ApiObject.class, ApiObjectMixin.class);
+		}
+		else if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
+			mapperBuilder.addMixIn(ProxyObject.class,
+					ProxyObjectWithApiQuotesMixin.class);
+		}
 
-			ObjectMapper mapper = mapperBuilder.build();
-			if (outputConfig.isDebug()) {
-				configObjectString = mapper.writerWithDefaultPrettyPrinter()
-						.writeValueAsString(modelObject);
-			}
-			else {
-				configObjectString = mapper.writeValueAsString(modelObject);
-			}
-
+		ObjectMapper mapper = mapperBuilder.build();
+		if (outputConfig.isDebug()) {
+			configObjectString = mapper.writerWithDefaultPrettyPrinter()
+					.writeValueAsString(modelObject);
 		}
-		catch (JsonGenerationException e) {
-			throw new RuntimeException(e);
-		}
-		catch (JsonMappingException e) {
-			throw new RuntimeException(e);
-		}
-		catch (IOException e) {
-			throw new RuntimeException(e);
+		else {
+			configObjectString = mapper.writeValueAsString(modelObject);
 		}
 
 		sb.append(configObjectString);

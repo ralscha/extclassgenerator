@@ -25,6 +25,7 @@ import java.util.Map;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import ch.rasc.extclassgenerator.IncludeValidation;
@@ -40,6 +41,7 @@ import ch.rasc.extclassgenerator.OutputFormat;
 /**
  * Base class for the validation objects
  */
+@JsonPropertyOrder({ "type", "field" })
 public abstract class AbstractValidation {
 	private final String type;
 
@@ -47,7 +49,6 @@ public abstract class AbstractValidation {
 	private final String field;
 
 	public AbstractValidation(String type, String field) {
-		super();
 		this.type = type;
 		this.field = field;
 	}
@@ -69,16 +70,16 @@ public abstract class AbstractValidation {
 		if (includeValidation == IncludeValidation.BUILTIN
 				|| includeValidation == IncludeValidation.ALL) {
 
-			if (annotationClassName.equals("jakarta.validation.constraints.NotNull")
-					|| annotationClassName
-							.equals("org.hibernate.validator.constraints.NotEmpty")
-					|| annotationClassName
-							.equals("jakarta.validation.constraints.NotEmpty")) {
+			if ("jakarta.validation.constraints.NotNull".equals(annotationClassName)
+					|| "org.hibernate.validator.constraints.NotEmpty"
+							.equals(annotationClassName)
+					|| "jakarta.validation.constraints.NotEmpty"
+							.equals(annotationClassName)) {
 				model.addValidation(new PresenceValidation(modelFieldBean.getName()));
 			}
-			else if (annotationClassName.equals("jakarta.validation.constraints.Size")
-					|| annotationClassName
-							.equals("org.hibernate.validator.constraints.Length")) {
+			else if ("jakarta.validation.constraints.Size".equals(annotationClassName)
+					|| "org.hibernate.validator.constraints.Length"
+							.equals(annotationClassName)) {
 
 				Integer min = (Integer) AnnotationUtils.getValue(fieldAnnotation, "min");
 				Integer max = (Integer) AnnotationUtils.getValue(fieldAnnotation, "max");
@@ -86,17 +87,17 @@ public abstract class AbstractValidation {
 						new LengthValidation(modelFieldBean.getName(), min, max));
 
 			}
-			else if (annotationClassName
-					.equals("jakarta.validation.constraints.Pattern")) {
+			else if ("jakarta.validation.constraints.Pattern"
+					.equals(annotationClassName)) {
 				String regexp = (String) AnnotationUtils.getValue(fieldAnnotation,
 						"regexp");
 				model.addValidation(
 						new FormatValidation(modelFieldBean.getName(), regexp));
 			}
-			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.Email")
-					|| annotationClassName
-							.equals("jakarta.validation.constraints.Email")) {
+			else if ("org.hibernate.validator.constraints.Email"
+					.equals(annotationClassName)
+					|| "jakarta.validation.constraints.Email"
+							.equals(annotationClassName)) {
 				model.addValidation(new EmailValidation(modelFieldBean.getName()));
 			}
 		}
@@ -105,29 +106,29 @@ public abstract class AbstractValidation {
 				&& outputConfig.getOutputFormat() == OutputFormat.EXTJS5
 				|| includeValidation == IncludeValidation.ALL) {
 
-			if (annotationClassName.equals("jakarta.validation.constraints.DecimalMax")) {
+			if ("jakarta.validation.constraints.DecimalMax".equals(annotationClassName)) {
 				String value = (String) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(new RangeValidation(modelFieldBean.getName(), null,
 						new BigDecimal(value)));
 			}
-			else if (annotationClassName
-					.equals("jakarta.validation.constraints.DecimalMin")) {
+			else if ("jakarta.validation.constraints.DecimalMin"
+					.equals(annotationClassName)) {
 				String value = (String) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(new RangeValidation(modelFieldBean.getName(),
 						new BigDecimal(value), null));
 			}
-			else if (annotationClassName.equals("jakarta.validation.constraints.Max")) {
+			else if ("jakarta.validation.constraints.Max".equals(annotationClassName)) {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(
 						new RangeValidation(modelFieldBean.getName(), null, value));
 			}
-			else if (annotationClassName.equals("jakarta.validation.constraints.Min")) {
+			else if ("jakarta.validation.constraints.Min".equals(annotationClassName)) {
 				Long value = (Long) AnnotationUtils.getValue(fieldAnnotation);
 				model.addValidation(
 						new RangeValidation(modelFieldBean.getName(), value, null));
 			}
-			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.Range")) {
+			else if ("org.hibernate.validator.constraints.Range"
+					.equals(annotationClassName)) {
 				Long min = (Long) AnnotationUtils.getValue(fieldAnnotation, "min");
 				Long max = (Long) AnnotationUtils.getValue(fieldAnnotation, "max");
 				model.addValidation(
@@ -137,7 +138,7 @@ public abstract class AbstractValidation {
 
 		if (includeValidation == IncludeValidation.ALL) {
 
-			if (annotationClassName.equals("jakarta.validation.constraints.Digits")) {
+			if ("jakarta.validation.constraints.Digits".equals(annotationClassName)) {
 				Integer integer = (Integer) AnnotationUtils.getValue(fieldAnnotation,
 						"integer");
 				Integer fraction = (Integer) AnnotationUtils.getValue(fieldAnnotation,
@@ -145,22 +146,22 @@ public abstract class AbstractValidation {
 				model.addValidation(new DigitsValidation(modelFieldBean.getName(),
 						integer, fraction));
 			}
-			else if (annotationClassName
-					.equals("jakarta.validation.constraints.Future")) {
+			else if ("jakarta.validation.constraints.Future"
+					.equals(annotationClassName)) {
 				model.addValidation(new FutureValidation(modelFieldBean.getName()));
 			}
-			else if (annotationClassName.equals("jakarta.validation.constraints.Past")) {
+			else if ("jakarta.validation.constraints.Past".equals(annotationClassName)) {
 				model.addValidation(new PastValidation(modelFieldBean.getName()));
 			}
-			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.CreditCardNumber")) {
+			else if ("org.hibernate.validator.constraints.CreditCardNumber"
+					.equals(annotationClassName)) {
 				model.addValidation(
 						new CreditCardNumberValidation(modelFieldBean.getName()));
 			}
-			else if (annotationClassName
-					.equals("org.hibernate.validator.constraints.NotBlank")
-					|| annotationClassName
-							.equals("jakarta.validation.constraints.NotBlank")) {
+			else if ("org.hibernate.validator.constraints.NotBlank"
+					.equals(annotationClassName)
+					|| "jakarta.validation.constraints.NotBlank"
+							.equals(annotationClassName)) {
 				model.addValidation(new NotBlankValidation(modelFieldBean.getName()));
 			}
 		}
@@ -187,7 +188,7 @@ public abstract class AbstractValidation {
 				Map<String, Object> options = new LinkedHashMap<>();
 				for (ModelValidationParameter parameter : modelValidationAnnotation
 						.parameters()) {
-					if (!parameter.name().equals("type")) {
+					if (!"type".equals(parameter.name())) {
 						options.put(parameter.name(), parameter.value());
 					}
 				}

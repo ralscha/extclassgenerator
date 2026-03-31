@@ -17,8 +17,10 @@ package ch.rasc.extclassgenerator.validation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({ "type", "field", "min", "max" })
 public class LengthValidation extends AbstractValidation {
 
 	private final Long min;

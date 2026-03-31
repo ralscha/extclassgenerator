@@ -15,8 +15,10 @@
  */
 package ch.rasc.extclassgenerator.validation;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+@JsonPropertyOrder({ "type", "field", "matcher" })
 public class FormatValidation extends AbstractValidation {
 
 	@JsonRawValue

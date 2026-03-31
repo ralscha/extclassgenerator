@@ -17,8 +17,8 @@ package ch.rasc.extclassgenerator;
 
 import java.io.IOException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -38,7 +38,7 @@ import ch.rasc.extclassgenerator.bean.TwoHasOneClass;
 
 public class ModelGeneratorBeansWithAssociationTest {
 
-	@Before
+	@BeforeEach
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}

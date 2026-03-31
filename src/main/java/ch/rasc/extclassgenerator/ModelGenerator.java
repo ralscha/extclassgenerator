@@ -50,22 +50,19 @@ import org.springframework.core.annotation.RepeatableContainers;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.util.ReflectionUtils.FieldCallback;
-import org.springframework.util.ReflectionUtils.MethodCallback;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.json.JsonWriteFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import ch.rasc.extclassgenerator.association.AbstractAssociation;
 import ch.rasc.extclassgenerator.validation.AbstractValidation;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tools.jackson.core.json.JsonWriteFeature;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Generator for creating ExtJS and Touch Model objects (JS code) based on a provided
@@ -399,20 +396,9 @@ public abstract class ModelGenerator {
 		if (clazz.isInterface()) {
 			final List<Method> methods = new ArrayList<>();
 
-			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
-				@Override
-				public void doWith(Method method)
-						throws IllegalArgumentException, IllegalAccessException {
-					methods.add(method);
-				}
-			});
+			ReflectionUtils.doWithMethods(clazz, method -> methods.add(method));
 
-			Collections.sort(methods, new Comparator<Method>() {
-				@Override
-				public int compare(Method o1, Method o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			Collections.sort(methods, Comparator.comparing(Method::getName));
 
 			for (Method method : methods) {
 				createModelBean(model, method, outputConfig);
@@ -463,48 +449,33 @@ public abstract class ModelGenerator {
 				}
 			}
 
-			ReflectionUtils.doWithFields(clazz, new FieldCallback() {
+			ReflectionUtils.doWithFields(clazz, field -> {
+				if (!fields.contains(field.getName()) && (field
+						.getAnnotation(ModelField.class) != null
+						|| field.getAnnotation(ModelAssociation.class) != null
+						|| (Modifier.isPublic(field.getModifiers())
+								|| readMethods.contains(field.getName()))
+								&& field.getAnnotation(JsonIgnore.class) == null)) {
 
-				@Override
-				public void doWith(Field field)
-						throws IllegalArgumentException, IllegalAccessException {
-					if (!fields.contains(field.getName()) && (field
-							.getAnnotation(ModelField.class) != null
-							|| field.getAnnotation(ModelAssociation.class) != null
-							|| (Modifier.isPublic(field.getModifiers())
-									|| readMethods.contains(field.getName()))
-									&& field.getAnnotation(JsonIgnore.class) == null)) {
+					// ignore superclass declarations of fields already
+					// found in a subclass
+					fields.add(field.getName());
+					createModelBean(model, field, outputConfig);
 
-						// ignore superclass declarations of fields already
-						// found in a subclass
-						fields.add(field.getName());
-						createModelBean(model, field, outputConfig);
-
-					}
 				}
-
 			});
 
 			final List<Method> candidateMethods = new ArrayList<>();
-			ReflectionUtils.doWithMethods(clazz, new MethodCallback() {
-				@Override
-				public void doWith(Method method)
-						throws IllegalArgumentException, IllegalAccessException {
+			ReflectionUtils.doWithMethods(clazz, method -> {
 
-					if ((method.getAnnotation(ModelField.class) != null
-							|| method.getAnnotation(ModelAssociation.class) != null)
-							&& method.getAnnotation(JsonIgnore.class) == null) {
-						candidateMethods.add(method);
-					}
+				if ((method.getAnnotation(ModelField.class) != null
+						|| method.getAnnotation(ModelAssociation.class) != null)
+						&& method.getAnnotation(JsonIgnore.class) == null) {
+					candidateMethods.add(method);
 				}
 			});
 
-			Collections.sort(candidateMethods, new Comparator<Method>() {
-				@Override
-				public int compare(Method o1, Method o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			Collections.sort(candidateMethods, Comparator.comparing(Method::getName));
 
 			for (Method method : candidateMethods) {
 				createModelBean(model, method, outputConfig);
@@ -522,15 +493,12 @@ public abstract class ModelGenerator {
 		String name = null;
 		Class<?> declaringClass = null;
 
-		if (accessibleObject instanceof Field) {
-			Field field = (Field) accessibleObject;
+		if (accessibleObject instanceof Field field) {
 			javaType = field.getType();
 			name = field.getName();
 			declaringClass = field.getDeclaringClass();
 		}
-		else if (accessibleObject instanceof Method) {
-			Method method = (Method) accessibleObject;
-
+		else if (accessibleObject instanceof Method method) {
 			javaType = method.getReturnType();
 			if (javaType.equals(Void.TYPE)) {
 				return;
@@ -591,11 +559,9 @@ public abstract class ModelGenerator {
 			updateModelFieldBean(modelFieldBean, modelFieldAnnotation);
 			model.addField(modelFieldBean);
 		}
-		else {
-			if (modelType != null) {
-				modelFieldBean = new ModelFieldBean(name, modelType);
-				model.addField(modelFieldBean);
-			}
+		else if (modelType != null) {
+			modelFieldBean = new ModelFieldBean(name, modelType);
+			model.addField(modelFieldBean);
 		}
 
 		ModelId modelIdAnnotation = accessibleObject.getAnnotation(ModelId.class);
@@ -687,19 +653,17 @@ public abstract class ModelGenerator {
 			if (ModelField.DEFAULTVALUE_UNDEFINED.equals(defaultValue)) {
 				modelFieldBean.setDefaultValue(ModelField.DEFAULTVALUE_UNDEFINED);
 			}
+			else if (type == ModelType.BOOLEAN) {
+				modelFieldBean.setDefaultValue(Boolean.valueOf(defaultValue));
+			}
+			else if (type == ModelType.INTEGER) {
+				modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
+			}
+			else if (type == ModelType.FLOAT || type == ModelType.NUMBER) {
+				modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
+			}
 			else {
-				if (type == ModelType.BOOLEAN) {
-					modelFieldBean.setDefaultValue(Boolean.valueOf(defaultValue));
-				}
-				else if (type == ModelType.INTEGER) {
-					modelFieldBean.setDefaultValue(Long.valueOf(defaultValue));
-				}
-				else if (type == ModelType.FLOAT || type == ModelType.NUMBER) {
-					modelFieldBean.setDefaultValue(Double.valueOf(defaultValue));
-				}
-				else {
-					modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
-				}
+				modelFieldBean.setDefaultValue("\"" + defaultValue + "\"");
 			}
 		}
 
@@ -763,7 +727,8 @@ public abstract class ModelGenerator {
 		}
 
 		JsonMapper.Builder mapperBuilder = JsonMapper.builder()
-				.configure(JsonWriteFeature.QUOTE_FIELD_NAMES, false);
+				.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true)
+				.configure(JsonWriteFeature.QUOTE_PROPERTY_NAMES, false);
 
 		if (!outputConfig.isSurroundApiWithQuotes()) {
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5) {
@@ -776,11 +741,9 @@ public abstract class ModelGenerator {
 			}
 			mapperBuilder.addMixIn(ApiObject.class, ApiObjectMixin.class);
 		}
-		else {
-			if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
-				mapperBuilder.addMixIn(ProxyObject.class,
-						ProxyObjectWithApiQuotesMixin.class);
-			}
+		else if (outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
+			mapperBuilder.addMixIn(ProxyObject.class,
+					ProxyObjectWithApiQuotesMixin.class);
 		}
 
 		Map<String, Object> modelObject = new LinkedHashMap<>();
@@ -843,7 +806,7 @@ public abstract class ModelGenerator {
 		}
 
 		if (StringUtils.hasText(model.getIdProperty())
-				&& !model.getIdProperty().equals("id")) {
+				&& !"id".equals(model.getIdProperty())) {
 			configObject.put("idProperty", model.getIdProperty());
 		}
 
@@ -855,11 +818,9 @@ public abstract class ModelGenerator {
 		if (StringUtils.hasText(model.getClientIdProperty())) {
 
 			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
-					|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4) {
-				configObject.put("clientIdProperty", model.getClientIdProperty());
-			}
-			else if (outputConfig.getOutputFormat() == OutputFormat.TOUCH2
-					&& !"clientId".equals(model.getClientIdProperty())) {
+					|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4
+					|| outputConfig.getOutputFormat() == OutputFormat.TOUCH2
+							&& !"clientId".equals(model.getClientIdProperty())) {
 				configObject.put("clientIdProperty", model.getClientIdProperty());
 			}
 		}
@@ -888,7 +849,7 @@ public abstract class ModelGenerator {
 		}
 
 		if (!model.getValidations().isEmpty()
-				&& !(outputConfig.getOutputFormat() == OutputFormat.EXTJS5)) {
+				&& outputConfig.getOutputFormat() != OutputFormat.EXTJS5) {
 			configObject.put("validations", model.getValidations());
 		}
 
@@ -919,26 +880,14 @@ public abstract class ModelGenerator {
 			jsonView = JsonViews.ExtJS5.class;
 		}
 
-		try {
-			ObjectMapper mapper = mapperBuilder.build();
-			if (outputConfig.isDebug()) {
-				configObjectString = mapper.writerWithDefaultPrettyPrinter()
-						.withView(jsonView).writeValueAsString(modelObject);
-			}
-			else {
-				configObjectString = mapper.writerWithView(jsonView)
-						.writeValueAsString(modelObject);
-			}
-
+		ObjectMapper mapper = mapperBuilder.build();
+		if (outputConfig.isDebug()) {
+			configObjectString = mapper.writerWithDefaultPrettyPrinter()
+					.withView(jsonView).writeValueAsString(modelObject);
 		}
-		catch (JsonGenerationException e) {
-			throw new RuntimeException(e);
-		}
-		catch (JsonMappingException e) {
-			throw new RuntimeException(e);
-		}
-		catch (IOException e) {
-			throw new RuntimeException(e);
+		else {
+			configObjectString = mapper.writerWithView(jsonView)
+					.writeValueAsString(modelObject);
 		}
 
 		sb.append(configObjectString);
@@ -1005,25 +954,25 @@ public abstract class ModelGenerator {
 	}
 
 	private static String getValidatorClass(String type) {
-		if (type.equals("email")) {
+		if ("email".equals(type)) {
 			return "Ext.data.validator.Email";
 		}
-		else if (type.equals("exclusion")) {
+		if ("exclusion".equals(type)) {
 			return "Ext.data.validator.Exclusion";
 		}
-		else if (type.equals("format")) {
+		if ("format".equals(type)) {
 			return "Ext.data.validator.Format";
 		}
-		else if (type.equals("inclusion")) {
+		if ("inclusion".equals(type)) {
 			return "Ext.data.validator.Inclusion";
 		}
-		else if (type.equals("length")) {
+		else if ("length".equals(type)) {
 			return "Ext.data.validator.Length";
 		}
-		else if (type.equals("presence")) {
+		else if ("presence".equals(type)) {
 			return "Ext.data.validator.Presence";
 		}
-		else if (type.equals("range")) {
+		else if ("range".equals(type)) {
 			return "Ext.data.validator.Range";
 		}
 		return null;

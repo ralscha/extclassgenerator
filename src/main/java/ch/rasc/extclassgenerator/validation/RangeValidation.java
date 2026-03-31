@@ -19,8 +19,10 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(Include.NON_NULL)
+@JsonPropertyOrder({ "type", "field", "min", "max" })
 public class RangeValidation extends AbstractValidation {
 
 	private final BigDecimal min;

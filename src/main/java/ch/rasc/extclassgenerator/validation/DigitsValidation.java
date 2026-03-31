@@ -15,6 +15,9 @@
  */
 package ch.rasc.extclassgenerator.validation;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({ "type", "field", "integer", "fraction" })
 public class DigitsValidation extends AbstractValidation {
 
 	private final int integer;

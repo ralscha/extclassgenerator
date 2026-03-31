@@ -26,7 +26,7 @@ import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ModelTypeTest {
 

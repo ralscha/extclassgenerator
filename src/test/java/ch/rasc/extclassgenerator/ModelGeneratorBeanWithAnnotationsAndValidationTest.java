@@ -19,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ch.rasc.extclassgenerator.bean.BeanWithAnnotations;
 import ch.rasc.extclassgenerator.validation.EmailValidation;
@@ -31,7 +31,7 @@ import ch.rasc.extclassgenerator.validation.RangeValidation;
 
 public class ModelGeneratorBeanWithAnnotationsAndValidationTest {
 
-	@Before
+	@BeforeEach
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}

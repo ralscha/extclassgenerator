@@ -355,7 +355,7 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("lo", ModelType.INTEGER);
-		field.setDefaultValue(-1l);
+		field.setDefaultValue(-1L);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aByteObject", ModelType.STRING);
@@ -375,7 +375,7 @@ public class BeanWithAnnotations {
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aBigInteger", ModelType.INTEGER);
-		field.setDefaultValue(1l);
+		field.setDefaultValue(1L);
 		expectedFields.add(field);
 
 		field = new ModelFieldBean("aFloat", ModelType.FLOAT);

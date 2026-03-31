@@ -15,6 +15,8 @@
  */
 package ch.rasc.extclassgenerator;
 
+import java.util.Objects;
+
 final class ModelCacheKey {
 	private final String className;
 
@@ -27,13 +29,7 @@ final class ModelCacheKey {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ (this.className == null ? 0 : this.className.hashCode());
-		result = prime * result
-				+ (this.outputConfig == null ? 0 : this.outputConfig.hashCode());
-		return result;
+		return Objects.hash(this.className, this.outputConfig);
 	}
 
 	@Override
@@ -41,27 +37,12 @@ final class ModelCacheKey {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
 		ModelCacheKey other = (ModelCacheKey) obj;
-		if (this.className == null) {
-			if (other.className != null) {
-				return false;
-			}
-		}
-		else if (!this.className.equals(other.className)) {
-			return false;
-		}
-		if (this.outputConfig == null) {
-			if (other.outputConfig != null) {
-				return false;
-			}
-		}
-		else if (!this.outputConfig.equals(other.outputConfig)) {
+		if (!Objects.equals(this.className, other.className)
+				|| !Objects.equals(this.outputConfig, other.outputConfig)) {
 			return false;
 		}
 		return true;

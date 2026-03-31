@@ -23,8 +23,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import ch.rasc.extclassgenerator.association.AbstractAssociation;
 import ch.rasc.extclassgenerator.association.BelongsToAssociation;
@@ -33,7 +33,7 @@ import ch.rasc.extclassgenerator.association.HasOneAssociation;
 
 public class ModelGeneratorTest {
 
-	@Before
+	@BeforeEach
 	public void clearCaches() {
 		ModelGenerator.clearCaches();
 	}

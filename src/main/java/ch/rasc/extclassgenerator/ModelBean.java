@@ -27,7 +27,7 @@ import ch.rasc.extclassgenerator.validation.AbstractValidation;
 
 /**
  * Represents a model. This object can be used to create JS code with
- * {@link ModelGenerator#writeModel(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, ModelBean, OutputFormat, boolean)}
+ * {@link ModelGenerator#writeModel(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, ModelBean, OutputFormat, boolean)}
  * or {@link ModelGenerator#generateJavascript(ModelBean, OutputFormat, boolean)}.
  */
 public class ModelBean {
@@ -626,7 +626,7 @@ public class ModelBean {
 	}
 
 	public String[] getHasMany() {
-		return hasMany;
+		return this.hasMany;
 	}
 
 	/**
