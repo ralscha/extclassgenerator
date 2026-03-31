@@ -33,6 +33,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @SuppressWarnings("unused")
 public class ProxyObject {
 
+	private final String type = "direct";
+
 	private String idParam;
 
 	private Object pageParam;
