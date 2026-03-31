@@ -5,8 +5,8 @@ on: [push]
 jobs:
   test:
     strategy:
-       matrix:
-         java: ['17, '21', '25', '26']	
+      matrix:
+        java-version: [17, 21, 25, 26]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
