@@ -45,7 +45,7 @@
   </issueManagement>
 
   <properties>
-    <spring.version>7.0.7</spring.version>
+    <spring.version>7.0.8</spring.version>
     <jackson.version>3.2.1</jackson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -215,7 +215,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.21.0</version>
+        <version>3.22.0</version>
       </plugin>
 
       <plugin>
