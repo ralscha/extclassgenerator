@@ -46,7 +46,7 @@
 
   <properties>
     <spring.version>7.0.9</spring.version>
-    <jackson.version>3.2.3</jackson.version>
+    <jackson.version>3.2.4</jackson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -136,7 +136,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>9.1.4.Final</version>
+      <version>9.1.5.Final</version>
       <scope>test</scope>
     </dependency>
 
@@ -148,7 +148,7 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>0.11.0</version>
+        <version>0.12.0</version>
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>central</publishingServerId>
