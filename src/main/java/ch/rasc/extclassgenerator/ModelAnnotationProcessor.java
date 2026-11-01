@@ -120,7 +120,7 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 						.valueOf(lineEndingOption.toUpperCase());
 				outputConfig.setLineEnding(lineEnding);
 			}
-			catch (Exception e) {
+			catch (Exception ignored) {
 				// ignore an invalid value
 			}
 		}
@@ -174,8 +174,9 @@ public class ModelAnnotationProcessor extends AbstractProcessor {
 							fo = this.processingEnv.getFiler().getResource(
 									StandardLocation.SOURCE_OUTPUT, packageName,
 									fileName + ".js");
-							try (InputStream is = fo.openInputStream()) {
-								/* nothing here */}
+							try (InputStream unused = fo.openInputStream()) {
+								// file already exists, nothing to do
+							}
 						}
 						catch (FileNotFoundException e) {
 							String subClassCode = generateSubclassCode(modelClass,

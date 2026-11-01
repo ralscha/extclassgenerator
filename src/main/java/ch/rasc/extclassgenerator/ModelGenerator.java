@@ -815,14 +815,12 @@ public abstract class ModelGenerator {
 			configObject.put("versionProperty", model.getVersionProperty());
 		}
 
-		if (StringUtils.hasText(model.getClientIdProperty())) {
-
-			if (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
-					|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4
-					|| outputConfig.getOutputFormat() == OutputFormat.TOUCH2
-							&& !"clientId".equals(model.getClientIdProperty())) {
-				configObject.put("clientIdProperty", model.getClientIdProperty());
-			}
+		if (StringUtils.hasText(model.getClientIdProperty())
+				&& (outputConfig.getOutputFormat() == OutputFormat.EXTJS5
+						|| outputConfig.getOutputFormat() == OutputFormat.EXTJS4
+						|| outputConfig.getOutputFormat() == OutputFormat.TOUCH2
+								&& !"clientId".equals(model.getClientIdProperty()))) {
+			configObject.put("clientIdProperty", model.getClientIdProperty());
 		}
 
 		for (ModelFieldBean field : fields.values()) {
